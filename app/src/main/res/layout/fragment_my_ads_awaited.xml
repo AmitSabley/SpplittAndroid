@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_applied_ads"
+        android:layout_above="@+id/ll_loading_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        />
+
+    <com.igniva.spplitt.ui.views.TextViewRegular
+        android:layout_centerInParent="true"
+        android:id="@+id/tv_no_ads_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/btn_textSize"
+        android:text="@string/no_ads_found" />
+
+    <LinearLayout
+
+        android:visibility="gone"
+        android:id="@+id/ll_loading_more"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:indeterminate="true"
+            android:visibility="visible" />
+
+        <TextView
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="17sp"
+            android:layout_marginLeft="20dp"
+            android:text="Loading..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/outer_margin_bw_views"
+        android:layout_marginRight="@dimen/outer_margin_bw_views"
+        android:layout_marginTop="@dimen/outer_margin_bw_views"
+        android:orientation="vertical">
+
+        <com.igniva.spplitt.ui.views.TextViewRegular
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/report_an_abuse"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <com.igniva.spplitt.ui.views.EditTextNonRegular
+            android:id="@+id/et_report_abuse_message"
+            style="@style/EditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="@dimen/inner_margin_bw_views"
+            android:background="@drawable/square_edittext"
+            android:gravity="top"
+            android:inputType="text|textMultiLine"
+            android:maxLength="250"
+            android:paddingTop="5dp"
+            android:singleLine="false" />
+
+    </LinearLayout>
+</RelativeLayout>

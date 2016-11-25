@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/rv_outer_margin">
+
+        <com.igniva.spplitt.ui.views.RoundedImageView
+            android:id="@+id/riv_user_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/ic_default_user" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/rv_outer_margin">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <com.igniva.spplitt.ui.views.TextViewRegular
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/ad_details"
+                    android:textColor="@color/colorGrey" />
+
+                <com.igniva.spplitt.ui.views.TextViewRegular
+                    android:id="@+id/tv_notification_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="end"
+                    android:layout_toRightOf="@+id/tv_user_name"
+                    android:text="@string/ad_details"
+                    android:textColor="@color/colorGrey"
+                    />
+            </RelativeLayout>
+
+            <com.igniva.spplitt.ui.views.TextViewRegular
+                android:id="@+id/tv_notification_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/cv_inner_margin"
+                android:text="@string/ad_details"
+                android:textSize="@dimen/tv_textSize"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/rv_outer_margin"
+        android:layout_marginRight="@dimen/rv_outer_margin"
+        android:background="@color/colorGreyTransparent" />
+</LinearLayout>

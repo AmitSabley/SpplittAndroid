@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#8B4931</color>
+    <color name="colorAccent">#8B4931</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorGrey">#65839d</color>
+    <color name="colorYellow">#FDC74A</color>
+    <color name="nav_text_color">#707070</color>
+    <color name="colorActionBar">#6a321a</color>
+    <color name="colorBackground">#F8F8F8</color>
+    <color name="colorBlue">#3b6485</color>
+    <color name="colorSkyBlue">#2B88CE</color>
+    <color name="colorGreyTransparent">#99C1C4C7</color>
+    <color name="colorGreen">#0eb822</color>
+   <!-- <color name="colorPeach">#FFB08F</color>-->
+    <color name="colorGreyDark">#c2c2c2</color>
+    <color name="colorPopupBackground">#f8f8f8</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorgrey">#949494</color>
+    <color name="colorDarkGreen">#007521</color>
+
+</resources>

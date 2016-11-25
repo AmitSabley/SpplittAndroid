@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "214065977521",
+    "project_id": "spplitt-1336"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214065977521:android:1dce0b1e6a278e1f",
+        "android_client_info": {
+          "package_name": "com.igniva.spplitt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAskdESdfLAal6HKS7ujHVImU-vooA7Iwk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/outer_margin_bw_views"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_user" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/tv_username"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="left|center"
+                        android:hint="@string/hint_username"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_envelope" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/tv_email_address"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="left|center"
+                        android:hint="@string/hint_email_edit"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <com.igniva.spplitt.ui.views.EditTextNonRegular
+                android:id="@+id/et_ad_desc"
+                style="@style/EditTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@drawable/square_edittext"
+                android:gravity="top"
+                android:hint="@string/hint_contact_msg"
+                android:inputType="text|textMultiLine"
+                android:maxLength="350"
+                android:paddingTop="5dp"
+                android:singleLine="false" />
+
+            <com.igniva.spplitt.ui.views.ButtonRegular
+                android:id="@+id/btn_submit_contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/outer_margin_bw_views"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@color/colorPrimaryDark"
+                android:onClick="onClick"
+                android:text="@string/submit"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/btn_textSize"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/outer_margin_bw_views" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

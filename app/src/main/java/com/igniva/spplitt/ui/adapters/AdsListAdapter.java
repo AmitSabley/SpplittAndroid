@@ -1,0 +1,400 @@
+package com.igniva.spplitt.ui.adapters;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.igniva.spplitt.R;
+import com.igniva.spplitt.controller.ResponseHandlerListener;
+import com.igniva.spplitt.controller.WebNotificationManager;
+import com.igniva.spplitt.controller.WebServiceClient;
+import com.igniva.spplitt.model.AdsListPojo;
+import com.igniva.spplitt.model.CategoriesListPojo;
+import com.igniva.spplitt.model.DataPojo;
+import com.igniva.spplitt.model.ResponsePojo;
+import com.igniva.spplitt.ui.activties.OtherProfileActivity;
+import com.igniva.spplitt.ui.activties.ViewAdsDetailsActivity;
+
+import com.igniva.spplitt.utils.PreferenceHandler;
+import com.igniva.spplitt.utils.Utility;
+
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+/**
+ * Created by igniva-php-08 on 23/5/16.
+ */
+public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHolder> {
+
+    List<AdsListPojo> mListAds;
+    Context mContext;
+    Button mBttnFlagAd;
+    Button mBttnConnectAd;
+    boolean mIsCloseAds;
+    int connectPosition;
+    int flagPosition;
+    public AdsListAdapter(Context context, List<AdsListPojo> listAds, boolean isCloseAds) {
+        this.mListAds = listAds;
+        this.mContext = context;
+        this.mIsCloseAds = isCloseAds;
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView mTvAdTitle;
+        TextView mTvAdTime;
+        TextView mTvSplittAmount;
+        TextView mTvAdOwnerName;
+//        TextView mTvAdDetails;
+        TextView mTvAdLocation;
+        Button mBtnFlagAd;
+        Button mBtnConnectAd;
+        LinearLayout mCvmain;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mTvAdTitle = (TextView) itemView.findViewById(R.id.tv_ad_title);
+            mTvAdTime = (TextView) itemView.findViewById(R.id.tv_ad_time);
+            mTvSplittAmount = (TextView) itemView.findViewById(R.id.tv_spplitt_amount);
+            mTvAdOwnerName = (TextView) itemView.findViewById(R.id.tv_ad_owner_name);
+//            mTvAdDetails = (TextView) itemView.findViewById(R.id.tv_ads_details);
+            mBtnFlagAd = (Button) itemView.findViewById(R.id.btn_flag_ad);
+            mBtnConnectAd = (Button) itemView.findViewById(R.id.btn_connect_ad);
+            mCvmain=(LinearLayout)itemView.findViewById(R.id.cv_category_main);
+            mTvAdLocation=(TextView)itemView.findViewById(R.id.tv_ad_location);
+        }
+    }
+
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_ad_list, parent, false);
+        ViewHolder vhItem = new ViewHolder(v);
+        return vhItem;
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        try {
+
+            holder.mTvAdTitle.setText(mListAds.get(position).getAd_title());
+            holder.mTvSplittAmount.setText(mContext.getResources().getString(R.string.spplitt_amount) + mListAds.get(position).getAd_cost());
+            holder.mTvAdLocation.setText(mListAds.get(position).getAd_city_name());
+            holder.mTvAdOwnerName.setText(Html.fromHtml("<u>" + mListAds.get(position).getPosted_by_username() + "</u>"));
+//            String[] date=mListAds.get(position).getExpiration_date().split("/");
+            java.text.DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
+            java.text.DateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String inputDateStr = mListAds.get(position).getAd_expiration_date();
+            Date date1 = inputFormat.parse(inputDateStr);
+            String outputDateStr = outputFormat.format(date1);
+            String string = outputDateStr + " " + mListAds.get(position).getAd_expiration_time();
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
+            Date date = format.parse(string);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy, HH:mm");
+            String newFormat = formatter.format(date);
+
+            holder.mTvAdTime.setText(newFormat);
+
+            //to change color of specific selected flag at on scroll
+            if (mBttnFlagAd != null) {
+                holder.mBtnFlagAd.setClickable(false);
+                mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.inactive), null, null);
+            }
+
+            if (mIsCloseAds) {//close or active ads
+                holder.mBtnFlagAd.setVisibility(View.VISIBLE);
+                holder.mBtnConnectAd.setVisibility(View.VISIBLE);
+                if (PreferenceHandler.readString(mContext, PreferenceHandler.USER_ID, "").equals(mListAds.get(position).getPosted_by_id())) {
+                    //to show connect and flag button (my own adds)
+                    holder.mBtnConnectAd.setVisibility(View.GONE);
+                    holder.mBtnFlagAd.setVisibility(View.GONE);
+                } else {//other adds
+                    if(mListAds.get(position).is_connect()){
+                        holder.mBtnConnectAd.setEnabled(false);
+                        holder.mBtnConnectAd.setClickable(false);
+                        holder.mBtnConnectAd.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreyDark));
+                        holder.mBtnConnectAd.setText(mContext.getResources().getString(R.string.response_awaited));
+                    }else{
+                        holder.mBtnConnectAd.setEnabled(true);
+                        holder.mBtnConnectAd.setClickable(true);
+                        holder.mBtnConnectAd.setBackgroundColor(mContext.getResources().getColor(R.color.colorDarkGreen));
+                        holder.mBtnConnectAd.setText(mContext.getResources().getString(R.string.connect));
+                    }
+                    holder.mBtnConnectAd.setVisibility(View.VISIBLE);
+                    holder.mBtnFlagAd.setVisibility(View.VISIBLE);
+                    if (mListAds.get(position).is_flagged()) {
+                        //ad is flagged or not
+                        holder.mBtnFlagAd.setClickable(false);
+                        holder.mBtnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
+                    } else {
+                        holder.mBtnFlagAd.setClickable(true);
+                        holder.mBtnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.inactive), null, null);
+                        holder.mBtnFlagAd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                mBttnFlagAd = holder.mBtnFlagAd;
+                                connectPosition=position;
+                                showCreateAccountDialogUpdate(mContext, mListAds.get(position).getAd_id(), mListAds.get(position).getCategory_id());
+                            }
+                        });
+                    }
+                }
+            } else {
+                holder.mBtnFlagAd.setVisibility(View.GONE);
+                holder.mBtnConnectAd.setVisibility(View.GONE);
+            }
+
+            holder.mBtnConnectAd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mBttnConnectAd=holder.mBtnConnectAd;
+                    connectPosition=position;
+                    //         Webservice Call
+                    //         Step 1, Register Callback Interface
+                    WebNotificationManager.registerResponseListener(responseHandlerListenerFlagAd);
+                    // Step 2, Call Webservice Method
+                    WebServiceClient.connectAnAd(mContext, connectAnAdPayload(mListAds.get(position).getAd_id()), true, 2, responseHandlerListenerFlagAd);
+
+                }
+            });
+            holder.mCvmain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Gson gson = new Gson();
+                    String json = gson.toJson(mListAds);
+                    AdsListPojo mAdsListPojo=mListAds.get(position);
+                    Intent in = new Intent(mContext, ViewAdsDetailsActivity.class);
+                    in.putExtra("ad_id", mListAds.get(position).getAd_id());
+                    in.putExtra("ad_position", position);
+                    in.putExtra("ad_list", json);
+                    in.putExtra("ad_object", mAdsListPojo);
+                    mContext.startActivity(in);
+                }
+            });
+            holder.mTvAdOwnerName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent in = new Intent(mContext, OtherProfileActivity.class);
+                    in.putExtra("other_user_id", mListAds.get(position).getPosted_by_id());
+                    mContext.startActivity(in);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    @Override
+    public int getItemCount() {//return array.size
+        return mListAds.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+
+    public void showCreateAccountDialogUpdate(final Context mContext, final String mAdId, final String mCategoryId) {
+        try {
+            LayoutInflater li = LayoutInflater.from(mContext);
+            View promptsView = li.inflate(R.layout.dialog_flag_ad, null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
+                    R.style.CustomPopUpTheme);
+            // set prompts.xml to alertdialog builder
+            builder.setView(promptsView);
+
+            final EditText mEtReportAbuseMsg = (EditText) promptsView
+                    .findViewById(R.id.et_report_abuse_message);
+
+            builder.setCancelable(true);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Utility.hideKeyboard(mContext,mEtReportAbuseMsg);
+                    //         Webservice Call
+                    //         Step 1, Register Callback Interface
+                    WebNotificationManager.registerResponseListener(responseHandlerListenerFlagAd);
+                    // Step 2, Call Webservice Method
+                    WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 1, responseHandlerListenerFlagAd);
+
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String connectAnAdPayload(String mAdId) {
+        String payload = null;
+        try {
+            JSONObject userData = new JSONObject();
+            try {
+                userData.put("user_id", PreferenceHandler.readString(mContext, PreferenceHandler.USER_ID, ""));
+                userData.put("auth_token", PreferenceHandler.readString(mContext, PreferenceHandler.AUTH_TOKEN, ""));
+                userData.put("ad_id", mAdId);
+                userData.put("ads_type", "request");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.e("rseponse", "" + userData);
+            payload = userData.toString();
+        } catch (Exception e) {
+            payload = null;
+        }
+        return payload;
+    }
+
+    private String flagAnAdPayload(String mAdId, String mEtReportAbuseMsg, String mCategoryId) {
+        String payload = null;
+        try {
+            JSONObject userData = new JSONObject();
+            try {
+                userData.put("user_id", PreferenceHandler.readString(mContext, PreferenceHandler.USER_ID, ""));
+                userData.put("auth_token", PreferenceHandler.readString(mContext, PreferenceHandler.AUTH_TOKEN, ""));
+                userData.put("ad_id", mAdId);
+                userData.put("text_message", mEtReportAbuseMsg);
+                userData.put("cat_id", mCategoryId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.e("rseponse", "" + userData);
+            payload = userData.toString();
+        } catch (Exception e) {
+            payload = null;
+        }
+        return payload;
+    }
+
+    ResponseHandlerListener responseHandlerListenerFlagAd = new ResponseHandlerListener() {
+        @Override
+        public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
+            try {
+                WebNotificationManager.unRegisterResponseListener(responseHandlerListenerFlagAd);
+                if (error == null) {
+                    switch (mUrlNo) {
+                        case 1://to flag an ad
+                            flagAnAd(result);
+                            break;
+                        case 2:
+                            connectAnAd(result);
+                            break;
+                    }
+                } else {
+                    // TODO display error dialog
+                    new Utility().showErrorDialogRequestFailed(mContext);
+                }
+                if (mProgressDialog != null && mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private void connectAnAd(ResponsePojo result) {
+        try {
+            if (result.getStatus_code() == 400) {
+                //Error
+                new Utility().showErrorDialog(mContext, result);
+            } else {//Success
+                //Error
+                showSuccessDialog(mContext, result,result.getDescription());
+                DataPojo dataPojo = result.getData();
+                mBttnConnectAd.setClickable(false);
+                mBttnConnectAd.setEnabled(false);
+                mListAds.get(connectPosition).setIs_connect(true);
+
+                mBttnConnectAd.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreyDark));
+                mBttnConnectAd.setText(mContext.getResources().getString(R.string.response_awaited));
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void flagAnAd(ResponsePojo result) {
+        try {
+            if (result.getStatus_code() == 400) {
+                //Error
+                new Utility().showErrorDialog(mContext, result);
+            } else {//Success
+                //Error
+                showSuccessDialog(mContext, result,mContext.getString(R.string.success_msg_flag));
+                DataPojo dataPojo = result.getData();
+                mBttnFlagAd.setClickable(false);
+                mListAds.get(connectPosition).setIs_flagged(true);
+
+                mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showSuccessDialog(final Context mContext, ResponsePojo result,String msg) {
+        try {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
+                    R.style.CustomPopUpTheme);
+            builder.setMessage(msg);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Utility.showToastMessageLong(mContext,
+                    mContext.getResources().getString(R.string.invalid_session));
+        }
+    }
+}
+

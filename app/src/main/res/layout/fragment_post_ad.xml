@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/outer_margin_bw_views"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_category" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <Spinner
+                        android:id="@+id/sp_categories"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="@dimen/tv_textSize" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <com.igniva.spplitt.ui.views.EditTextNonRegular
+                android:id="@+id/et_ad_title"
+                style="@style/EditTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/ll_categories"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@drawable/square_edittext"
+                android:hint="@string/hint_ad_title"
+                android:inputType="text"
+                android:maxLength="50" />
+
+            <com.igniva.spplitt.ui.views.ActionEditText
+                android:id="@+id/et_ad_desc"
+                style="@style/EditTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_below="@+id/et_ad_title"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@drawable/square_edittext"
+                android:gravity="top"
+                android:hint="@string/hint_ad_desc"
+                android:maxLength="250"
+                android:paddingTop="5dp"
+                android:imeOptions="actionDone"
+                android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
+                />
+            <!--<RelativeLayout
+                android:id="@+id/rl_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >-->
+
+          <!--  <com.igniva.spplitt.ui.views.EditTextNonRegular
+                android:id="@+id/et_ad_desc1"
+                style="@style/EditTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/et_ad_desc"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@drawable/square_edittext"
+                android:gravity="top"
+                android:hint="@string/hint_ad_desc"
+                android:imeOptions="actionDone"
+                android:maxLength="50"
+                android:paddingTop="5dp" />-->
+            <!-- </RelativeLayout>-->
+
+            <LinearLayout
+                android:id="@+id/ll_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_ad_desc"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_calendar" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/tv_select_date"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="left|center"
+                        android:hint="@string/hint_date"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_date"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_select_time" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/btn_time"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="left|center"
+                        android:hint="@string/hint_time"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_time"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_location" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <!--<AutoCompleteTextView
+                        android:id="@+id/actv_countries"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_country"
+                        android:inputType="text" />-->
+
+                    <com.igniva.spplitt.ui.views.TextViewRegular
+                        android:id="@+id/tv_countries"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_horizontal"
+                        android:drawableRight="@mipmap/ic_dpd_arrow"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="10dp"
+                        android:text="@string/select_your_country"
+                        android:textSize="@dimen/tv_textSize" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_country"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_location" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <!--<AutoCompleteTextView
+                        android:id="@+id/actv_countries"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_country"
+                        android:inputType="text" />-->
+
+                    <com.igniva.spplitt.ui.views.TextViewRegular
+                        android:id="@+id/tv_states"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_horizontal"
+                        android:drawableRight="@mipmap/ic_dpd_arrow"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="10dp"
+                        android:text="@string/select_your_state"
+                        android:textSize="@dimen/tv_textSize" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_state"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_location" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <!--<AutoCompleteTextView
+                        android:id="@+id/actv_cities"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_city"
+                        android:gravity="left"
+                        android:inputType="text" />-->
+                    <com.igniva.spplitt.ui.views.TextViewRegular
+                        android:id="@+id/tv_cities"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_horizontal"
+                        android:drawableRight="@mipmap/ic_dpd_arrow"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="10dp"
+                        android:text="@string/select_your_city"
+                        android:textSize="@dimen/tv_textSize" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_track_loc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_city">
+
+                <TextView
+                    android:id="@+id/tv_track_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/outer_margin_bw_views"
+                    android:gravity="right"
+                    android:onClick="onClick"
+                    android:text="@string/track_ur_location"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="@dimen/btn_textSize"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_split_amnt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_track_loc"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_split_cost" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <com.igniva.spplitt.ui.views.TextViewRegular
+                        android:id="@+id/tv_splitt_cost_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/tv_textSize"
+                        android:textStyle="bold" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/et_splitt_cost"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_splitt_cost"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <com.igniva.spplitt.ui.views.ButtonRegular
+                android:id="@+id/btn_submit_post_ad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_split_amnt"
+                android:layout_marginBottom="@dimen/outer_margin_bw_views"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@color/colorPrimaryDark"
+                android:onClick="onClick"
+                android:text="@string/submit"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/btn_textSize"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/outer_margin_bw_views"
+                android:layout_below="@+id/btn_submit_post_ad" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

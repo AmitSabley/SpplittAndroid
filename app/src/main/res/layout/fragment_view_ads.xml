@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/rv_outer_margin"
+        android:layout_marginRight="@dimen/rv_outer_margin"
+        android:layout_marginTop="@dimen/rv_outer_margin"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginLeft="@dimen/outer_margin_bw_views"
+            android:layout_marginTop="@dimen/rv_outer_margin"
+            android:layout_marginBottom="@dimen/rv_outer_margin"
+            android:orientation="horizontal">
+            <com.igniva.spplitt.ui.views.TextViewNonRegular
+                android:id="@+id/tv_my_location"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:drawableLeft="@mipmap/location"
+                android:drawablePadding="10dp"
+                android:text="@string/my_location"
+                android:textColor="@color/nav_text_color"
+                android:textSize="@dimen/tv_textSize" />
+            <Button
+                android:id="@+id/btn_change_adlocation"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@android:color/transparent"
+                android:drawableRight="@mipmap/ic_edit"/>
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+        android:layout_margin="@dimen/outer_margin_bw_views"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_active_ad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@mipmap/ic_active_ads_hover"
+            />
+        <Button
+            android:id="@+id/btn_close_ad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_closed_ads"
+            android:onClick="onClick"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_ads"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/rv_outer_margin"
+        android:layout_marginRight="@dimen/rv_outer_margin"
+        android:overScrollMode="never"
+        android:scrollbars="none"/>
+</LinearLayout>

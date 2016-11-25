@@ -1,0 +1,218 @@
+<resources>
+    <string name="app_name">Spplitt</string>
+    <string name="server_api_key">AIzaSyDHjDzwdFJUV6zynNH0rUO4Ry3bAMyolRA</string>
+    <string name="gcm_project_no">826247417666</string>
+    <string name="gcm_project_id">spplitt-1301</string>
+
+
+
+    <!--<string name="gcm_defaultSenderId">214065977521</string>-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_all_adds">All ads</string>
+    <!--activity_login.xml-->
+    <string name="hint_email">Email address/Mobile number</string>
+    <string name="hint_password">Password</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="register_here">Register Here</string>
+    <string name="view_adds">View Adds</string>
+    <string name="login">Login</string>
+    <!--activity_register.xml-->
+    <string name="hint_username">Username</string>
+    <string name="gender">Gender</string>
+    <string name="hint_country">Country</string>
+    <string name="hint_city">City</string>
+    <string name="track_ur_location"><u>Track your location</u></string>
+    <string name="already_have_acnt">Already have an Account?</string>
+    <string name="login_here">Login Here</string>
+    <string name="register">Register</string>
+    <!--activity_forgot_password.xml-->
+    <string name="forgot_password">Forgot Password</string>
+    <string name="reset_password">Reset your password</string>
+    <string name="reset_password_text">You will receive a reset password link/OTP code, in above enter email/phone number.Please make sure you enter valid email address via which you registered.</string>
+    <string name="submit">Submit</string>
+    <!--activity_change_password.xml-->
+    <string name="change_password_text">Enter information below to reset your password</string>
+    <string name="hint_new_password">Enter new password</string>
+    <string name="hint_old_password">Enter old password</string>
+    <string name="change_password">Change Password</string>
+    <!--otp confirmation-->
+    <string name="enter_otp">Enter OTP code </string>
+    <!--navigation drawer-->
+    <string name="nav_home">Home</string>
+    <string name="nav_profile">Edit Profile</string>
+    <string name="nav_change_password">Change Password</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_post_ad">Post Ad</string>
+    <string name="nav_view_ad">Categories</string>
+    <string name="nav_manage_my_ad">My Ads</string>
+    <string name="nav_set_preferences">Set Preferences</string>
+    <string name="nav_invite_friends">Invite Friends</string>
+    <string name="nav_about_split">About spplitt</string>
+    <string name="nav_contact_us">Contact Us</string>
+    <string name="nav_logout">Logout</string>
+    <!--edit profile-->
+    <string name="hint_age">Age</string>
+    <string name="hint_email_edit">Email Address</string>
+    <string name="change">Change</string>
+    <string name="hint_password_edit">Change Password</string>
+    <!--post ads-->
+    <string name="country_prompt">Select gender</string>
+    <string-array name="gender_arrays">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string name="hint_ad_title">Ad title (max 50 characters)</string>
+    <string name="hint_ad_desc">Enter Description (max 250 \n characters)</string>
+    <string name="hint_date">Select date</string>
+    <string name="hint_time">Select time</string>
+    <string name="hint_location">Location</string>
+    <string name="hint_splitt_cost">Spplitt Cost per person</string>
+    <string name="hint_mobile_edit">Mobile No</string>
+    <!--Update Email-->
+    <string name="update_email">Update Email Address</string>
+    <string name="hint_email_update">Enter new email</string>
+    <string name="hint_update_password">Enter your password</string>
+    <!--Update Mobile No-->
+    <string name="hint_mobile_update">Enter new mobile no</string>
+    <string name="update_mobileno">Update Your Mobile No</string>
+    <!--Logout-->
+    <string name="logout">Logout</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <!--validations or error messages-->
+    <string name="err_msg_name">Enter your full name</string>
+    <string name="err_msg_email">Enter valid email address</string>
+    <string name="err_msg_password">Please enter your Password</string>
+    <string name="err_msg_mobileno">Please enter your mobile number</string>
+    <string name="err_msg_mobileno_size">Enter valid mobile no</string>
+    <string name="err_msg_username">Enter your username</string>
+    <string name="err_msg_country">Please select your country</string>
+    <string name="err_msg_city">Enter your city</string>
+    <string name="err_msg_password_not_alphanumeric">Enter alphanumeric password</string>
+    <string name="err_msg_new_password">Enter new password</string>
+    <string name="err_msg_old_password">Enter old password</string>
+    <string name="no_internet_title">No Internet Connection</string>
+    <string name="no_internet">Your mobile is not connected to the internet. Please connect to an active internet connection.</string>
+    <string name="invalid_session">Invalid Session</string>
+    <string name="logout_device">Your session has been expired, Please login again to continue.</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="err_msg_otp">Enter your otp</string>
+    <string name="err_msg_age">Please enter your age</string>
+    <string name="err_msg_category">Enter Ad category</string>
+    <string name="err_msg_adTitle">Enter Ad Title</string>
+    <string name="err_msg_adDesc">Enter Ad Description</string>
+    <string name="err_msg_adDate">Select ad date</string>
+    <string name="err_msg_adCost">Please enter spplit cost amount</string>
+    <string name="err_msg_adLocation">Enter Ad Location</string>
+    <string name="err_msg_adTime">Select ad time</string>
+    <string name="err_msg_email_mobileno">Enter your Email or Mobile No</string>
+    <string name="err_valid_data">Enter valid data</string>
+    <string name="err_img">Please enter profile image</string>
+    <string name="err_invalid_image">Please select a valid image file.</string>
+
+    <string name="coming_soon">Coming Soon</string>
+    <!--View categories-->
+    <string name="my_location">My Location</string>
+    <string name="view_al_ads"><u>View all Ads</u></string>
+    <string name="resend_otp">Resend Otp</string>
+    <string name="unknown_error">Some unknown error occured.</string>
+    <string name="unknown_error_message">Pls try again.Unable to process your request.</string>
+    <string name="flag_ad">Flag this ad</string>
+    <string name="connect">Connect</string>
+    <string name="ad_details"><u>Ad Details</u></string>
+    <string name="report_an_abuse">Report an abuse:</string>
+    <string name="view_ad">View Ads</string>
+    <string name="view_ad_details">Ad Details</string>
+    <string name="nav_event_ad">View Event Ads</string>
+    <string name="success_msg_flag">Your ad has been flagged.</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie. Fusce quis mauris a enim sollicitudin ultrices non eget velit. Aliquam eu pulvinar enim. Praesent libero nisl, ultricies vel maximus eu, maximus et nisi. Phasellus pharetra nec ligula vitae mollis. Quisque porttitor ornare magna, quis dignissim libero aliquam id. Donec sollicitudin ultrices ante, a semper erat tristique in. Vivamus sodales in ligula at sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla tempus bibendum nibh, ac tincidunt quam convallis non. Proin dolor nunc, egestas et tortor consequat, dignissim lacinia odio. Ut ut aliquet erat.  Ut non scelerisque elit. Morbi dolor neque, iaculis eu justo rutrum, aliquet dictum mauris. Phasellus quis massa ut ligula feugiat congue a et dolor. Etiam a dui a sapien ornare accumsan ac ut lorem. Suspendisse vehicula lorem dapibus nibh rhoncus ultricies. Proin sem nulla, elementum quis pharetra quis, commodo vitae nisi. Donec urna orci, posuere et iaculis sit amet, fringilla quis sapien. Pellentesque nec posuere felis. Praesent malesuada tellus nisi, non dictum justo interdum eget. Quisque mollis euismod libero, non aliquam lorem interdum vitae. Aliquam vehicula efficitur purus eget rutrum. Sed pulvinar fermentum risus ac viverra. Cras laoreet ligula quam, ac lacinia nisl elementum in. Aenean velit arcu, euismod a venenatis non, pulvinar pulvinar massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie. Fusce quis mauris a enim sollicitudin ultrices non eget velit. Aliquam eu pulvinar enim. Praesent libero nisl, ultricies vel maximus eu, maximus et nisi. Phasellus pharetra nec ligula vitae mollis. Quisque porttitor ornare magna, quis dignissim libero aliquam id. Donec sollicitudin ultrices ante, a semper erat tristique in. Vivamus sodales in ligula at sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla tempus bibendum nibh, ac tincidunt quam convallis non. Proin dolor nunc, egestas et tortor consequat, dignissim lacinia odio. Ut ut aliquet erat.  Ut non scelerisque elit. Morbi dolor neque, iaculis eu justo rutrum, aliquet dictum mauris. Phasellus quis massa ut ligula feugiat congue a et dolor. Etiam a dui a sapien ornare accumsan ac ut lorem. Suspendisse vehicula lorem dapibus nibh rhoncus ultricies. Proin sem nulla, elementum quis pharetra quis, commodo vitae nisi. Donec urna orci, posuere et iaculis sit amet, fringilla quis sapien. Pellentesque nec posuere felis. Praesent malesuada tellus nisi, non dictum justo interdum eget. Quisque mollis euismod libero, non aliquam lorem interdum vitae. Aliquam vehicula efficitur purus eget rutrum. Sed pulvinar fermentum risus ac viverra. Cras laoreet ligula quam, ac lacinia nisl elementum in. Aenean velit arcu, euismod a venenatis non, pulvinar pulvinar massa.</string>
+    <string name="phone_nd_email">Phone and Email</string>
+    <string name="rating_reviews">Rating and Reviews</string>
+    <string name="ad_details_hint">Ad Details</string>
+    <string name="ad_applied">No. of ads applied :</string>
+    <string name="ad_posted">No. of ads posted :</string>
+    <string name="but_done">Done</string>
+    <string name="title_tab_start_date">From</string>
+    <string name="ttile_tab_end_date">To</string>
+    <string name="date_range">Date Range</string>
+    <string name="from_date">Start</string>
+    <string name="to_date">End</string>
+    <string name="active_ads">Active</string>
+    <string name="complete_ads">Connected</string>
+    <string name="incomplete_ads">Expired</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="details">Details</string>
+    <string name="repost">Repost</string>
+    <string name="no_ads_found">No ads found.</string>
+    <string name="other_ads">Other Ads</string>
+    <string name="other_details">Other Details</string>
+    <string name="joined_on">Joined on:</string>
+    <string name="other_gender">Gender:</string>
+    <string name="applied_ads">applied</string>
+    <string name="posted_ads">posted</string>
+    <string name="response_awaited">Response Awaited</string>
+    <string name="load_more">Load More</string>
+    <string name="accept">Accept</string>
+    <string name="other_age">Age :</string>
+    <string name="not_available">Not Available</string>
+    <string name="closed_ads">Connected Ads</string>
+    <string name="posted_by">Posted By:</string>
+    <string name="delete_popup_msg">Are you sure you want to delete?</string>
+    <string name="invite_friends_header">Join me on spplitt and start saving money.</string>
+    <string name="invite_friends_main">Do you want to save money on a product or service? Do you want to find other people near you to split the cost of something? Join me on spplitt and start saving today. Sign up now and find other members to split the cost with. Since it\'s a user generated community you can split the cost of almost anything you can think of. The possibilities are endless. Go to spplitt.com and start saving today!</string>
+    <string name="err_msg_adDate_greater">Enter end date greater than or equal to start date</string>
+    <string name="spplitt_amount">spplitt amount $</string>
+    <string name="nav_requested_ad">Applied Ads</string>
+    <string name="no_notifications_found">No notifications found</string>
+    <string name="accept_msg">Are you sure you want to accept the request?</string>
+    <string name="accepted_contact_details">You can make him contact on following details.</string>
+    <string name="requested">You can contact</string>
+    <string name="requested_request">below!</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
+    <string name="reject_msg">Are you sure you want to reject?</string>
+    <string name="awaited_ads">Pending</string>
+    <string name="rejected_ads">Rejected</string>
+    <string name="completed_ads">Connected</string>
+    <string name="hint_contact_msg">Message(not more than 350 characters)</string>
+    <string name="hint_reviews">Enter Review(max 250 characters)</string>
+    <string name="err_msg_contactUs">Please enter your query</string>
+    <string name="err_msg_reviews">Enter your review</string>
+    <string name="text_about_us">Spplitt is an online community where users come to split the costs of products and services. Users create an account and start posting and viewing ads on the site. spplitt is user generated so the sky\'s the limit on what you can save money on. Think of something to split the cost of and post the ad. You can also browse the different categories and find something you may be interested in near you. Whether it\'s a taxi ride to the airport, a hotel room, concert tickets, memberships or subscriptions, with spplitt you can save money on almost anything!</string>
+    <string name="err_msg_rating">Add your rating stars</string>
+    <string name="err_msg_adCost_lesser">Enter Ad Cost greater than 0.</string>
+    <string name="countries">Countries</string>
+    <string name="cities">Cities</string>
+    <string name="select_your_country">Select your country</string>
+    <string name="select_your_city">Select your city</string>
+    <string name="select_your_state">Select your state</string>
+    <string name="states">States</string>
+    <string name="msg_select_country">Please select country first</string>
+    <string name="msg_select_country_state">Please select state first</string>
+    <string name="err_msg_state">Please select state</string>
+    <string name="nav_privacy_policy">Privacy Policy</string>
+    <string name="text_privacy_policy"><![CDATA[This policy details how data about you is used when you access our websites and services (together, \"spplitt\") or interact with us. If we update it, we will revise the date, place notices on spplitt if changes are material, and/or obtain your consent as required by law. 1. Protecting your privacy We take precautions to prevent unauthorized access to or misuse of data about you. We do not employ tracking devices for marketing purposes. We do not send you unsolicited communications for marketing purposes. We do not engage in affiliate marketing (and prohibit it on spplitt). We do provide email proxy & relay services to reduce unwanted email. Please review privacy policies of any third party sites linked to from spplitt. 2. Data we use to provide/improve our services and/or combat fraud/abuse: data you post on or send via CL, and/or send us directly or via other sites data you submit or provide (e.g. name, email, phone, photos). web log data (e.g. web pages viewed, access times, IP address, HTTP headers). data collected via cookies (e.g. search data and \"favorites\" lists). data about your device(s) (e.g. screen size, DOM local storage, plugins). data from 3rd parties (e.g. phone type, geo-location via IP address). 3. Data we store We retain data as needed for our business purposes and/or as required by law. We make good faith efforts to store data securely, but can make no guarantees. You may access and update certain data about you via your account login. 4. Circumstances in which we may disclose user data: to vendors and service providers (e.g. payment processors) working on our behalf. to respond to subpoenas, search warrants, court orders, or other legal process. to protect our rights, property, or safety, or that of users of spplitt or the general public. with your consent (e.g. if you authorize us to share data with other users). in connection with a merger, bankruptcy, or sale/transfer of assets. in aggregate/summary form, where it cannot reasonably be used to identify you. International Users - By accessing spplitt or providing us data, you agree we may use and disclose data we collect as described here or as communicated to you, transmit it outside your resident jurisdiction, and store it on servers in the United Kingdom. For more information please contact spplitt at]]></string>
+    <string name="text_terms"><![CDATA[Welcome to spplitt. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, \"spplitt\"), you agree to these Terms of Use (\"TOU\"), last updated July 04, 2016.  LICENSE.  If you are 18 or older, we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access spplitt in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or \"frame\" content from spplitt, excluding content you create and sharing with friends/family. You grant us a perpetual, irrevocable, unlimited, worldwide, fully paid/sublicensable license to use, copy, perform, display, distribute, and make derivative works from content you post.  USE.  You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with spplitt, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users\' personal and/or contact information (\"PI\").  MODERATION.  You agree we may moderate spplitt access and use in our sole discretion, e.g. by blocking (e.g. IP addresses), filtering, deletion, delay, omission, verification, and/or access/account/license termination. You agree (1) not to bypass said moderation, (2) we are not liable for moderating, not moderating, or representations as to moderating, and (3) nothing we say or do waives our right to moderate, or not.   DISCLAIMER.  MANY JURISDICTIONS HAVE LAWS PROTECTING CONSUMERS AND OTHER CONTRACT PARTIES, LIMITING THEIR ABILITY TO WAIVE CERTAIN RIGHTS AND RESPONSIBILITIES. WE RESPECT SUCH LAWS; NOTHING HEREIN SHALL WAIVE RIGHTS OR RESPONSIBILITIES THAT CANNOT BE WAIVED. To the extent permitted by law, (1) we make no promise as to spplitt, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and spplitt is provided \"AS IS\" and \"AS AVAILABLE\"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your spplitt use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES (\"spplitt ENTITIES\"), DISCLAIM ALL WARRANTIES & CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) spplitt ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL) CLAIMS.  You agree (1) any claim, cause of action or dispute (\"Claim\") arising out of or related to the TOU or your spplitt use is governed by UK law regardless of your location or any conflict or choice of law principle; (2) Claims must be resolved exclusively by court in London, UK (except we may seek injunctive remedy anywhere); (3) to submit to personal jurisdiction of said courts; (4) any Claim must be filed by 1 year after it arose or be forever barred; (5) not to bring or take part in a class action against spplitt Entities; (6) (except government agencies) to indemnify spplitt Entities for any damage, loss, and expense (e.g. legal fees) arising from claims related to your spplitt use; (7) you are liable for TOU breaches by affiliates (e.g. marketers) paid by you, directly or indirectly (e.g. through an affiliate network); and (8) to pay us for breaching or inducing others to breach the \"USE\" section, not as a penalty, but as a reasonable estimate of our damages (actual damages are often hard to calculate): 10p per server request, £1 per post, email, flag, or account created, £1 per item of PI collected, and £1000 per software distribution, capped at £25,000 per day. MISC.  Users complying with prior written licenses may access spplitt thereby until authorization is terminated. Otherwise, this is the exclusive and entire agreement between us. If a TOU term is unenforceable, other terms are unaffected. If TOU translations conflict with the English version, English controls. See Privacy Policy for how we collect, use and share data.]]></string>
+    <string name="check_terms">I agree to <![CDATA[<u><font color=#8B4931>Terms and Conditions</font></u>]]></string>
+    <string name="read_terms">Read More</string>
+    <string name="terms">Terms and Conditions</string>
+    <string name="err_msg_terms">Please check the terms and conditions</string>
+    <string name="not_agree">Not Agree</string>
+    <string name="agree">Agree</string>
+    <string name="terms_url">http://spplitt.ignivastaging.com/pages/terms</string>
+    <string name="privacy_url">http://spplitt.ignivastaging.com/pages/privacy</string>
+    <string name="about_url">http://spplitt.ignivastaging.com/pages/about</string>
+    <string name="select_all">Select All</string>
+    <string name="rate_this_user">Rate this User</string>
+
+
+</resources>

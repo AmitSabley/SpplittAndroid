@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ic_login_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_header_main"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/outer_margin_bw_views"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/ic_logo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_envelope" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/et_email"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_email_edit"
+                        android:inputType="textEmailAddress" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_pswd" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/et_password"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+
+            <com.igniva.spplitt.ui.views.ButtonRegular
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/login"
+                android:onClick="onClick"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/btn_textSize"
+                android:textStyle="bold" />
+
+            <com.igniva.spplitt.ui.views.TextViewNonRegular
+                android:id="@+id/tv_forgot_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/outer_margin_bw_views"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="@string/forgot_your_password"
+                android:textSize="@dimen/btn_textSize" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/outer_margin_bw_views"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.igniva.spplitt.ui.views.TextViewNonRegular
+                    android:id="@+id/tv_dont_have_acount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dont_have_account"
+                    android:textSize="@dimen/tv_textSize" />
+
+                <com.igniva.spplitt.ui.views.TextViewRegular
+                    android:id="@+id/tv_register_here_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="@string/register_here"
+                    android:onClick="onClick"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/tv_textSize"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!--  <Button
+                  android:id="@+id/btn_view_ads"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:layout_marginTop="@dimen/outer_margin_bw_views"
+                  android:background="@mipmap/ic_view_ads"
+                  android:onClick="onClick"
+                  android:textAllCaps="false"
+                  android:textColor="@color/colorPrimaryDark" />-->
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

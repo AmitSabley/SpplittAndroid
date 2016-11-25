@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_category_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/outer_margin_bw_views"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/ll_rating"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/rv_outer_margin"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rating_reviews"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/tv_textSize"
+                    android:layout_toLeftOf="@+id/tv_rating"
+                    android:layout_alignParentLeft="true"
+                    android:textStyle="bold" />
+                <com.igniva.spplitt.ui.views.TextViewRegular
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.7"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="@dimen/tv_textSize"
+                    android:textStyle="bold" />
+                <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/rv_outer_margin"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/rv_outer_margin">
+
+                    <com.igniva.spplitt.ui.views.TextViewRegular
+                        android:id="@+id/tv_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.7"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="27sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/arb_rating"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="@dimen/rv_outer_margin"
+                        android:layout_marginTop="10dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:progressTint="@color/colorYellow"
+                        android:stepSize="0.1" />
+                </LinearLayout>-->
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.igniva.spplitt.ui.views.RoundedImageView
+                    android:id="@+id/riv_review_img"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@mipmap/ic_default_user" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/rv_outer_margin">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.igniva.spplitt.ui.views.TextViewRegular
+                            android:id="@+id/tv_review_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ad_details"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@+id/arb_user_rating"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/tv_textSize"
+                            android:textStyle="bold" />
+
+                        <android.support.v7.widget.AppCompatRatingBar
+                            android:id="@+id/arb_user_rating"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="@dimen/rv_outer_margin"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressTint="@color/colorYellow"
+                            android:stepSize="0.1" />
+                    </RelativeLayout>
+
+                    <com.igniva.spplitt.ui.views.TextViewRegular
+                        android:id="@+id/tv_review_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/cv_inner_margin"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="@string/ad_details"
+                        android:textColor="@color/colorGrey" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/rv_outer_margin"
+            android:layout_marginRight="@dimen/rv_outer_margin"
+            android:background="@color/colorGreyTransparent" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

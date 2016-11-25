@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_width="@dimen/calender_grid_width"
+    android:layout_height="@dimen/calender_grid_width"
+    android:layout_centerHorizontal="true"
+    >
+
+    <TextView
+        android:id="@+id/calendar_day_gridcell_day"
+        android:layout_width="@dimen/calender_grid_width_textView"
+        android:layout_height="@dimen/calender_grid_width_textView"
+        android:layout_gravity="center"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="1"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"></TextView>
+
+
+</RelativeLayout>

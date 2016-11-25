@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:onClick="onClick"
+        android:background="@android:color/transparent"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_cross" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="@dimen/inner_margin_bw_views"
+        android:orientation="vertical">
+
+        <com.igniva.spplitt.ui.views.TextViewRegular
+            android:id="@+id/tv_otp_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/enter_otp"
+            android:textSize="@dimen/toolbar_textSize" />
+
+        <com.igniva.spplitt.ui.views.EditTextNonRegular
+            android:id="@+id/et_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/inner_margin_bw_views"
+            android:inputType="text" />
+        <com.igniva.spplitt.ui.views.ButtonRegular
+            android:id="@+id/btn_resend_otp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_otp"
+            android:onClick="onClick"
+            android:textAllCaps="false"
+            android:textColor="@color/cardview_dark_background"
+            android:background="@android:color/transparent"/>
+
+        <com.igniva.spplitt.ui.views.ButtonRegular
+            android:id="@+id/btn_submit_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorYellow"
+            android:text="@string/submit"
+            android:onClick="onClick"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/btn_textSize" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+
+        android:id="@+id/mn_al_ads"
+        android:orderInCategory="100"
+        android:icon="@mipmap/ads"
+        android:title="@string/action_all_adds"
+        app:showAsAction="ifRoom|collapseActionView" />
+   <!-- <item
+        android:id="@+id/mn_invite_friends"
+        android:orderInCategory="100"
+        android:title="@string/nav_invite_friends"
+        app:showAsAction="never" />-->
+
+</menu>

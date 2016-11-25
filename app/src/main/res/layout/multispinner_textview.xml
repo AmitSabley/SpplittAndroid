@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.igniva.spplitt.ui.views.TextViewRegular xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listTextViewSpinner"
+    android:background="@null"
+    android:singleLine="true"
+    android:ellipsize="end"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:textColor="#FF000000" />

@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+
+        android:id="@+id/mn_reset_pref"
+        android:orderInCategory="100"
+        android:icon="@mipmap/repost"
+        android:title="@string/action_all_adds"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+
+</menu>

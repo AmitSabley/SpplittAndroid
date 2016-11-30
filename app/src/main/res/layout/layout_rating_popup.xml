@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/linearView"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/layoutButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.igniva.spplitt.ui.views.TextViewRegular
+                android:layout_width="match_parent"
+                android:id="@+id/tv_rate_user"
+                android:layout_height="wrap_content"
+                android:text="@string/rate_this_user"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/btn_textSize"/>
+
+            <RatingBar
+                android:id="@+id/ratingBar_popup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/outer_margin_bw_views"
+                android:layout_centerHorizontal="true"
+                android:progressBackgroundTint="@color/colorGreyDark"
+                android:progressTint="@color/colorYellow"
+                android:secondaryProgressTint="@color/colorYellow"
+                android:stepSize="1.0" />
+
+            <com.igniva.spplitt.ui.views.EditTextNonRegular
+                android:id="@+id/et_review"
+                style="@style/EditTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:background="@drawable/square_edittext"
+                android:gravity="top"
+                android:hint="@string/hint_reviews"
+                android:inputType="text|textMultiLine"
+                android:maxLength="250"
+                android:paddingTop="5dp"
+                android:singleLine="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorGreyDark" />
+
+            <com.igniva.spplitt.ui.views.ButtonRegular
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="20dp"
+                android:layout_marginTop="@dimen/outer_margin_bw_views"
+                android:text="Submit"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

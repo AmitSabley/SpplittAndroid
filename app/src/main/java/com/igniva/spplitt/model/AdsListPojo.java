@@ -33,8 +33,10 @@ public class AdsListPojo implements Serializable {
     String ad_connected_mobile;
     String ad_connected_username;
     String ad_state;
+    String rating_value;
     boolean is_flagged;
     boolean is_connect;
+    boolean is_rating;
 
     public String getAd_state() {
         return ad_state;
@@ -66,6 +68,14 @@ public class AdsListPojo implements Serializable {
 
     public boolean is_connect() {
         return is_connect;
+    }
+
+    public void setIs_rating(boolean is_rating) {
+        this.is_rating = is_rating;
+    }
+
+    public boolean getIs_Rating() {
+        return is_rating;
     }
 
     public String getAd_city_name() {
@@ -158,5 +168,14 @@ public class AdsListPojo implements Serializable {
 
     public void setIs_flagged(boolean is_flagged) {
         this.is_flagged = is_flagged;
+    }
+
+
+    public String getRating_value() {
+        return rating_value;
+    }
+
+    public void setRating_value(String rating_value) {
+        this.rating_value = rating_value;
     }
 }

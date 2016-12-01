@@ -10,6 +10,7 @@ public class ReviewListPojo {
     String user_review;
     String user_rating_value;
 
+
     public String getUser_rating_value() {
         return user_rating_value;
     }
@@ -49,4 +50,6 @@ public class ReviewListPojo {
     public String getUser_review() {
         return user_review;
     }
+
+
 }

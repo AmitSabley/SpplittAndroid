@@ -1,36 +1,21 @@
 package com.igniva.spplitt.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
-import android.widget.AdapterView;
 
 import com.google.gson.Gson;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.model.ResponsePojo;
-import com.igniva.spplitt.ui.activties.CityActivity;
-import com.igniva.spplitt.ui.activties.OtherProfileActivity;
-import com.igniva.spplitt.ui.activties.SplashActivity;
-import com.igniva.spplitt.ui.activties.StateActivity;
-import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Log;
+import com.igniva.spplitt.utils.Utility;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 public class WebServiceClient {
@@ -380,6 +365,16 @@ public class WebServiceClient {
 
     }
     public static void addRating(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+        url = HTTP_RATING;
+        method = HttpMethod.HTTP_POST;
+        checkNetworkState(url, payload, method, context, showprogress);
+        urlNo = urlno;
+        responseHandlerListener=responseHandlerListenerLogin;
+
+    }
+
+
+    public static void addRating_MyAds(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_RATING;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);

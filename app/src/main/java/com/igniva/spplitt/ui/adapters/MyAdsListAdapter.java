@@ -17,8 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.igniva.spplitt.R;
@@ -28,18 +30,22 @@ import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.model.AdsListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
+import com.igniva.spplitt.model.ReviewListPojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.ui.activties.ViewAdsDetailsActivity;
 import com.igniva.spplitt.ui.fragments.ActiveAdFragment;
 import com.igniva.spplitt.ui.fragments.CompleteAdsFragment;
 import com.igniva.spplitt.ui.fragments.IncompleteAdsFragment;
 import com.igniva.spplitt.ui.fragments.OnLoadMoreListener;
+import com.igniva.spplitt.ui.views.EditTextNonRegular;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
+import com.igniva.spplitt.utils.Validations;
 
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -54,13 +60,22 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     String mAdsType;
     int cancelAdPosition;
     RecyclerView mRvAds;
+     AlertDialog alertDialog;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    List<ReviewListPojo> mReviewList = new ArrayList<>();
+
 
     private OnLoadMoreListener mOnLoadMoreListener;
     private boolean isLoading;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
+    private Button mbtnRating;
+    private RatingBar mratingBar_popup;
+    private EditTextNonRegular met_review;
+    private DataPojo dataPojo;
+    int pos=0;
+    float rating=0;
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView mTvAdTitle;
@@ -70,7 +85,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         AppCompatRatingBar ratingBar;
         TextView mTvAdTotalRequests;
         Button mBtnEditAd;
-        Button mBtnRateUser;
+        ImageView mBtnRateUser;
         Button mBtnDeleteAd;
         Button mBtnRepostAd;
         Button mBtnDetailsAd;
@@ -88,7 +103,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             mTvAdTotalRequests = (TextView) itemView.findViewById(R.id.tv_ad_requests);
             mBtnEditAd = (Button) itemView.findViewById(R.id.btn_edit_ad);
             mBtnDeleteAd = (Button) itemView.findViewById(R.id.btn_delete_ad);
-            mBtnRateUser = (Button) itemView.findViewById(R.id.ButtonRate_User);
+            mBtnRateUser = (ImageView) itemView.findViewById(R.id.ButtonRate_User);
             mBtnRepostAd = (Button) itemView.findViewById(R.id.btn_repost_ad);
             mCvAdsMain = (LinearLayout) itemView.findViewById(R.id.cv_category_main);
             mLlBtn = (LinearLayout) itemView.findViewById(R.id.ll_btn);
@@ -171,6 +186,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 String rating;
                 if (isRating) {
                     userViewHolder.ratingBar.setVisibility(View.VISIBLE);
+                    userViewHolder.mBtnRateUser.setVisibility(View.GONE);
                     rating = mListAds.get(position).getRating_value();
                     float frating = Float.parseFloat(rating);
                     userViewHolder.ratingBar.setRating(frating);
@@ -182,7 +198,8 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     userViewHolder.mBtnRateUser.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            showRatingDialog(mContext);
+                            pos=position;
+                            showRatingDialog(mContext,position);
                         }
                     });
 
@@ -203,6 +220,9 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     userViewHolder.mBtnRepostAd.setVisibility(View.GONE);
                     userViewHolder.mBtnDeleteAd.setVisibility(View.VISIBLE);
                     userViewHolder.mBtnDetailsAd.setVisibility(View.GONE);
+                    userViewHolder.mBtnRateUser.setVisibility(View.GONE);
+                    userViewHolder.ratingBar.setVisibility(View.GONE);
+
                 } else if (mAdsType.equals(mContext.getResources().getString(R.string.complete_ads))) {
                     userViewHolder.mLlBtn.setWeightSum(1);
                     userViewHolder.mTvAdTotalRequests.setVisibility(View.VISIBLE);
@@ -217,6 +237,8 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     userViewHolder.mBtnRepostAd.setVisibility(View.VISIBLE);
                     userViewHolder.mBtnDeleteAd.setVisibility(View.GONE);
                     userViewHolder.mBtnDetailsAd.setVisibility(View.GONE);
+                    userViewHolder.mBtnRateUser.setVisibility(View.GONE);
+                    userViewHolder.ratingBar.setVisibility(View.GONE);
                 }
 
                 userViewHolder.mBtnEditAd.setOnClickListener(new View.OnClickListener() {
@@ -291,6 +313,93 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+
+    private void getOthersProfileData(ResponsePojo result) {
+        try {
+            if (result.getStatus_code() == 400) {
+//                Error
+                new Utility().showErrorDialog(mContext, result);
+            } else {
+                //Success
+                dataPojo = result.getData();
+
+
+//                if(mReviewList.size()>0) {
+                ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(mContext, mReviewList, dataPojo);
+                mRvAds.setAdapter(mAdsListAdapter);
+                mAdsListAdapter.notifyDataSetChanged();
+                mRvAds.setHasFixedSize(true);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+                mRvAds.setLayoutManager(mLayoutManager);
+//                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getReviewsData(ResponsePojo result) {
+        try {
+            if (result.getStatus_code() == 400) {
+//                Error
+                new Utility().showErrorDialog(mContext, result);
+            } else {
+                //Success
+                dataPojo = result.getData();
+                alertDialog.dismiss();
+
+
+                Utility.showToastMessageShort(mContext, dataPojo.getRating());
+                ReviewListPojo mReviewListPojo = new ReviewListPojo();
+                mReviewListPojo.setUser_id(PreferenceHandler.readString(mContext, PreferenceHandler.USER_ID, ""));
+                mReviewListPojo.setUser_name(PreferenceHandler.readString(mContext, PreferenceHandler.USER_NAME, ""));
+                mReviewListPojo.setUser_review(met_review.getText().toString().trim());
+                mReviewListPojo.setUser_rating_value(Math.round(mratingBar_popup.getRating()) + "");
+                mReviewList.add(mReviewListPojo);
+                dataPojo.setOther_review(mReviewList);
+
+                //dataPojo.notifyDataSetChanged();
+                mratingBar_popup.setRating(0);
+                met_review.setText("");
+
+                mListAds.get(pos).setIs_rating(true);
+                Log.e("rating ",rating+"");
+                mListAds.get(pos).setRating_value(rating + "");
+
+                notifyDataSetChanged();
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    ResponseHandlerListener responseHandlerListenerLogin = new ResponseHandlerListener() {
+        @Override
+        public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
+            WebNotificationManager.unRegisterResponseListener(responseHandlerListenerLogin);
+            if (error == null) {
+                switch (mUrlNo) {
+                    case 1:
+                        getOthersProfileData(result);
+                        break;
+                    case 2:
+                        getReviewsData(result);
+
+                        break;
+                }
+            } else {
+                // TODO display error dialog
+                new Utility().showErrorDialogRequestFailed(mContext);
+            }
+            if (mProgressDialog != null && mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
+        }
+    };
+
     @Override
     public int getItemCount() {
         return mListAds == null ? 0 : mListAds.size();
@@ -355,52 +464,77 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public void showRatingDialog(final Context mContext) {
+    public void showRatingDialog(final Context mContext, final int position) {
         try {
             LayoutInflater li = LayoutInflater.from(mContext);
             final View promptsView = li.inflate(R.layout.layout_rating_popup, null);
             final AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
                     R.style.CustomPopUpTheme);
-            /*TextView tv_rate_user = (TextView) promptsView.findViewById(R.id.tv_rate_user);
-            RatingBar ratingBar_popup = (RatingBar) promptsView.findViewById(R.id.ratingBar_popup);
-            tvOtherEmail.setText(mEmail);
-            tvOtherEmail.setOnClickListener(new View.OnClickListener() {
+            mbtnRating = (Button) promptsView.findViewById(R.id.btn_rating_submit);
+            mratingBar_popup = (RatingBar) promptsView.findViewById(R.id.ratingBar_popup);
+            met_review = (EditTextNonRegular) promptsView.findViewById(R.id.et_review);
+            mbtnRating.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                    emailIntent.setType("text/plain");
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mEmail});
-                    mContext.startActivity(emailIntent);
-                }
-            });
-            TextView tvOtherPhoneNo = (TextView) promptsView.findViewById(R.id.tv_other_phone_no);
-            tvOtherPhoneNo.setText(mPhoneNo);
-            tvOtherPhoneNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!mPhoneNo.equals("") || !mPhoneNo.equals("Not available")) {
-                        Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
-                        phoneIntent.setData(Uri.parse("tel:" + mPhoneNo));
-                        mContext.startActivity(phoneIntent);
+
+                    rating=mratingBar_popup.getRating();
+                    addReviews(position);
+
+                   /* if(met_review.getText().equals(""))
+                    {
+                        Snackbar.make(promptsView,"Please Enter Review", Snackbar.LENGTH_LONG);
                     }
+                    else {
+                       String mReview =  met_review.getText().toString();
+                        mratingBar_popup.getRating();
+                    }*/
                 }
             });
-*/
+
             builder.setView(promptsView);
-            final AlertDialog alertDialog = builder.create();
-            /*Button ibClose = (Button) promptsView.findViewById(R.id.ib_close);
-            ibClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });*/
+           alertDialog = builder.create();
+
             alertDialog.show();
         } catch (Exception e) {
             e.printStackTrace();
-            /*Utility.showToastMessageLong(mContext,
-                    mContext.getResources().getString(R.string.invalid_session));*/
+            Utility.showToastMessageLong(mContext,
+                    mContext.getResources().getString(R.string.invalid_session));
         }
+    }
+
+
+    private void addReviews(int position) {
+        boolean val = new Validations().isValidateReviews(mContext, mratingBar_popup, met_review);
+        if (val) {
+            // Webservice Call
+            // Step 1, Register Callback Interface
+            WebNotificationManager.registerResponseListener(responseHandlerListenerLogin);
+            // Step 2, Call Webservice Method
+            WebServiceClient.addRating_MyAds(mContext, createReviewsPayload(position), true, 2, responseHandlerListenerLogin);
+        }
+    }
+
+
+    private String createReviewsPayload(int  position) {
+        String payload = null;
+        try {
+            JSONObject userData = new JSONObject();
+            try {
+                userData.put("user_id",mListAds.get(position).getPosted_by_id());
+                userData.put("auth_token", PreferenceHandler.readString(mContext, PreferenceHandler.AUTH_TOKEN, ""));
+                userData.put("rating_value", mratingBar_popup.getRating());
+                userData.put("other_user_id", mListAds.get(position).getAd_connected_id());
+                userData.put("ad_id", mListAds.get(position).getAd_id());
+                userData.put("review", met_review.getText().toString().trim());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            android.util.Log.e("rseponse", "" + userData);
+            payload = userData.toString();
+        } catch (Exception e) {
+            payload = null;
+        }
+        return payload;
     }
 
     public void showDeletePopup(final Context mContext) {

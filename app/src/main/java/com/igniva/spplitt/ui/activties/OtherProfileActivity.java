@@ -1,52 +1,31 @@
 package com.igniva.spplitt.ui.activties;
 
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.app.ActivityOptions;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.igniva.spplitt.R;
@@ -57,8 +36,6 @@ import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.model.ReviewListPojo;
 import com.igniva.spplitt.ui.adapters.ReviewsListdapter;
-
-import com.igniva.spplitt.utils.Log;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Validations;
@@ -66,10 +43,7 @@ import com.igniva.spplitt.utils.Validations;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 
 public class OtherProfileActivity extends BaseActivity implements View.OnClickListener {
@@ -511,6 +485,7 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
                 }else{
                     mFabCross.setVisibility(View.GONE);
                     mFab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimaryDark));
+                    mFab.setImageResource(R.mipmap.star);
                     mFab.setImageResource(R.mipmap.star);
                     revealView.setVisibility(View.GONE);
                     layoutButtons.setVisibility(View.GONE);

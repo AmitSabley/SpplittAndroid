@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class AdsListPojo implements Serializable {
     String ad_id;
+    String ad_connected_id;
     String category_id;
     String posted_by_id;
     String posted_by_username;
@@ -113,6 +114,11 @@ public class AdsListPojo implements Serializable {
     public String getPosted_by_id() {
         return posted_by_id;
     }
+
+    public String getAd_connected_id() {
+        return ad_connected_id;
+    }
+
 
     public String getPosted_by_username() {
         return posted_by_username;

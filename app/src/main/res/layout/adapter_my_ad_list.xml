@@ -113,13 +113,15 @@
                         android:visibility="gone" />
 
 
-                    <com.igniva.spplitt.ui.views.ButtonRegular
+                    <ImageView
                         android:id="@+id/ButtonRate_User"
                         android:layout_width="wrap_content"
-                        android:layout_height="28dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="end"
-                        android:visibility="gone" />
+                        android:padding="4dp"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_rate_user"/>
 
 
                 </RelativeLayout>

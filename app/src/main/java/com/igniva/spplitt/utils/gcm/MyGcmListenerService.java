@@ -44,6 +44,8 @@ public class MyGcmListenerService extends GcmListenerService {
      */
     @Override
     public void onMessageReceived(String from, Bundle data) {
+        Log.e("Payload noty is ",""+from+" "+data);
+
         messageId = data.getString("message_id");
         notificationType = data.getString("notification_type");
         notificationCount = Integer.parseInt(data.getString("notification_count"));
@@ -53,9 +55,9 @@ public class MyGcmListenerService extends GcmListenerService {
         messageTicker = data.getString("message_ticker");
         bigImage = data.getString("big_image");
 
-        if (userId.equals(PreferenceHandler.readString(this, PreferenceHandler.USER_ID, ""))) {
+//        if (userId.equals(PreferenceHandler.readString(this, PreferenceHandler.USER_ID, ""))) {
             sendNotificationRequest();
-        }
+//        }
     }
 
 

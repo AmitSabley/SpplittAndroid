@@ -12,36 +12,34 @@
         android:orientation="vertical">
 
 
+        <com.igniva.spplitt.ui.views.TextViewNonRegular
+            android:id="@+id/tv_ad_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/ad_details"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/btn_textSize"
+            android:textStyle="bold" />
 
-            <com.igniva.spplitt.ui.views.TextViewNonRegular
-                android:id="@+id/tv_ad_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="@string/ad_details"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/btn_textSize"
-                android:textStyle="bold" />
 
-
-            <!-- <com.igniva.spplitt.ui.views.TextViewNonRegular
-                 android:id="@+id/tv_ad_time"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentRight="true"
-                 android:layout_marginLeft="10dp"
-                 android:gravity="center"
-                 android:text="@string/ad_details"
-                 android:textSize="12sp" />-->
+        <!-- <com.igniva.spplitt.ui.views.TextViewNonRegular
+             android:id="@+id/tv_ad_time"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_marginLeft="10dp"
+             android:gravity="center"
+             android:text="@string/ad_details"
+             android:textSize="12sp" />-->
 
 
         <RelativeLayout
             android:id="@+id/rl_center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/ll_center"
@@ -51,42 +49,71 @@
                 android:layout_toLeftOf="@+id/btn_flag_ad"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/rv_outer_margin"
-                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/rv_outer_margin"
+                        android:orientation="horizontal">
 
-                    <com.igniva.spplitt.ui.views.TextViewNonRegular
-                        android:id="@+id/tv_ad_location"
+                        <com.igniva.spplitt.ui.views.TextViewNonRegular
+                            android:id="@+id/tv_ad_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:drawableLeft="@mipmap/location"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="@string/ad_details"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/colorGrey" />
+
+                        <com.igniva.spplitt.ui.views.TextViewNonRegular
+                            android:id="@+id/tv_ad_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:drawableLeft="@mipmap/time"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="@string/ad_details"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/userRating_Completed"
+                        style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:drawableLeft="@mipmap/location"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="@string/ad_details"
-                        android:textSize="12sp" />
+                        android:layout_gravity="end"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:progressTint="@color/colorYellow"
+                        android:stepSize="0.1"
+                        android:visibility="gone" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@color/colorGrey" />
 
-                    <com.igniva.spplitt.ui.views.TextViewNonRegular
-                        android:id="@+id/tv_ad_time"
+                    <ImageView
+                        android:id="@+id/ButtonRate_User"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:drawableLeft="@mipmap/time"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="@string/ad_details"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:layout_gravity="end"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_rate_user"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <com.igniva.spplitt.ui.views.TextViewNonRegular
                     android:id="@+id/tv_spplitt_amount"
@@ -155,12 +182,12 @@
 
             <com.igniva.spplitt.ui.views.ButtonRegular
                 android:id="@+id/btn_flag_ad"
-                android:layout_width="40dp"
+                android:layout_width="28dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@mipmap/inactive"
+                android:drawableRight="@mipmap/inactive"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlue" />
 

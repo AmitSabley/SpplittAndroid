@@ -25,6 +25,8 @@ public class AppliedlistPojo {
     String ad_expiration_date;
     String ad_status;
     boolean is_details_visible;
+    boolean is_rating;
+    String rating_value;
 
 //    String owner_details;
 //    String owner_username;
@@ -114,7 +116,21 @@ public class AppliedlistPojo {
     public String getAd_expiration_time() {
         return ad_expiration_time;
     }
+    public void setIs_rating(boolean is_rating) {
+        this.is_rating = is_rating;
+    }
 
+    public boolean getIs_Rating() {
+        return is_rating;
+    }
+
+    public String getRating_value() {
+        return rating_value;
+    }
+
+    public void setRating_value(String rating_value) {
+        this.rating_value = rating_value;
+    }
     public String getAd_expiration_date() {
         return ad_expiration_date;
     }

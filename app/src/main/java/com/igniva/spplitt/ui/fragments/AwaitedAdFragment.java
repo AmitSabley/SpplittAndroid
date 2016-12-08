@@ -3,11 +3,8 @@ package com.igniva.spplitt.ui.fragments;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,15 +22,12 @@ import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.AdsListPojo;
 import com.igniva.spplitt.model.AppliedlistPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ErrorPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.adapters.AdsListAdapter;
 import com.igniva.spplitt.ui.adapters.AppliedAdsListAdapter;
-import com.igniva.spplitt.ui.adapters.MyAdsListAdapter;
 import com.igniva.spplitt.utils.Constants;
 import com.igniva.spplitt.utils.Log;
 import com.igniva.spplitt.utils.PreferenceHandler;
@@ -259,7 +250,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
     private void setDataToList() {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRvAds.setLayoutManager(mLayoutManager);
-        mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds, mRvAds);
+        mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.awaited_ads),mRvAds);
         mRvAds.setAdapter(mUserAdapter);
         mRvAds.setHasFixedSize(true);
     }

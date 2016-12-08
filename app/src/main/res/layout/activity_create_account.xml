@@ -409,7 +409,7 @@
                         <com.igniva.spplitt.ui.views.TextViewRegular
                             android:id="@+id/tv_terms"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"

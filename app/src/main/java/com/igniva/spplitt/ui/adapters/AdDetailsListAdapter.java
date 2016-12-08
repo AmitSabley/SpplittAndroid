@@ -5,19 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,7 +26,6 @@ import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.OtherProfileActivity;
 import com.igniva.spplitt.ui.activties.ViewAdsDetailsActivity;
 import com.igniva.spplitt.ui.fragments.ActiveAdFragment;
-import com.igniva.spplitt.ui.fragments.AwaitedAdFragment;
 import com.igniva.spplitt.ui.fragments.IncompleteAdsFragment;
 import com.igniva.spplitt.ui.fragments.ViewAllActiveAdsFragment;
 import com.igniva.spplitt.ui.views.RoundedImageView;
@@ -428,14 +422,22 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
             });
             TextView tvOtherPhoneNo = (TextView) promptsView.findViewById(R.id.tv_other_phone_no);
             tvOtherPhoneNo.setText(dataPojo.getOther_user_mobile());
-            tvOtherPhoneNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
-                    phoneIntent.setData(Uri.parse("tel:" + dataPojo.getOther_user_mobile()));
-                    mContext.startActivity(phoneIntent);
-                }
-            });
+
+            if (!dataPojo.getOther_user_mobile().equals("Not available")) {
+                tvOtherPhoneNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
+                        phoneIntent.setData(Uri.parse("tel:" + dataPojo.getOther_user_mobile()));
+                        mContext.startActivity(phoneIntent);
+                    }
+
+
+                });
+            } else
+                tvOtherPhoneNo.setClickable(false);
+
 
             builder.setView(promptsView);
             final AlertDialog alertDialog = builder.create();

@@ -9,6 +9,7 @@ public class ReviewListPojo {
     String user_name;
     String user_review;
     String user_rating_value;
+    String other_user_id;
 
 
     public String getUser_rating_value() {
@@ -31,6 +32,10 @@ public class ReviewListPojo {
         this.user_name = user_name;
     }
 
+    public void setOther_User_id(String other_user_id){
+        this.other_user_id = other_user_id;
+    }
+
     public void setUser_review(String user_review) {
         this.user_review = user_review;
     }
@@ -51,5 +56,7 @@ public class ReviewListPojo {
         return user_review;
     }
 
-
+    public String getOther_user_id() {
+        return other_user_id;
+    }
 }

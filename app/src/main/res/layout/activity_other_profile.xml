@@ -153,7 +153,8 @@
         android:onClick="onClick"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
-        app:theme="@style/ThemeOverlay.AppCompat.Light" />
+        app:theme="@style/ThemeOverlay.AppCompat.Light"
+        android:visibility="gone"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_cross"

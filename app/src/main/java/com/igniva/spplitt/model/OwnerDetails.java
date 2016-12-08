@@ -13,7 +13,12 @@ public class OwnerDetails {
     }
 
     public String getOwner_email() {
-        return owner_email;
+        if(owner_email.equals("") || owner_email.equalsIgnoreCase("null"))
+            {
+                return "";
+            }
+
+        else return owner_email;
     }
 
     public String getOwner_picture() {

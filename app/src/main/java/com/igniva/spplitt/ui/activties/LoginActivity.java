@@ -1,18 +1,12 @@
 package com.igniva.spplitt.ui.activties;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.igniva.spplitt.R;
@@ -26,8 +20,6 @@ import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Validations;
 
 import org.json.JSONObject;
-
-import java.util.LinkedHashMap;
 
 
 /**
@@ -122,6 +114,7 @@ public class LoginActivity extends BaseActivity  {
             JSONObject userData = new JSONObject();
             userData.put(registration_by, mEtEmail.getText().toString().trim());
             userData.put("password", mEtPassword.getText().toString().trim());
+            userData.put("device_type", "android");
             userData.put("device_id", PreferenceHandler.readString(this,PreferenceHandler.IMEI_NO, ""));
             userData.put("gcm_id", PreferenceHandler.readString(this,PreferenceHandler.GCM_REG_ID, ""));
             payload = userData.toString();

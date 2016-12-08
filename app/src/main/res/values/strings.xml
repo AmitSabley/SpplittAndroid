@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Spplitt</string>
-    <string name="server_api_key">AIzaSyDHjDzwdFJUV6zynNH0rUO4Ry3bAMyolRA</string>
+    <string name="server_api_key"> AIzaSyC90VvPZgv65FF9D65Oi5GroMaIrUj3FQs</string>
     <string name="gcm_project_no">826247417666</string>
     <string name="gcm_project_id">spplitt-1301</string>
 
@@ -34,7 +34,7 @@
     <!--activity_forgot_password.xml-->
     <string name="forgot_password">Forgot Password</string>
     <string name="reset_password">Reset your password</string>
-    <string name="reset_password_text">You will receive a reset password link/OTP code, in above enter email/phone number.Please make sure you enter valid email address via which you registered.</string>
+    <string name="reset_password_text">You will receive a reset password link. Please enter your email address used during registration below.</string>
     <string name="submit">Submit</string>
     <!--activity_change_password.xml-->
     <string name="change_password_text">Enter information below to reset your password</string>
@@ -73,7 +73,7 @@
     <string name="hint_date">Select date</string>
     <string name="hint_time">Select time</string>
     <string name="hint_location">Location</string>
-    <string name="hint_splitt_cost">Spplitt Cost per person</string>
+    <string name="hint_splitt_cost">spplitt Cost per person</string>
     <string name="hint_mobile_edit">Mobile No</string>
     <!--Update Email-->
     <string name="update_email">Update Email Address</string>
@@ -160,6 +160,7 @@
     <string name="applied_ads">applied</string>
     <string name="posted_ads">posted</string>
     <string name="response_awaited">Response Awaited</string>
+    <string name="response_pending">Pending</string>
     <string name="load_more">Load More</string>
     <string name="accept">Accept</string>
     <string name="other_age">Age :</string>

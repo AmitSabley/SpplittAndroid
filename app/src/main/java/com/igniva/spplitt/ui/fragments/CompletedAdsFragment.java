@@ -251,7 +251,7 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
     private void setDataToList() {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRvAds.setLayoutManager(mLayoutManager);
-        mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds, mRvAds);
+        mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.complete_ads),mRvAds);
         mRvAds.setAdapter(mUserAdapter);
         mRvAds.setHasFixedSize(true);
     }

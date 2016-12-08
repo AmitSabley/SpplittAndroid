@@ -1,6 +1,5 @@
 package com.igniva.spplitt.ui.activties;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,30 +12,23 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.igniva.spplitt.R;
-
 import com.igniva.spplitt.controller.AsyncResult;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.controller.WebServiceClientUploadImage;
-import com.igniva.spplitt.model.CityListPojo;
-import com.igniva.spplitt.model.CountriesListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
-import com.igniva.spplitt.ui.adapters.CountryListAdapter;
 import com.igniva.spplitt.ui.views.RoundedImageView;
 import com.igniva.spplitt.utils.ImagePicker;
 import com.igniva.spplitt.utils.Permissions;
@@ -51,8 +43,6 @@ import org.apache.http.entity.mime.content.ContentBody;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -408,6 +398,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 userData.put("city", cityId);
                 userData.put("age", "");
                 userData.put("postal_code", "");
+                userData.put("device_type", "android");
                 userData.put("device_id", PreferenceHandler.readString(this, PreferenceHandler.IMEI_NO, ""));
                 userData.put("gcm_id", PreferenceHandler.readString(this, PreferenceHandler.GCM_REG_ID, ""));
                 userData.put("mobile", mobileno);

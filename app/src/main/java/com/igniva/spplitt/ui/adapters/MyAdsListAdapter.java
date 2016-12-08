@@ -60,7 +60,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     String mAdsType;
     int cancelAdPosition;
     RecyclerView mRvAds;
-     AlertDialog alertDialog;
+    AlertDialog alertDialog;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     List<ReviewListPojo> mReviewList = new ArrayList<>();
@@ -74,8 +74,8 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private RatingBar mratingBar_popup;
     private EditTextNonRegular met_review;
     private DataPojo dataPojo;
-    int pos=0;
-    float rating=0;
+    int pos = 0;
+    float rating = 0;
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView mTvAdTitle;
@@ -198,14 +198,14 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     userViewHolder.mBtnRateUser.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            pos=position;
-                            showRatingDialog(mContext,position);
+                            pos = position;
+                            showRatingDialog(mContext, position);
                         }
                     });
 
 
                 }
-                    String outputDateStr = outputFormat.format(date1);
+                String outputDateStr = outputFormat.format(date1);
                 String string = outputDateStr + " " + mListAds.get(position).getAd_expiration_time();
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
                 Date date = format.parse(string);
@@ -286,6 +286,8 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 userViewHolder.mBtnDetailsAd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Log.e("Position:", +position + "");
+                        Log.e("Connected Email", mListAds.get(position).getAd_connected_email() + "jsdjskj");
                         showRequestAcceptedDialog(mContext, mListAds.get(position).getAd_connected_email(), mListAds.get(position).getAd_connected_username(), mListAds.get(position).getAd_connected_mobile());
                     }
                 });
@@ -354,6 +356,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 mReviewListPojo.setUser_id(PreferenceHandler.readString(mContext, PreferenceHandler.USER_ID, ""));
                 mReviewListPojo.setUser_name(PreferenceHandler.readString(mContext, PreferenceHandler.USER_NAME, ""));
                 mReviewListPojo.setUser_review(met_review.getText().toString().trim());
+                mReviewListPojo.setOther_User_id(mListAds.get(pos).getAd_connected_id());
                 mReviewListPojo.setUser_rating_value(Math.round(mratingBar_popup.getRating()) + "");
                 mReviewList.add(mReviewListPojo);
                 dataPojo.setOther_review(mReviewList);
@@ -363,7 +366,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 met_review.setText("");
 
                 mListAds.get(pos).setIs_rating(true);
-                Log.e("rating ",rating+"");
+                Log.e("rating ", rating + "");
                 mListAds.get(pos).setRating_value(rating + "");
 
                 notifyDataSetChanged();
@@ -374,7 +377,6 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             e.printStackTrace();
         }
     }
-
 
 
     ResponseHandlerListener responseHandlerListenerLogin = new ResponseHandlerListener() {
@@ -435,16 +437,20 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
             TextView tvOtherPhoneNo = (TextView) promptsView.findViewById(R.id.tv_other_phone_no);
             tvOtherPhoneNo.setText(mPhoneNo);
-            tvOtherPhoneNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!mPhoneNo.equals("") || !mPhoneNo.equals("Not available")) {
+            if (!mPhoneNo.equals("Not available")) {
+                tvOtherPhoneNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
                         Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
                         phoneIntent.setData(Uri.parse("tel:" + mPhoneNo));
                         mContext.startActivity(phoneIntent);
                     }
-                }
-            });
+
+
+                });
+            } else
+                tvOtherPhoneNo.setClickable(false);
 
             builder.setView(promptsView);
             final AlertDialog alertDialog = builder.create();
@@ -477,7 +483,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onClick(View view) {
 
-                    rating=mratingBar_popup.getRating();
+                    rating = mratingBar_popup.getRating();
                     addReviews(position);
 
                    /* if(met_review.getText().equals(""))
@@ -492,7 +498,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
 
             builder.setView(promptsView);
-           alertDialog = builder.create();
+            alertDialog = builder.create();
 
             alertDialog.show();
         } catch (Exception e) {
@@ -515,12 +521,12 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    private String createReviewsPayload(int  position) {
+    private String createReviewsPayload(int position) {
         String payload = null;
         try {
             JSONObject userData = new JSONObject();
             try {
-                userData.put("user_id",mListAds.get(position).getPosted_by_id());
+                userData.put("user_id", mListAds.get(position).getPosted_by_id());
                 userData.put("auth_token", PreferenceHandler.readString(mContext, PreferenceHandler.AUTH_TOKEN, ""));
                 userData.put("rating_value", mratingBar_popup.getRating());
                 userData.put("other_user_id", mListAds.get(position).getAd_connected_id());
@@ -529,7 +535,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            android.util.Log.e("rseponse", "" + userData);
+            android.util.Log.e("My Ads Response:", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -574,6 +580,9 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Bundle createBundle(int position, String adEditType) {
         Bundle mBundle = new Bundle();
         mBundle.putString("ad_id", mListAds.get(position).getAd_id());
+        mBundle.putString("ad_connected_username", mListAds.get(position).getAd_connected_username());
+        mBundle.putString("ad_connected_mobile", mListAds.get(position).getAd_connected_mobile());
+        mBundle.putString("ad_connected_email", mListAds.get(position).getAd_connected_email());
         mBundle.putString("ad_category_id", mListAds.get(position).getCategory_id());
         mBundle.putString("ad_title", mListAds.get(position).getAd_title());
         mBundle.putString("ad_desc", mListAds.get(position).getAd_description());

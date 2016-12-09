@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
@@ -75,10 +74,10 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
             case R.id.btn_submit_contact_us:
                 boolean val = new Validations().isValidateContactUs(getActivity(), mEtDesc);
                 if (val) {
-                    // Step 2, Call Webservice Method
+//                   Step 2. Call Webservice Method
                     mBtnSubmit.setClickable(false);
-                    //         Webservice Call
-//         Step 1, Register Callback Interface
+//                   Webservice Call
+//                  Step 1. Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListenerContactus);
                     WebServiceClient.contactUs(getActivity(), createContactUsPayload(), true, 1, responseHandlerListenerContactus);
                 }
@@ -115,7 +114,8 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerContactus);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //to get categories list
                             mBtnSubmit.setClickable(true);
                             getContactUsData(result);
                             break;
@@ -133,11 +133,13 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
             }
         }
     };
+
     private void getContactUsData(ResponsePojo result) {
         if (result.getStatus_code() == 400) {
             //Error
             new Utility().showErrorDialog(getActivity(), result);
-        } else {//Success
+        } else {
+            //Success
             new Utility().showSuccessDialog(getActivity(), result);
             mEtDesc.setText("");
         }

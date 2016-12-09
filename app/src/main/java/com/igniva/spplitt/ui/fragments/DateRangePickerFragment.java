@@ -13,13 +13,8 @@ import android.widget.DatePicker;
 import android.widget.TabHost;
 
 import com.igniva.spplitt.R;
-import com.igniva.spplitt.utils.Log;
-import com.igniva.spplitt.utils.Utility;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class DateRangePickerFragment extends DialogFragment implements View.OnClickListener{
 
@@ -46,8 +41,6 @@ public class DateRangePickerFragment extends DialogFragment implements View.OnCl
         onDateRangeSelectedListener = callback;
         this.is24HourMode = is24HourMode;
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,18 +95,4 @@ public class DateRangePickerFragment extends DialogFragment implements View.OnCl
         void onDateRangeSelected(int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear);
     }
 
-
-//    public static List<Date> dateInterval(Date initial, Date finall) {
-//        List<Date> dates = new ArrayList<Date>();
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(initial);
-//
-//        while (calendar.getTime().before(finall)) {
-//            Date result = calendar.getTime();
-//            dates.add(result);
-//            calendar.add(Calendar.DATE, 1);
-//        }
-//
-//        return dates;
-//    }
 }

@@ -3,11 +3,8 @@ package com.igniva.spplitt.ui.fragments;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,7 +28,6 @@ import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ErrorPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.adapters.AdsListAdapter;
 import com.igniva.spplitt.ui.adapters.MyAdsListAdapter;
 import com.igniva.spplitt.utils.Constants;
 import com.igniva.spplitt.utils.Log;
@@ -80,12 +74,13 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
             setHasOptionsMenu(true);
 
             Bundle mBundle = this.getArguments();
-            if (mBundle != null) {//u are coming from categories to view ads
+            if (mBundle != null) {
+                //Call from categories to view ads
                 mCatId = mBundle.getString("cat_id", "");
-            } else {// u are coming from view event ads
+            } else {
+                // Call from view event ads
                 mCatId = "1";
             }
-//            getActiveAds();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,7 +93,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
 //            Webservice Call
 //            Step 1, Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-            // Step 2, Call Webservice Method
+//            Step 2, Call Webservice Method
             WebServiceClient.getMyAdsList(getActivity(), activeAdsPayload(), showProgress, 1, responseHandlerListenerViewAD);
 
         } catch (Exception e) {
@@ -162,10 +157,12 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerViewAD);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //to get categories list
                             getAdsData(result);
                             break;
-                        case 2:  //to search ad list
+                        case 2:
+                            //to search ad list
                             getSearchAdsData(result);
                             break;
                     }
@@ -194,12 +191,13 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                 mRvAds.setAdapter(null);
                 mTvNoAdsFound.setVisibility(View.VISIBLE);
                 mRvAds.setVisibility(View.GONE);
-                //Error
+                // Error
                 ErrorPojo errorPojo = result.getError();
                 if (!errorPojo.getError_code().equals("533")) {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
-            } else {//Success
+            } else {
+                // Success
                 if (listAds.size() > 0) {
                     listAds.clear();
                 }
@@ -222,7 +220,6 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
 
     private void getAdsData(ResponsePojo result) {
         try {
-
             if (result.getStatus_code() == 400) {
                 isDataLoaded = true;
                 if (mProgressBar != null) {
@@ -233,12 +230,9 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                 //Error
                 ErrorPojo errorPojo = result.getError();
                 if (errorPojo.getError_code().equals("533")) {
-
                     if (mPageNo > 1) {
-
                         if (mLlLoading.getVisibility() == View.VISIBLE) {
                             mLlLoading.setVisibility(View.GONE);
-
                         }
                     } else {
                         mRvAds.setAdapter(null);
@@ -248,7 +242,8 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                 } else {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
-            } else {//Success
+            } else {
+                //Success
                 if (listAds.size() > 0) {
                     listAds.remove(listAds.size() - 1);
                     mUserAdapter.notifyItemRemoved(listAds.size());
@@ -285,7 +280,6 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRvAds.setLayoutManager(mLayoutManager);
         mUserAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.active_ads), mRvAds);
-//        final MyAdsListAdapter mAdsListAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.active_ads),mRvAds);
         mRvAds.setAdapter(mUserAdapter);
         mRvAds.setHasFixedSize(true);
         if (mLlLoading.getVisibility() == View.VISIBLE) {
@@ -322,7 +316,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_search:
-                //do sth here
+//                     Do Search here
                 searchView = (SearchView) MenuItemCompat.getActionView(item);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -334,9 +328,8 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
 //                        Webservice Call
 //                        Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-                        // Step 2, Call Webservice Method
+//                         Step 2, Call Webservice Method
                         WebServiceClient.getSearchMyAdsList(getActivity(), searchAdListPayload(query), true, 2, responseHandlerListenerViewAD);
-
                         return false;
                     }
 
@@ -373,7 +366,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.e("=====","active");
+        Log.e("=====", "active");
         if (isVisibleToUser && !_areLecturesLoaded) {
             getActiveAds(true);
             _areLecturesLoaded = true;

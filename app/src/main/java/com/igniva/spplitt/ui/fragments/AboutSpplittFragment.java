@@ -20,10 +20,12 @@ public class AboutSpplittFragment extends BaseFragment {
     View mView;
     WebView mWvTerms;
     ProgressBar mPbBar;
+
     public static AboutSpplittFragment newInstance() {
         AboutSpplittFragment fragment = new AboutSpplittFragment();
         return fragment;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,10 +33,11 @@ public class AboutSpplittFragment extends BaseFragment {
         setUpLayouts();
         return mView;
     }
+
     @Override
     public void setUpLayouts() {
-        mWvTerms=(WebView)mView.findViewById(R.id.wv_about);
-        mPbBar=(ProgressBar)mView.findViewById(R.id.pb_about);
+        mWvTerms = (WebView) mView.findViewById(R.id.wv_about);
+        mPbBar = (ProgressBar) mView.findViewById(R.id.pb_about);
         mWvTerms.setWebViewClient(new MyBrowser(mPbBar));
         mWvTerms.getSettings().setLoadsImagesAutomatically(true);
         mWvTerms.getSettings().setJavaScriptEnabled(true);
@@ -44,7 +47,6 @@ public class AboutSpplittFragment extends BaseFragment {
 
     @Override
     public void setDataInViewLayouts() {
-
     }
 
     @Override
@@ -55,15 +57,18 @@ public class AboutSpplittFragment extends BaseFragment {
 
     private class MyBrowser extends WebViewClient {
         private ProgressBar progressBar;
+
         public MyBrowser(ProgressBar progressBar) {
-            this.progressBar=progressBar;
+            this.progressBar = progressBar;
             progressBar.setVisibility(View.VISIBLE);
         }
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             // TODO Auto-generated method stub

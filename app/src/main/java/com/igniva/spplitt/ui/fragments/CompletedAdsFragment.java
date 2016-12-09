@@ -77,7 +77,7 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
 //            Webservice Call
 //            Step 1, Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-            // Step 2, Call Webservice Method
+//            Step 2, Call Webservice Method
             WebServiceClient.getMyAppliedAdsList(getActivity(), awaitedAdsPayload(), showProgress, 1, responseHandlerListenerViewAD);
 
         } catch (Exception e) {
@@ -139,10 +139,12 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerViewAD);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //to get categories list
                             getAdsData(result);
                             break;
-                        case 2:  //to search ad list
+                        case 2:
+                            //to search ad list
                             getSearchAdsData(result);
                             break;
                     }
@@ -176,7 +178,8 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
                 if (!errorPojo.getError_code().equals("533")) {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
-            } else {//Success
+            } else {
+                //Success
                 if(listAds.size()>0){
                     listAds.clear();
                 }
@@ -217,7 +220,8 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
                 } else {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
-            } else {//Success
+            } else {
+                //Success
                 if(listAds.size()>0) {
                     listAds.remove(listAds.size() - 1);
                     mUserAdapter.notifyItemRemoved(listAds.size());
@@ -267,7 +271,7 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_search:
-                //do sth here
+                //Do Search here
                 searchView = (SearchView) MenuItemCompat.getActionView(item);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -279,7 +283,7 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
 //                        Webservice Call
 //                        Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-                        // Step 2, Call Webservice Method
+//                        Step 2, Call Webservice Method
                         WebServiceClient.getSearchAppliedAdsList(getActivity(), searchAdListPayload(query), true, 2, responseHandlerListenerViewAD);
                         return false;
                     }

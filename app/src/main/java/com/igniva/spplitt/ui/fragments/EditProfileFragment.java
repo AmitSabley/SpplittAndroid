@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
@@ -36,12 +35,10 @@ import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.CityActivity;
 import com.igniva.spplitt.ui.activties.CountryActivity;
 import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.activties.OtpConfirmationActivity;
 import com.igniva.spplitt.ui.activties.StateActivity;
 import com.igniva.spplitt.ui.activties.UpdateEmailActivity;
 import com.igniva.spplitt.ui.activties.UpdateMobileActivity;
 import com.igniva.spplitt.ui.views.RoundedImageView;
-
 import com.igniva.spplitt.utils.Constants;
 import com.igniva.spplitt.utils.ImagePicker;
 import com.igniva.spplitt.utils.Permissions;
@@ -101,7 +98,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
-//coming from city adapter
+//          Call from city adapter
             if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 1)==0){
                 showStaticFields=true;
             }
@@ -123,10 +120,11 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             try {
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
                 switch (mUrlNo) {
-                    case 3://for creating account of a user
+                    case 3:
+                        //For creating account of a user
                         mBtnSubmitprofile.setClickable(true);
                         if (error == null) {
-                            // Succes Case
+                            // Success Case
                             updateUserAccount(result);
                         } else {
                             // TODO display error dialog
@@ -296,10 +294,10 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 boolean val = new Validations().isValidateEditProfile(getContext(), mSvmain, myBitmap, mEtUsername, mEtAge, countryId, stateId,cityId);
                 if (val) {
                     mBtnSubmitprofile.setClickable(false);
-                    // Step 1, Register Callback Interface
+                    // Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListener);
                     if (mImageName == null) {
-                        // Step 2, Call Webservice Method
+                    // Step 2: Call Webservice Method
                         WebServiceClient.editProfileUser(getActivity(), editProfilePayload(PreferenceHandler.readString(getActivity(), PreferenceHandler.PICTURE, "")), true, 3, responseHandlerListener);
                     } else {
                         uploadBitmapAsMultipart();
@@ -320,7 +318,6 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     }
                     in.putExtra("from", "2");
                     startActivity(in);
-//                    startActivityForResult(in, 2);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

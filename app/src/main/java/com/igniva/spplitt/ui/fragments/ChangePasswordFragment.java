@@ -3,20 +3,16 @@ package com.igniva.spplitt.ui.fragments;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.DataPojo;
-import com.igniva.spplitt.model.ErrorPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.utils.Constants;
@@ -25,8 +21,6 @@ import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Validations;
 
 import org.json.JSONObject;
-
-import java.util.LinkedHashMap;
 
 /**
  * Created by igniva-php-08 on 18/5/16.
@@ -73,7 +67,7 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
 //                        Webservice Call
 //                        Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerChangePassword);
-                        // Step 2, Call Webservice Method
+//                        Step 2, Call Webservice Method
                         WebServiceClient.changePassword(getActivity(), createChangePasswordPayload(), true, 1, responseHandlerListenerChangePassword);
 
 
@@ -113,7 +107,8 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerChangePassword);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //To get categories list
                             getChangePasswordData(result);
                             break;
                     }
@@ -142,8 +137,10 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
         try {
 
             if (result.getStatus_code() == 400) {
+                // Error
                 new Utility().showErrorDialog(getActivity(), result);
-            } else {//Success
+            } else {
+                // Success
                 new Utility().showSuccessDialog(getActivity(), result);
                 setDataInViewLayouts();
             }

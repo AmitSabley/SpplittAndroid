@@ -49,7 +49,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
     List<AppliedlistPojo> listAds = new ArrayList<AppliedlistPojo>();
     List<AppliedlistPojo> beforeFilterListAds = new ArrayList<AppliedlistPojo>();
     AppliedAdsListAdapter mUserAdapter;
-    SearchView searchView;
+    SearchView mSearchView;
     boolean isLoadMore;
     ProgressBar mProgressBar;
     public static boolean isDataLoaded;
@@ -78,7 +78,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
 //            Webservice Call
 //            Step 1, Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-            // Step 2, Call Webservice Method
+//            Step 2, Call Webservice Method
             WebServiceClient.getMyAppliedAdsList(getActivity(), awaitedAdsPayload(), showProgress, 1, responseHandlerListenerViewAD);
 
         } catch (Exception e) {
@@ -125,7 +125,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -140,10 +140,12 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerViewAD);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //To get categories list
                             getAdsData(result);
                             break;
-                        case 2:  //to search ad list
+                        case 2:
+                            //To search ad list
                             getSearchAdsData(result);
                             break;
                     }
@@ -165,8 +167,8 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
 
     private void getSearchAdsData(ResponsePojo result) {
         try {
-            if(searchView!=null) {
-                Utility.hideKeyboard(getActivity(), searchView);
+            if (mSearchView != null) {
+                Utility.hideKeyboard(getActivity(), mSearchView);
             }
             if (result.getStatus_code() == 400) {
                 mRvAds.setAdapter(null);
@@ -178,7 +180,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                     new Utility().showErrorDialog(getActivity(), result);
                 }
             } else {//Success
-                if(listAds.size()>0){
+                if (listAds.size() > 0) {
                     listAds.clear();
                 }
                 DataPojo dataPojo = result.getData();
@@ -200,8 +202,8 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
         try {
 
             if (result.getStatus_code() == 400) {
-                isDataLoaded=true;
-                if(mProgressBar!=null) {
+                isDataLoaded = true;
+                if (mProgressBar != null) {
                     if (mProgressBar.getVisibility() == View.VISIBLE) {
                         mProgressBar.setVisibility(View.INVISIBLE);
                     }
@@ -209,15 +211,15 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                 //Error
                 ErrorPojo errorPojo = result.getError();
                 if (errorPojo.getError_code().equals("533")) {
-                        mRvAds.setAdapter(null);
-                        mTvNoAdsFound.setVisibility(View.VISIBLE);
-                        mRvAds.setVisibility(View.GONE);
+                    mRvAds.setAdapter(null);
+                    mTvNoAdsFound.setVisibility(View.VISIBLE);
+                    mRvAds.setVisibility(View.GONE);
 
                 } else {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
             } else {//Success
-                if(listAds.size()>0) {
+                if (listAds.size() > 0) {
                     listAds.remove(listAds.size() - 1);
                     mUserAdapter.notifyItemRemoved(listAds.size());
                 }
@@ -225,12 +227,12 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                 listAds.addAll(dataPojo.getAppliedlist());
                 beforeFilterListAds.addAll(listAds);
                 if (listAds.size() > 0) {
-                    if(!isLoadMore){
+                    if (!isLoadMore) {
                         setDataToList();
-                        isLoadMore=true;
-                    }else{
-                        isDataLoaded=true;
-                        if(mProgressBar!=null) {
+                        isLoadMore = true;
+                    } else {
+                        isDataLoaded = true;
+                        if (mProgressBar != null) {
                             if (mProgressBar.getVisibility() == View.VISIBLE) {
                                 mProgressBar.setVisibility(View.INVISIBLE);
                             }
@@ -250,7 +252,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
     private void setDataToList() {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRvAds.setLayoutManager(mLayoutManager);
-        mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.awaited_ads),mRvAds);
+        mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.awaited_ads), mRvAds);
         mRvAds.setAdapter(mUserAdapter);
         mRvAds.setHasFixedSize(true);
     }
@@ -267,14 +269,14 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
         switch (item.getItemId()) {
             case R.id.action_search:
                 //do sth here
-                searchView = (SearchView) MenuItemCompat.getActionView(item);
+                mSearchView = (SearchView) MenuItemCompat.getActionView(item);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-                searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+                mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        Utility.hideKeyboard(getActivity(), searchView);
-                        searchView.clearFocus();
+                        Utility.hideKeyboard(getActivity(), mSearchView);
+                        mSearchView.clearFocus();
 //                        Webservice Call
 //                        Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
@@ -320,7 +322,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
         if (isVisibleToUser && !_areLecturesLoaded) {
             getActiveAds(true);
             _areLecturesLoaded = true;
-        }else {
+        } else {
             if (listAds != null) {
                 listAds.clear();
                 listAds.addAll(beforeFilterListAds);

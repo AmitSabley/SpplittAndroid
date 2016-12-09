@@ -49,13 +49,14 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
     boolean _areLecturesLoaded = false;
     TextView mTvNoAdsFound;
     LinearLayout mLlLoading;
-    int mPageNo=1;
+    int mPageNo = 1;
     int mPosition;
-    MyAdsListAdapter  mUserAdapter;
+    MyAdsListAdapter mUserAdapter;
     boolean isLoadMore;
     ProgressBar mProgressBar;
     SearchView searchView;
     public static boolean isDataLoaded;
+
     public static CompleteAdsFragment newInstance() {
         CompleteAdsFragment fragment = new CompleteAdsFragment();
         return fragment;
@@ -71,12 +72,14 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
             setHasOptionsMenu(true);
 
             Bundle mBundle = this.getArguments();
-            if (mBundle != null) {//u are coming from categories to view ads
+            if (mBundle != null) {
+                // Call from categories to view ads
                 mCatId = mBundle.getString("cat_id", "");
-            } else {// u are coming from view event ads
+            } else {
+                // Call from view event ads
                 mCatId = "1";
             }
-//            getActiveAds();
+            //  getActiveAds();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,7 +92,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
 //            Webservice Call
 //            Step 1, Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerCompleteAd);
-            // Step 2, Call Webservice Method
+//            Step 2, Call Webservice Method
             WebServiceClient.getMyAdsList(getActivity(), activeAdsPayload(), showProgress, 1, responseHandlerListenerCompleteAd);
 
         } catch (Exception e) {
@@ -97,11 +100,12 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
         }
 
     }
+
     @Override
     public void setUpLayouts() {
         try {
             mRvAds = (RecyclerView) mView.findViewById(R.id.rv_ads);
-            mLlLoading=(LinearLayout)mView.findViewById(R.id.ll_loading_more);
+            mLlLoading = (LinearLayout) mView.findViewById(R.id.ll_loading_more);
             mTvNoAdsFound = (TextView) mView.findViewById(R.id.tv_no_ads_found);
             mTvNoAdsFound.setVisibility(View.GONE);
         } catch (Exception e) {
@@ -134,7 +138,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
                 userData.put("auth_token", PreferenceHandler.readString(getActivity(), PreferenceHandler.AUTH_TOKEN, ""));
                 userData.put("ads_type", "completed");
                 userData.put("cat_id", "");
-                userData.put("page_no",mPageNo );
+                userData.put("page_no", mPageNo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -153,10 +157,12 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerCompleteAd);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //to get categories list
                             getAdsData(result);
                             break;
-                        case 2:  //to search ad list
+                        case 2:
+                            //to search ad list
                             getSearchAdsData(result);
                             break;
                     }
@@ -174,9 +180,10 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
             }
         }
     };
+
     private void getSearchAdsData(ResponsePojo result) {
         try {
-            if(searchView!=null) {
+            if (searchView != null) {
                 Utility.hideKeyboard(getActivity(), searchView);
             }
             if (result.getStatus_code() == 400) {
@@ -188,8 +195,9 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
                 if (!errorPojo.getError_code().equals("533")) {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
-            } else {//Success
-                if(completelistAds.size()>0){
+            } else {
+                //Success
+                if (completelistAds.size() > 0) {
                     completelistAds.clear();
                 }
                 DataPojo dataPojo = result.getData();
@@ -208,44 +216,45 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
             e.printStackTrace();
         }
     }
+
     private void getAdsData(ResponsePojo result) {
         try {
             if (result.getStatus_code() == 400) {
-                isDataLoaded=true;
+                isDataLoaded = true;
                 //Error
-                ErrorPojo errorPojo=result.getError();
-                if(errorPojo.getError_code().equals("533")){
+                ErrorPojo errorPojo = result.getError();
+                if (errorPojo.getError_code().equals("533")) {
 
-                    if(mPageNo>1){
+                    if (mPageNo > 1) {
 
-                        if(mLlLoading.getVisibility()==View.VISIBLE){
+                        if (mLlLoading.getVisibility() == View.VISIBLE) {
                             mLlLoading.setVisibility(View.GONE);
 
                         }
-                    }else {
+                    } else {
                         mRvAds.setAdapter(null);
                         mTvNoAdsFound.setVisibility(View.VISIBLE);
                         mRvAds.setVisibility(View.GONE);
                     }
-                }else{
+                } else {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
             } else {//Success
-                if(completelistAds.size()>0) {
+                if (completelistAds.size() > 0) {
                     completelistAds.remove(completelistAds.size() - 1);
                     mUserAdapter.notifyItemRemoved(completelistAds.size());
                 }
                 DataPojo dataPojo = result.getData();
-                mPosition=dataPojo.getTotal_page();
+                mPosition = dataPojo.getTotal_page();
                 completelistAds.addAll(dataPojo.getAdsList());
                 beforeFilterCompletelistAds.addAll(completelistAds);
                 if (completelistAds.size() > 0) {
-                    if(!isLoadMore){
+                    if (!isLoadMore) {
                         setDataToList();
-                        isLoadMore=true;
-                    }else{
-                        isDataLoaded=true;
-                        if(mProgressBar!=null) {
+                        isLoadMore = true;
+                    } else {
+                        isDataLoaded = true;
+                        if (mProgressBar != null) {
                             if (mProgressBar.getVisibility() == View.VISIBLE) {
                                 mProgressBar.setVisibility(View.INVISIBLE);
                             }
@@ -270,7 +279,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
         mUserAdapter = new MyAdsListAdapter(getActivity(), completelistAds, getResources().getString(R.string.complete_ads), mRvAds);
         mRvAds.setAdapter(mUserAdapter);
         mRvAds.setHasFixedSize(true);
-        if(mLlLoading.getVisibility()==View.VISIBLE){
+        if (mLlLoading.getVisibility() == View.VISIBLE) {
             mUserAdapter.notifyDataSetChanged();
             mUserAdapter.setLoaded();
             mLlLoading.setVisibility(View.GONE);
@@ -278,14 +287,14 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
         mUserAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                isDataLoaded=false;
+                isDataLoaded = false;
 
                 completelistAds.add(null);
                 mUserAdapter.notifyItemInserted(completelistAds.size() - 1);
-                if(mPageNo<mPosition) {
+                if (mPageNo < mPosition) {
                     mPageNo++;
                     getActiveAds(false);
-                }else{
+                } else {
                     isDataLoaded = true;
                 }
             }
@@ -316,7 +325,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
 //                        Webservice Call
 //                        Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerCompleteAd);
-                        // Step 2, Call Webservice Method
+//                        Step 2, Call Webservice Method
                         WebServiceClient.getSearchMyAdsList(getActivity(), searchAdListPayload(query), true, 2, responseHandlerListenerCompleteAd);
 
                         return false;
@@ -356,19 +365,18 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.e("=====","complee");
+        Log.e("=====", "complee");
         if (isVisibleToUser && !_areLecturesLoaded) {
             getActiveAds(true);
             _areLecturesLoaded = true;
+        } else {
+            if (completelistAds != null) {
+                completelistAds.clear();
+                completelistAds.addAll(beforeFilterCompletelistAds);
+            }
+            if (mUserAdapter != null) {
+                mUserAdapter.notifyDataSetChanged();
+            }
         }
-     else {
-        if (completelistAds != null) {
-            completelistAds.clear();
-            completelistAds.addAll(beforeFilterCompletelistAds);
-        }
-        if (mUserAdapter != null) {
-            mUserAdapter.notifyDataSetChanged();
-        }
-    }
     }
 }

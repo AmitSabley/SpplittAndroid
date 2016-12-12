@@ -11,11 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.igniva.spplitt.R;
@@ -23,17 +20,12 @@ import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.model.CategoriesListPojo;
-import com.igniva.spplitt.model.CityListPojo;
-import com.igniva.spplitt.model.CountriesListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.CityActivity;
 import com.igniva.spplitt.ui.activties.CountryActivity;
 import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.activties.SplashActivity;
 import com.igniva.spplitt.ui.activties.StateActivity;
-import com.igniva.spplitt.ui.activties.ViewAdsActivity;
-import com.igniva.spplitt.ui.adapters.CountryListAdapter;
 import com.igniva.spplitt.ui.views.MultiSpinner;
 import com.igniva.spplitt.utils.Constants;
 import com.igniva.spplitt.utils.PreferenceHandler;
@@ -45,12 +37,9 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableMap;
-import java.util.TreeMap;
 
 /**
  * Created by igniva-php-08 on 18/5/16.
@@ -82,6 +71,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
     boolean isDateGreater;
     boolean isCategoriesLoaded;
     boolean showStaticFields;
+
     public static SetMyPreferencesFragment newInstance() {
         SetMyPreferencesFragment fragment = new SetMyPreferencesFragment();
         return fragment;
@@ -94,18 +84,19 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
         setHasOptionsMenu(true);
         in = getActivity().getIntent();
 
-        //coming from city adapter
-        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 1)==2){
-            showStaticFields=true;
+        //Call from city adapter
+        if (PreferenceHandler.readInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 1) == 2) {
+            showStaticFields = true;
         }
         setUpLayouts();
         setDataInViewLayouts();
         PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 1);
-        //         Webservice Call
+
+//         Webservice Call
         isCategoriesLoaded = false;
-        //         Step 1, Register Callback Interface
+//         Step 1, Register Callback Interface
         WebNotificationManager.registerResponseListener(responseHandlerListenerPostAD);
-        // Step 2, Call Webservice Method
+//         Step 2, Call Webservice Method
         WebServiceClient.getCategoriesList(getContext(), postAdGetCategoriesPayload(), true, 1, responseHandlerListenerPostAD);
 
         return view;
@@ -124,29 +115,13 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
         mTvCities.setOnClickListener(this);
         mBtnSubmitSetPref = (Button) view.findViewById(R.id.btn_submit_set_pref);
         mBtnSubmitSetPref.setOnClickListener(this);
-//        mSpCountries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                try {
-////                    if (isCategoriesLoaded)
-////                        getCitiesFromCountry(i);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//        setCountries();
+
     }
 
     @Override
     public void setDataInViewLayouts() {
 
-        if(showStaticFields) {
+        if (showStaticFields) {
             if (dateRange != null) {
                 mEtDateRange.setText(dateRange);
             }
@@ -210,11 +185,11 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
             case R.id.btn_submit_set_pref:
                 boolean val = new Validations().isValidateSetPreferences(getActivity(), mMspCategories, isCategoryItemSelected, countryId, stateId, cityId, isDateGreater, mEtDateRange);
                 if (val) {
-                    // Step 2, Call Webservice Method
                     mBtnSubmitSetPref.setClickable(false);
-                    //         Webservice Call
+//         Webservice Call
 //         Step 1, Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListenerPostAD);
+//         Step 2, Call Webservice Method
                     WebServiceClient.setMyPreferences(getActivity(), createSetPrefrencesPayload(), true, 4, responseHandlerListenerPostAD);
                 }
                 break;
@@ -225,7 +200,6 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
                     Intent in = new Intent(getActivity(), CountryActivity.class);
                     in.putExtra("from", "3");
                     startActivity(in);
-//                    startActivityForResult(in, 2);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -296,7 +270,8 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerPostAD);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //to get categories list
                             getCategoriesData(result);
                             isCategoriesLoaded = true;
                             // Get Cities from country
@@ -308,7 +283,8 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
 //                        case 3://to get cities list
 //                            getCitiesData(result);
 //                            break;
-                        case 4://to set preferences
+                        case 4:
+                            //to set preferences
                             mBtnSubmitSetPref.setClickable(true);
                             setPreferences(result);
                             break;
@@ -363,7 +339,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
 
                 Map<String, Boolean> items = new LinkedHashMap<>();
 
-                if(showStaticFields) {
+                if (showStaticFields) {
                     if (mArrayListSelectedCategories.size() > 0) {
                         for (int i = 0; i < mArrayListCategories.size(); i++) {
                             for (int j = 0; j < mArrayListSelectedCategories.size(); j++) {
@@ -383,7 +359,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
 
                             @Override
                             public void onItemsSelected(boolean[] selected) {
-                        mArrayListSelectedCategories.clear();
+                                mArrayListSelectedCategories.clear();
                                 isCategoryItemSelected = false;
                                 // your operation with code...
                                 for (int i = 0; i < selected.length; i++) {
@@ -395,7 +371,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
                             }
                         });
 
-                    }else{
+                    } else {
                         for (String item : mArrayListCategories) {
                             items.put(item, Boolean.FALSE);
                         }
@@ -416,7 +392,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
                         });
                     }
 
-                }else{
+                } else {
                     for (String item : mArrayListCategories) {
                         items.put(item, Boolean.FALSE);
                     }
@@ -473,7 +449,8 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
         if (result.getStatus_code() == 400) {
             //Error
             new Utility().showErrorDialog(getActivity(), result);
-        } else {//Success
+        } else {
+            //Success
             new Utility().showSuccessDialog(getActivity(), result);
             mTvCountries.setText(getResources().getString(R.string.select_your_country));
             mTvStates.setText(getResources().getString(R.string.select_your_state));
@@ -515,7 +492,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
             case R.id.mn_reset_pref:
                 //         Step 1, Register Callback Interface
                 WebNotificationManager.registerResponseListener(responseHandlerListenerPostAD);
-                // Step 2, Call Webservice Method
+//          Step 2, Call Webservice Method
                 WebServiceClient.resetPref(getContext(), resetPrefPayload(), true, 4, responseHandlerListenerPostAD);
 
                 return true;
@@ -523,6 +500,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
         return false;
     }
 
+    //  Reset UserId and Token in preferences
     private String resetPrefPayload() {
         String payload = null;
         try {

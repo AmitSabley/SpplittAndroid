@@ -85,11 +85,13 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
         }
     }
 
+   // Create Contact payload
     private String createContactUsPayload() {
         String payload = null;
         try {
             JSONObject userData = new JSONObject();
             try {
+
                 userData.put("user_id", PreferenceHandler.readString(getActivity(), PreferenceHandler.USER_ID, ""));
                 userData.put("auth_token", PreferenceHandler.readString(getActivity(), PreferenceHandler.AUTH_TOKEN, ""));
                 userData.put("username", PreferenceHandler.readString(getActivity(), PreferenceHandler.USER_NAME, ""));
@@ -99,7 +101,7 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
                 e.printStackTrace();
             }
 
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

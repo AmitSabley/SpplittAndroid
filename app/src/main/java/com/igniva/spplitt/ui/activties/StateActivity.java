@@ -100,7 +100,7 @@ public class StateActivity extends BaseActivity {
                 if (firstVisibleItemPosition != 0) {
                     // this avoids trying to handle un-needed calls
                     if (firstVisibleItemPosition == -1)
-                        //not initialized, or no items shown, so hide fast-scroller
+                    //not initialized, or no items shown, so hide fast-scroller
                         fastScroller.setVisibility(View.GONE);
                     return;
                 }
@@ -126,24 +126,26 @@ public class StateActivity extends BaseActivity {
     private void setCitiesList() {
         try {
             // Webservice Call
-            // Step 1, Register Callback Interface
+//          Step 1: Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListener);
-            // Step 2, Call Webservice Method
+//          Step 2: Call Webservice Method
             WebServiceClient.getStatesList(StateActivity.this, createStateListPayload(countryId), true, 1, responseHandlerListener);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    /////cities data
-    //saving data to json...
+
+//Country data
+//Saving data to json...
     private String createStateListPayload(String countryId) {
         String payload = null;
         try {
             JSONObject userData = new JSONObject();
             userData.put("country_id", countryId);
-
-            Log.e("rseponse", "" + userData);
+//          URL: http://spplitt.ignivastaging.com/countries/getStates
+//          Payload: {"country_id":"2"}
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -155,7 +157,8 @@ public class StateActivity extends BaseActivity {
         public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
             WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
             switch (mUrlNo) {
-                case 1://to get countries list
+                case 1:
+                    //To retreive countries list
                     if (error == null) {
                         getStatesData(result);
                     } else {

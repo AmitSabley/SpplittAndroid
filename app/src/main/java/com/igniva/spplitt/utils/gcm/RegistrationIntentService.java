@@ -5,7 +5,6 @@ package com.igniva.spplitt.utils.gcm;
  */
 
 import android.app.IntentService;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -16,20 +15,7 @@ import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.igniva.spplitt.R;
-import com.igniva.spplitt.controller.ResponseHandlerListener;
-import com.igniva.spplitt.controller.WebNotificationManager;
-import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.ResponsePojo;
-import com.igniva.spplitt.ui.activties.CreateAccountActivity;
-import com.igniva.spplitt.ui.activties.ForgotPasswordActivity;
-import com.igniva.spplitt.ui.activties.LoginOptionActivity;
-import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.fragments.EditProfileFragment;
 import com.igniva.spplitt.utils.PreferenceHandler;
-import com.igniva.spplitt.utils.Utility;
-
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -104,6 +90,7 @@ public class RegistrationIntentService extends IntentService {
         // Add custom implementation, as needed.
 
         Log.d(TAG, " gcm token is " + token);
+        //gcm token is: cLFjuPuKjd4:APA91bGDLmQ-epCRs8jgwJyiXCrDk0Ir1VjK5JkVn627MuWRQO2TRSRMuKIShSlwM8y3ei5ZiHY1Brj_mse5lOiSZ_-Muo99xkS0f20sYUepOL_FgA649qTfaCuOD9QqBJNT_GVZ8vo1
     }
 
     /**

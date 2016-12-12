@@ -268,7 +268,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_search:
-                //do sth here
+                //Do Search here
                 searchView = (SearchView) MenuItemCompat.getActionView(item);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -278,9 +278,9 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                         Utility.hideKeyboard(getActivity(), searchView);
                         searchView.clearFocus();
 //                        Webservice Call
-//                        Step 1, Register Callback Interface
+//                        Step 1: Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-                        // Step 2, Call Webservice Method
+ //                       Step 2: Call Webservice Method
                         WebServiceClient.getSearchAppliedAdsList(getActivity(), searchAdListPayload(query), true, 2, responseHandlerListenerViewAD);
                         return false;
                     }

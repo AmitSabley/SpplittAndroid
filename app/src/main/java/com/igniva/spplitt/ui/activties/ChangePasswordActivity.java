@@ -13,14 +13,11 @@ import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Validations;
 
 import org.json.JSONObject;
-
-import java.util.LinkedHashMap;
 
 
 /**
@@ -39,7 +36,7 @@ public class ChangePasswordActivity extends BaseActivity {
         in = getIntent();
 
 
-        //set Layouts
+//         set Layouts
         setUpLayouts();
 //        setFontStyle();
         setDataInViewLayouts();
@@ -65,10 +62,10 @@ public class ChangePasswordActivity extends BaseActivity {
             case R.id.btn_change_password:
                 boolean val = new Validations().isValidateResetPassword(getApplicationContext(), mEtNewPassword);
                 if (val) {
-                    // Webservice Call
-                    // Step 1, Register Callback Interface
+ //                 Webservice Call
+//                  Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListener);
-                    // Step 2, Call Webservice Method
+//                  Step 2: Call Webservice Method
                     WebServiceClient.changePasswordWhenForgot(this, createChangePasswordPayload(), true, 1,responseHandlerListener);
                 }
                 break;
@@ -76,22 +73,6 @@ public class ChangePasswordActivity extends BaseActivity {
 
     }
 
-//    @Override
-//    public void setFontStyle() {
-//        int[] arrayFont = {R.id.tv_reset_password_text, R.id.et_new_password};
-//        TextView textValue;
-//        for (int i = 0; i < arrayFont.length; i++) {
-//            textValue = (TextView) findViewById(arrayFont[i]);
-//            FontsView.changeFontStyle(getApplicationContext(), textValue);
-//        }
-//
-//        int[] arrayFontRegular = {R.id.tv_reset_password, R.id.btn_change_password, R.id.toolbar_tv_text};
-//        TextView textValueRegular;
-//        for (int i = 0; i < arrayFontRegular.length; i++) {
-//            textValueRegular = (TextView) findViewById(arrayFontRegular[i]);
-//            FontsView.changeFontStyleRegular(getApplicationContext(), textValueRegular);
-//        }
-//    }
 
     private String createChangePasswordPayload() {
         String payload = null;

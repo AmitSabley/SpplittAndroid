@@ -1,6 +1,5 @@
 package com.igniva.spplitt.ui.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,21 +10,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.activties.ViewAdsActivity;
 import com.igniva.spplitt.utils.Constants;
 
 /**
  * Created by igniva-php-08 on 18/5/16.
  */
-public class ManageMyAdsFragment extends BaseFragment implements View.OnClickListener{
+public class ManageMyAdsFragment extends BaseFragment implements View.OnClickListener {
     View mView;
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
@@ -42,7 +37,6 @@ public class ManageMyAdsFragment extends BaseFragment implements View.OnClickLis
         mView = inflater.inflate(R.layout.fragment_manage_my_ads, container, false);
         try {
             setHasOptionsMenu(true);
-
             setUpLayouts();
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +79,8 @@ public class ManageMyAdsFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View view) {
         NavigationView navigationView = (NavigationView) MainActivity.main.findViewById(R.id.nav_view);
         switch (view.getId()) {
-            case R.id.btn_post_ad://to go at post ad
+            case R.id.btn_post_ad:
+                //to go at post ad
                 ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(4));
                 break;
         }

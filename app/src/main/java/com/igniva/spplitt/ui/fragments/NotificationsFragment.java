@@ -1,25 +1,16 @@
 package com.igniva.spplitt.ui.fragments;
 
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,14 +19,11 @@ import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.AdsListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ErrorPojo;
 import com.igniva.spplitt.model.NotificationListPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.adapters.AdsListAdapter;
-import com.igniva.spplitt.ui.adapters.MyAdsListAdapter;
 import com.igniva.spplitt.ui.adapters.NotificationsListAdapter;
 import com.igniva.spplitt.utils.Constants;
 import com.igniva.spplitt.utils.Log;
@@ -89,7 +77,7 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
 //            Webservice Call
 //         Step 1, Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-            // Step 2, Call Webservice Method
+//         Step 2, Call Webservice Method
             WebServiceClient.getNotificationsList(getContext(), getNotificationsPayload(), showProgress, 1, responseHandlerListenerViewAD);
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +95,9 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            //URL: http://spplitt.ignivastaging.com/notifications/getUserNotification
+            //Payload: {"user_id":"19","auth_token":"Y8BCRO1WK8MU","page_no":1}
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -150,7 +140,8 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerViewAD);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+                            //to get categories list
                             getAdsData(result);
                             break;
                     }

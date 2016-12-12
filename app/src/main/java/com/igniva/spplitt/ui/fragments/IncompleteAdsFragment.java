@@ -73,9 +73,11 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
             setHasOptionsMenu(true);
 
             Bundle mBundle = this.getArguments();
-            if (mBundle != null) {//u are coming from categories to view ads
+            if (mBundle != null) {
+                //Call from categories to view ads
                 mCatId = mBundle.getString("cat_id", "");
-            } else {// u are coming from view event ads
+            } else {
+                //Call from view event ads
                 mCatId = "1";
             }
 //            getActiveAds();
@@ -141,7 +143,7 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

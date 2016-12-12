@@ -81,6 +81,7 @@ public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 
 }
 
+// Set time as Dialog Title
 private void updateDialogTitle(TimePicker timePicker, int hourOfDay, int minute) {
     calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
     calendar.set(Calendar.MINUTE, minute);

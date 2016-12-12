@@ -73,6 +73,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
     boolean showStaticFields;
     static CheckBox mCbTerms;
     TextView mTvTerms;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,14 +84,14 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
-            //coming from city adapter
-            if(PreferenceHandler.readInteger(this, PreferenceHandler.SHOW_EDIT_PROFILE, 1)==10){
-                showStaticFields=true;
+            //Call from city adapter
+            if (PreferenceHandler.readInteger(this, PreferenceHandler.SHOW_EDIT_PROFILE, 1) == 10) {
+                showStaticFields = true;
             }
             PreferenceHandler.writeInteger(this, PreferenceHandler.SHOW_EDIT_PROFILE, 1);
             createAccount = this;
 
-            //to open ot screen
+            //To open otp screen
             if (PreferenceHandler.readInteger(this, PreferenceHandler.OTP_SCREEN_NO, 0) == 1) {
                 startActivity(new Intent(getApplicationContext(), OtpConfirmationActivity.class));
             }
@@ -109,10 +110,11 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
             WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
             switch (mUrlNo) {
-                case 3://for creating account of a user
+                case 3:
+                    //For creating account of a user
                     mBtnRegister.setClickable(true);
                     if (error == null) {
-                        // Succes Case
+                        // Success Case
                         createUserAccount(result);
                     } else {
                         // TODO display error dialog
@@ -138,12 +140,10 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         mTvStates = (TextView) findViewById(R.id.tv_states);
         mTvCountries = (TextView) findViewById(R.id.tv_countries);
         mBtnRegister = (Button) findViewById(R.id.btn_register);
-        mCbTerms=(CheckBox)findViewById(R.id.cb_terms);
-        mTvTerms=(TextView)findViewById(R.id.tv_terms);
+        mCbTerms = (CheckBox) findViewById(R.id.cb_terms);
+        mTvTerms = (TextView) findViewById(R.id.tv_terms);
         Utility.hideKeyboard(getApplicationContext(), mEtUsername);
     }
-
-
 
 
     @Override
@@ -151,41 +151,41 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         mToolbarTvText.setText(getResources().getString(R.string.register));
         String redString = getResources().getString(R.string.check_terms);
         mTvTerms.setText(Html.fromHtml(redString));
-        if(showStaticFields){
-            if(myBitmap!=null){
+        if (showStaticFields) {
+            if (myBitmap != null) {
                 mRivUserImage.setImageBitmap(myBitmap);
             }
 
-        if (in != null) {
+            if (in != null) {
 
-            if(in.hasExtra("countryId")) {
-                countryId = in.getStringExtra("countryId");
-                countryName=in.getStringExtra("countryName");
-                mTvCountries.setText(countryName);
+                if (in.hasExtra("countryId")) {
+                    countryId = in.getStringExtra("countryId");
+                    countryName = in.getStringExtra("countryName");
+                    mTvCountries.setText(countryName);
+                }
+                if (in.hasExtra("stateId")) {
+                    stateId = in.getStringExtra("stateId");
+                    stateName = in.getStringExtra("stateName");
+                    mTvStates.setText(stateName);
+                }
+                if (in.hasExtra("cityId")) {
+                    cityId = in.getStringExtra("cityId");
+                    mTvCities.setText(in.getStringExtra("cityName"));
+                }
+                if (in.hasExtra("userName")) {
+                    mEtUsername.setText(in.getStringExtra("userName"));
+                }
+                if (in.hasExtra("userPassword")) {
+                    mEtPassword.setText(in.getStringExtra("userPassword"));
+                }
+                if (in.hasExtra("userEmail")) {
+                    mEtEmail.setText(in.getStringExtra("userEmail"));
+                }
+                if (in.hasExtra("userGender")) {
+                    mRbSelected = (RadioButton) findViewById(in.getIntExtra("userGender", 0));
+                    mRbSelected.setChecked(true);
+                }
             }
-            if(in.hasExtra("stateId")) {
-                stateId = in.getStringExtra("stateId");
-                stateName=in.getStringExtra("stateName");
-                mTvStates.setText(stateName);
-            }
-            if(in.hasExtra("cityId")) {
-                cityId = in.getStringExtra("cityId");
-                mTvCities.setText(in.getStringExtra("cityName"));
-            }
-            if(in.hasExtra("userName")) {
-                mEtUsername.setText(in.getStringExtra("userName"));
-            }
-            if(in.hasExtra("userPassword")) {
-                mEtPassword.setText(in.getStringExtra("userPassword"));
-            }
-            if(in.hasExtra("userEmail")) {
-                mEtEmail.setText(in.getStringExtra("userEmail"));
-            }
-            if(in.hasExtra("userGender")) {
-                mRbSelected = (RadioButton) findViewById(in.getIntExtra("userGender", 0));
-                mRbSelected.setChecked(true);
-            }
-        }
         }
     }
 
@@ -207,10 +207,10 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 onBackPressed();
                 break;
             case R.id.btn_register:
-                boolean val = new Validations().isValidate(getApplicationContext(), mSvMmain, myBitmap, mRivUserImage, mEtUsername, mEtPassword, mEtEmail, countryId, stateId,cityId,mCbTerms);
+                boolean val = new Validations().isValidate(getApplicationContext(), mSvMmain, myBitmap, mRivUserImage, mEtUsername, mEtPassword, mEtEmail, countryId, stateId, cityId, mCbTerms);
                 if (val) {
                     mBtnRegister.setClickable(false);
-                    // Step 1, Register Callback Interface
+//              Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListener);
                     uploadBitmapAsMultipart();
                 }
@@ -231,45 +231,45 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                     in.putExtra("userGender", mRgGender.getCheckedRadioButtonId());
                     in.putExtra("from", "1");
                     startActivity(in);
-//                    startActivityForResult(in, 2);
-                }catch (Exception e){
+//                  startActivityForResult(in, 2);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.tv_states:
-                if(countryId!=null){
-                    Intent in=new Intent(CreateAccountActivity.this,StateActivity.class);
-                    in.putExtra("userName",mEtUsername.getText().toString());
-                    in.putExtra("userPassword",mEtPassword.getText().toString());
-                    in.putExtra("userEmail",mEtEmail.getText().toString());
-                    in.putExtra("userGender",mRgGender.getCheckedRadioButtonId());
-                    in.putExtra("country_id",countryId);
-                    in.putExtra("country_name",countryName);
+                if (countryId != null) {
+                    Intent in = new Intent(CreateAccountActivity.this, StateActivity.class);
+                    in.putExtra("userName", mEtUsername.getText().toString());
+                    in.putExtra("userPassword", mEtPassword.getText().toString());
+                    in.putExtra("userEmail", mEtEmail.getText().toString());
+                    in.putExtra("userGender", mRgGender.getCheckedRadioButtonId());
+                    in.putExtra("country_id", countryId);
+                    in.putExtra("country_name", countryName);
                     in.putExtra("from", "1");
                     startActivity(in);
-                }else{
-                    Utility.showToastMessageShort(this,getResources().getString(R.string.msg_select_country));
+                } else {
+                    Utility.showToastMessageShort(this, getResources().getString(R.string.msg_select_country));
                 }
                 break;
             case R.id.tv_cities:
-                if(stateId!=null){
-                    Intent in=new Intent(CreateAccountActivity.this,CityActivity.class);
-                    in.putExtra("userName",mEtUsername.getText().toString());
-                    in.putExtra("userPassword",mEtPassword.getText().toString());
-                    in.putExtra("userEmail",mEtEmail.getText().toString());
-                    in.putExtra("userGender",mRgGender.getCheckedRadioButtonId());
-                    in.putExtra("countryId",countryId);
-                    in.putExtra("countryName",countryName);
-                    in.putExtra("stateId",stateId);
-                    in.putExtra("stateName",stateName);
+                if (stateId != null) {
+                    Intent in = new Intent(CreateAccountActivity.this, CityActivity.class);
+                    in.putExtra("userName", mEtUsername.getText().toString());
+                    in.putExtra("userPassword", mEtPassword.getText().toString());
+                    in.putExtra("userEmail", mEtEmail.getText().toString());
+                    in.putExtra("userGender", mRgGender.getCheckedRadioButtonId());
+                    in.putExtra("countryId", countryId);
+                    in.putExtra("countryName", countryName);
+                    in.putExtra("stateId", stateId);
+                    in.putExtra("stateName", stateName);
                     in.putExtra("from", "1");
                     startActivity(in);
-                }else{
-                    Utility.showToastMessageShort(this,getResources().getString(R.string.msg_select_country_state));
+                } else {
+                    Utility.showToastMessageShort(this, getResources().getString(R.string.msg_select_country_state));
                 }
                 break;
             case R.id.tv_terms:
-                Intent in=new Intent(CreateAccountActivity.this,TermsOfUseActivity.class);
+                Intent in = new Intent(CreateAccountActivity.this, TermsOfUseActivity.class);
                 startActivity(in);
                 break;
         }
@@ -292,13 +292,13 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
             super.onActivityResult(requestCode, resultCode, data);
             if (resultCode == 10) {
 //                if(resultCode == Activity.RESULT_OK){
-                    Log.v("======",data+"");
-                    String result=data.getStringExtra("result");
-                    Log.v("======",result);
-                    Utility.showToastMessageShort(this,result);
+                Log.v("======", data + "");
+                String result = data.getStringExtra("result");
+                Log.v("======", result);
+                Utility.showToastMessageShort(this, result);
 //                }
 
-            }else {
+            } else {
                 Uri selectedImageURI = null;
                 if (data != null) {
                     selectedImageURI = data.getData();
@@ -360,11 +360,11 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         }
     }
 
-    //saving data to json...
+//        Saving data to json...
     private String createSignUpPayload(String pictureUrl) {
         String payload = null;
         try {
-             //get gender
+            //         get gender
             int selectedId = mRgGender.getCheckedRadioButtonId();
             mRbSelected = (RadioButton) findViewById(selectedId);
             String mGender = "";
@@ -374,7 +374,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 mGender = "f";
             }
 
-            //get registration_by
+//          Get registration_by
             String registration_by = "";
             String email = "";
             String mobileno = "";
@@ -408,7 +408,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 e.printStackTrace();
             }
 
-            Log.e("response", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -418,13 +418,13 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
     }
 
 
-
     private void createUserAccount(ResponsePojo result) {
         try {
             if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(this, result);
-            } else {//Success
+            } else {
+                //Success
                 DataPojo dataPojo = result.getData();
 //                if (dataPojo.getRegistration_by().equals("email")) {
                 new Utility().showCreateAccountDialog(this, result);
@@ -455,19 +455,19 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
     }
 
     private void signUpUser(String result) {
-        // Step 2, Call Webservice Method
+//      Step 2: Call Webservice Method
         WebServiceClient.signUpUser(this, createSignUpPayload(result), true, 3, responseHandlerListener);
     }
 
-    /////cities data
-    //saving data to json...
+//  Cities data
+//  Saving data to json...
     private String createCityListPayload(String countryId) {
         String payload = null;
         try {
             JSONObject userData = new JSONObject();
             userData.put("country_id", countryId);
 
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -487,7 +487,6 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                     //TODO Ask for permission
                     Toast.makeText(CreateAccountActivity.this, "Please consider granting it storage permission",
                             Toast.LENGTH_LONG).show();
-
                 }
             }
 

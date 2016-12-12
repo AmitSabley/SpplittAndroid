@@ -10,17 +10,11 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,16 +29,12 @@ import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.model.CategoriesListPojo;
-import com.igniva.spplitt.model.CityListPojo;
-import com.igniva.spplitt.model.CountriesListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.CityActivity;
 import com.igniva.spplitt.ui.activties.CountryActivity;
 import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.activties.SplashActivity;
 import com.igniva.spplitt.ui.activties.StateActivity;
-import com.igniva.spplitt.ui.adapters.CountryListAdapter;
 import com.igniva.spplitt.utils.Constants;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
@@ -309,12 +299,13 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             case R.id.btn_submit_post_ad:
                 boolean val = new Validations().isValidatePostAd(getActivity(), mSpCategories, mEtAdTitle, mEtAdDesc, mEtSelectDate, mEtSelectTime, countryId, stateId, cityId, mEtSplittCost);
                 if (val) {
-                    // Step 2, Call Webservice Method
                     mBtnSubmitPostAd.setClickable(false);
-                    //         Webservice Call
-//         Step 1, Register Callback Interface
+//                  Webservice Call
+//                  Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListenerPostAD);
                     if (mAdEdit != null) {
+//                  Step 2: Call Webservice Method
+
                         if (mAdEdit.equals("edit")) {
                             WebServiceClient.editAd(getActivity(), editPostADPayload(), true, 4, responseHandlerListenerPostAD);
                         } else if (mAdEdit.equals("repost")) {
@@ -385,11 +376,11 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     }
 
     private String editPostADPayload() {
-        //get categoryid
+//      Get categoryid
         String categoryId = mArrayListCategoryId.get(mArrayListCategories.indexOf(mSpCategories.getSelectedItem().toString()));
         String payload = null;
-//        String countryId = listCountries.get(Integer.parseInt(mSpCountries.getSelectedItem().toString())).getCountry_id();
-//        String cityId = listCities.get(mArrayListCityName.indexOf(mSpCities.getSelectedItem())).getCity_id();
+//      String countryId = listCountries.get(Integer.parseInt(mSpCountries.getSelectedItem().toString())).getCountry_id();
+//      String cityId = listCities.get(mArrayListCityName.indexOf(mSpCities.getSelectedItem())).getCity_id();
 
         try {
             JSONObject userData = new JSONObject();
@@ -412,7 +403,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 e.printStackTrace();
             }
 
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -421,11 +412,11 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     }
 
     private String rePostADPayload() {
-        //get categoryid
+//      Get categoryid
         String categoryId = mArrayListCategoryId.get(mArrayListCategories.indexOf(mSpCategories.getSelectedItem().toString()));
         String payload = null;
-//        String countryId = listCountries.get(Integer.parseInt(mSpCountries.getSelectedItem().toString())).getCountry_id();
-//        String cityId = listCities.get(mArrayListCityName.indexOf(mSpCities.getSelectedItem())).getCity_id();
+//      String countryId = listCountries.get(Integer.parseInt(mSpCountries.getSelectedItem().toString())).getCountry_id();
+//      String cityId = listCities.get(mArrayListCityName.indexOf(mSpCities.getSelectedItem())).getCity_id();
 
         try {
             JSONObject userData = new JSONObject();
@@ -533,7 +524,6 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             mEtSelectTime.setTextColor(Color.BLACK);
             mEtSelectTime.setError(null);
             mEtSelectTime.clearFocus();
-//            mEtSelectTime.setE(true);
         }
     }
 
@@ -544,7 +534,8 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerPostAD);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get categories list
+                        case 1:
+//                          To retrieve categories list
                             getCategoriesData(result);
                             isCategoriesLoaded = true;
 //                            if (mBundle != null) {
@@ -564,7 +555,8 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
 //                        case 3://to get cities list
 //                            getCitiesData(result);
 //                            break;
-                        case 4://to post an ad
+                        case 4:
+                            //To post an ad
                             mBtnSubmitPostAd.setClickable(true);
                             postAdData(result);
                             break;
@@ -642,7 +634,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -655,9 +647,8 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(getContext(), result);
-            } else {//Success
-//                mArrayListCategories.clear();
-//                mArrayListCategoryId.clear();
+            } else {
+                //Success
                 DataPojo dataPojo = result.getData();
                 List<CategoriesListPojo> listCategories = new ArrayList<CategoriesListPojo>();
                 listCategories = dataPojo.getCategories();
@@ -676,12 +667,16 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
+        /**
+     * @param payload payload for post ad
+     */
+
     private String createPostADPayload() {
-        //get categoryid
+//      Get categoryid
         String categoryId = mArrayListCategoryId.get(mArrayListCategories.indexOf(mSpCategories.getSelectedItem().toString()));
         String payload = null;
-//        String countryId = listCountries.get(Integer.parseInt(mSpCountries.getSelectedItem().toString())).getCountry_id();
-//        String cityId = listCities.get(mArrayListCityName.indexOf(mSpCities.getSelectedItem())).getCity_id();
+//      String countryId = listCountries.get(Integer.parseInt(mSpCountries.getSelectedItem().toString())).getCountry_id();
+//      String cityId = listCities.get(mArrayListCityName.indexOf(mSpCities.getSelectedItem())).getCity_id();
 
         try {
             JSONObject userData = new JSONObject();
@@ -701,8 +696,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -714,10 +708,10 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         if (result.getStatus_code() == 400) {
             //Error
             new Utility().showErrorDialog(getActivity(), result);
-        } else {//Success
+        } else {
+            //Success
             new Utility().showSuccessDialog(getActivity(), result);
             viewsSetClickable(true);
-//            in.removeExtra("key");
             countryId = null;
             countryName = "";
             stateId=null;
@@ -735,18 +729,4 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
 
         }
     }
-
-//    /**
-//     * @param position position of country
-//     */
-//    void getCitiesFromCountry(int position) {
-//        // listCountries.get(position).getCountry_id();
-//        // Webservice Call
-//        // Step 1, Register Callback Interface
-//        WebNotificationManager.registerResponseListener(responseHandlerListenerPostAD);
-//        // Step 2, Call Webservice Method
-//        WebServiceClient.getCitiesList(getActivity(), createCityListPayload(listCountries.get(position).getCountry_id()), true, 3, responseHandlerListenerPostAD);
-//
-//    }
-
 }

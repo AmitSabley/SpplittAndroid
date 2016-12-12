@@ -75,9 +75,9 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
     private void getActiveAds(boolean showProgress) {
         try {
 //            Webservice Call
-//            Step 1, Register Callback Interface
+//            Step 1: Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-//            Step 2, Call Webservice Method
+//            Step 2: Call Webservice Method
             WebServiceClient.getMyAppliedAdsList(getActivity(), awaitedAdsPayload(), showProgress, 1, responseHandlerListenerViewAD);
 
         } catch (Exception e) {

@@ -42,7 +42,8 @@ public class CountryActivity extends BaseActivity {
     String userPassword;
     String userEmail;
     int userGender;
-    String from;//1=create account;2=edit profile;3=set prefernces;4=post ad;5=dashboard
+    String from;
+    //1=create account;2=edit profile;3=set prefernces;4=post ad;5=dashboard
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,13 +96,13 @@ public class CountryActivity extends BaseActivity {
                 if (firstVisibleItemPosition != 0) {
                     // this avoids trying to handle un-needed calls
                     if (firstVisibleItemPosition == -1)
-                        //not initialized, or no items shown, so hide fast-scroller
+                    // not initialized, or no items shown, so hide fast-scroller
                         fastScroller.setVisibility(View.GONE);
                     return;
                 }
                 final int lastVisibleItemPosition = findLastVisibleItemPosition();
                 int itemsShown = lastVisibleItemPosition - firstVisibleItemPosition + 1;
-                //if all items are shown, hide the fast-scroller
+                //If all items are shown, hide the fast-scroller
                 fastScroller.setVisibility(adapter.getItemCount() > itemsShown ? View.VISIBLE : View.GONE);
             }
         });
@@ -121,10 +122,10 @@ public class CountryActivity extends BaseActivity {
     private void setCountriesList() {
         try {
             if (SplashActivity.listCountries == null) {
-                // Webservice Call
-                // Step 1, Register Callback Interface
+//               Webservice Call
+//              Step 1: Register Callback Interface
                 WebNotificationManager.registerResponseListener(responseHandlerListener);
-                // Step 2, Call Webservice Method
+//              Step 2: Call Webservice Method
                 WebServiceClient.getCountriesList(this, "", true, 1, responseHandlerListener);
             } else {
                 listCountries = SplashActivity.listCountries;
@@ -141,7 +142,8 @@ public class CountryActivity extends BaseActivity {
         public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
             WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
             switch (mUrlNo) {
-                case 1://to get countries list
+                case 1:
+                    //to get countries list
                     if (error == null) {
                         getCountriesData(result);
                     } else {
@@ -160,7 +162,8 @@ public class CountryActivity extends BaseActivity {
             if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(this, result);
-            } else {//Success
+            } else {
+                //Success
                 DataPojo dataPojo = result.getData();
                 listCountries = dataPojo.getCountries();
                 setDataInViewLayouts();
@@ -210,21 +213,5 @@ public class CountryActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        try {
-//            super.onActivityResult(requestCode, resultCode, data);
-//            {
-//
-//                    Log.v("======",data+"");
-//                    String result=data.getStringExtra("result");
-//                    Log.v("======",result);
-//                    Utility.showToastMessageShort(this,result);
-//
-//
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+
 }

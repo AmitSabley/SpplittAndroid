@@ -13,16 +13,13 @@ import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.AdsListPojo;
 import com.igniva.spplitt.model.AdsPostedPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.adapters.AdsAppliedListdapter;
-import com.igniva.spplitt.ui.adapters.AdsListAdapter;
 import com.igniva.spplitt.utils.Log;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
-import com.igniva.spplitt.utils.Validations;
 
 import org.json.JSONObject;
 
@@ -50,9 +47,9 @@ public class AdsAppliedListActivity extends BaseActivity{
         mAdType=in.getStringExtra("ads_type");
 
 //         Webservice Call
-//         Step 1, Register Callback Interface
+//         Step 1: Register Callback Interface
         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-        // Step 2, Call Webservice Method
+//         Step 2: Call Webservice Method
         WebServiceClient.getAdsList(this, postAdGetCategoriesPayload(), true, 1, responseHandlerListenerViewAD);
 
         setUpLayouts();
@@ -92,7 +89,7 @@ public class AdsAppliedListActivity extends BaseActivity{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -106,10 +103,10 @@ public class AdsAppliedListActivity extends BaseActivity{
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerViewAD);
                 if (error == null) {
                     switch (mUrlNo) {
-                        case 1://to get ads list
+                        case 1:
+                            //to get ads list
                             getAdsData(result);
                             break;
-
                     }
                 } else {
                     // TODO display error dialog
@@ -131,7 +128,8 @@ public class AdsAppliedListActivity extends BaseActivity{
                 mRvAds.setAdapter(null);
                 //Error
                 new Utility().showErrorDialog(AdsAppliedListActivity.this, result);
-            } else {//Success
+            } else {
+                //Success
                 DataPojo dataPojo = result.getData();
                 List<AdsPostedPojo> listAds = new ArrayList<AdsPostedPojo>();
                 listAds = dataPojo.getAdsPostedList();

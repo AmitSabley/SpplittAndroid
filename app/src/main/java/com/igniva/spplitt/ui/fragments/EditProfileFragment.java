@@ -486,7 +486,9 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.v("rseponse", "" + userData);
+            //Payload: {"user_id":"19","auth_token":"Y8BCRO1WK8MU","profile_type":"update","first_name":"","last_name":"","city":"6019","state_id":"74","country":"2","postal_code":"","is_age_public":"1","age":"22","gender":"f","username":"harry","picture":"img\/user\/200*200\/1478692866_img_20161109_125112047.jpg"}
+            //URL : http://spplitt.ignivastaging.com/users/getProfile
+            Log.v("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

@@ -24,7 +24,6 @@ import com.igniva.spplitt.model.CityListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.adapters.CityAdapter;
-import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
 
 import org.json.JSONObject;
@@ -108,7 +107,7 @@ public class CityActivity extends BaseActivity {
                 if (firstVisibleItemPosition != 0) {
                     // this avoids trying to handle un-needed calls
                     if (firstVisibleItemPosition == -1)
-                        //not initialized, or no items shown, so hide fast-scroller
+                    //not initialized, or no items shown, so hide fast-scroller
                         fastScroller.setVisibility(View.GONE);
                     return;
                 }
@@ -133,25 +132,26 @@ public class CityActivity extends BaseActivity {
 
     private void setCitiesList() {
         try {
-            // Webservice Call
-            // Step 1, Register Callback Interface
+//           Webservice Call
+//          Step 1: Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListener);
-            // Step 2, Call Webservice Method
+//          Step 2: Call Webservice Method
             WebServiceClient.getCitiesList(CityActivity.this, createCityListPayload(stateId), true, 1, responseHandlerListener);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    /////cities data
-    //saving data to json...
+
+//     Cities data
+//     Saving data to json...
     private String createCityListPayload(String countryId) {
         String payload = null;
         try {
             JSONObject userData = new JSONObject();
             userData.put("state_id", countryId);
-
-            Log.e("rseponse", "" + userData);
+            // Payload: {"state_id":"74"}
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -163,7 +163,8 @@ public class CityActivity extends BaseActivity {
         public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
             WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
             switch (mUrlNo) {
-                case 1://to get countries list
+                case 1:
+                    //To retrieve countries list
                     if (error == null) {
                         getCitiesData(result);
                     } else {
@@ -183,7 +184,8 @@ public class CityActivity extends BaseActivity {
             if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(this, result);
-            } else {//Success
+            } else {
+                //Success
                 DataPojo dataPojo = result.getData();
                 listCities = dataPojo.getCityList();
                 setDataInViewLayouts();
@@ -209,16 +211,7 @@ public class CityActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        super.onPrepareOptionsMenu(menu);
-////        if(from.equals("5")) {
-////            menu.findItem(R.id.action_done).setVisible(true);
-////        }else{
-////            menu.findItem(R.id.action_done).setVisible(false);
-////        }
-//        return true;
-//    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
@@ -249,8 +242,7 @@ public class CityActivity extends BaseActivity {
         return false;
     }
 
-
-
+    
     @Override
     public void onBackPressed() {
         super.onBackPressed();

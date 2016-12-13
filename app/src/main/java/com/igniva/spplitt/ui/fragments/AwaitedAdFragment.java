@@ -125,7 +125,9 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("Response", "" + userData);
+            //URL: http://spplitt.ignivastaging.com/ads/getBuyerAppliedAds
+            //Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","ads_type":"awaited"}
+            Log.e("Response Awaited Ads", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

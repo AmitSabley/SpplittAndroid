@@ -308,7 +308,9 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            android.util.Log.e("rseponse", "" + userData);
+            //URL: http://spplitt.ignivastaging.com/ads/getBuyerAppliedAds
+            // Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","ads_type":"rejected"}
+            android.util.Log.e("Reponse Rejected Ads", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

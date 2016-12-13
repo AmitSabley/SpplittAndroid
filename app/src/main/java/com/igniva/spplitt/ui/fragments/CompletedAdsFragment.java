@@ -124,7 +124,9 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            //URL: http://spplitt.ignivastaging.com/ads/getBuyerAppliedAds
+            //Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","ads_type":"completed"}
+            Log.e("Response Applied Connected Ads", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

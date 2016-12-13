@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,13 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.AdsListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.adapters.AdDetailsListAdapter;
@@ -34,9 +30,6 @@ import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
 
 import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * Created by igniva-php-08 on 23/5/16.
@@ -68,9 +61,9 @@ public class ViewAdsDetailsActivity extends BaseActivity {
             connectPosition = getIntent().getIntExtra("ad_position", 0);
 
 //         Webservice Call
-//         Step 1, Register Callback Interface
+//         Step 1: Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAdDetail);
-            // Step 2, Call Webservice Method
+//         Step 2: Call Webservice Method
             WebServiceClient.getAdsDescription(ViewAdsDetailsActivity.this, postAdDetailsPayload(), true, 1, responseHandlerListenerViewAdDetail);
 
         } catch (Exception e) {
@@ -95,9 +88,9 @@ public class ViewAdsDetailsActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_connect_ad:
                 //         Webservice Call
-                //         Step 1, Register Callback Interface
+                //         Step 1: Register Callback Interface
                 WebNotificationManager.registerResponseListener(responseHandlerListenerViewAdDetail);
-                // Step 2, Call Webservice Method
+                //         Step 2: Call Webservice Method
                 WebServiceClient.connectAnAd(this, connectAnAdPayload(), true, 2, responseHandlerListenerViewAdDetail);
                 break;
             case R.id.toolbar_btn_back:
@@ -119,7 +112,7 @@ public class ViewAdsDetailsActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -138,7 +131,7 @@ public class ViewAdsDetailsActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

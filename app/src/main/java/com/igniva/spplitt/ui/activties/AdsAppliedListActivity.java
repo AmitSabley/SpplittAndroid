@@ -104,7 +104,7 @@ public class AdsAppliedListActivity extends BaseActivity{
                 if (error == null) {
                     switch (mUrlNo) {
                         case 1:
-                            //to get ads list
+                            //To get ads list
                             getAdsData(result);
                             break;
                     }

@@ -354,6 +354,8 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //URL: http://spplitt.ignivastaging.com/ads/getMyAds
+            //Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","ads_type":"completed","cat_id":"","page_no":1}
             android.util.Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {

@@ -85,7 +85,7 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
         }
     }
 
-   // Create Contact payload
+    // Create Contact payload
     private String createContactUsPayload() {
         String payload = null;
         try {
@@ -100,7 +100,8 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+//Url: http://spplitt.ignivastaging.com/users/ContactUs
+//Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","username":"harry","description":"xxzaXSXaDX","email":"harry@mailinator.com"}
             Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {

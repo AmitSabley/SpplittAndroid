@@ -438,6 +438,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            com.igniva.spplitt.utils.Log.e("Response Set Preferences", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -511,6 +512,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            com.igniva.spplitt.utils.Log.e("Response Reset Preferences", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

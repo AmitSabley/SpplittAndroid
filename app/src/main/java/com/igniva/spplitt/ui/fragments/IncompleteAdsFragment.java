@@ -143,6 +143,8 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //URL: http://spplitt.ignivastaging.com/ads/getMyAds
+            //Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","ads_type":"incomplete","cat_id":"","page_no":1}
             Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
@@ -353,7 +355,7 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            android.util.Log.e("rseponse", "" + userData);
+            android.util.Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

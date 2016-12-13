@@ -402,8 +402,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            Log.e("Response", "" + userData);
+        Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -431,7 +430,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 e.printStackTrace();
             }
 
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -634,6 +633,8 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //URL: http://spplitt.ignivastaging.com/categories/getCategories
+            //Payload: Payload:{"user_id":"19","auth_token":"Y8BCRO1WK8MU"}
             Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
@@ -667,7 +668,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-        /**
+    /**
      * @param payload payload for post ad
      */
 
@@ -696,6 +697,8 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            // URL: http://spplitt.ignivastaging.com/ads/postAd
+            // Payload: {"user_id":"19","auth_token":"Y8BCRO1WK8MU","cat_id":"1","title":"cf","description":"Ssd","expiration_date":"13\/12\/2016","expiration_time":"6:59:00","country_id":"2","state_id":"74","city_id":"6019","cost":"2002","currency_id":"2"}
             Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
@@ -714,10 +717,10 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             viewsSetClickable(true);
             countryId = null;
             countryName = "";
-            stateId=null;
-            stateName="";
-            cityId=null;
-            mAdCity="";
+            stateId = null;
+            stateName = "";
+            cityId = null;
+            mAdCity = "";
             mEtAdTitle.setText("");
             mEtAdDesc.setText("");
             mEtSelectDate.setText("");

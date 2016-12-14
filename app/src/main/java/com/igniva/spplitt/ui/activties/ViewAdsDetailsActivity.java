@@ -205,7 +205,7 @@ public class ViewAdsDetailsActivity extends BaseActivity {
                 mBtnConnectAd.setEnabled(false);
 
                 mBtnConnectAd.setBackgroundColor(this.getResources().getColor(R.color.colorGreyDark));
-                mBtnConnectAd.setText(this.getResources().getString(R.string.response_awaited));
+                mBtnConnectAd.setText(this.getResources().getString(R.string.response_pending));
                 if (ViewAllActiveAdsFragment.mViewAllAds != null) {
                     ViewAllActiveAdsFragment.mViewAllAds.getPosition(connectPosition, true);
                 }
@@ -266,7 +266,7 @@ public class ViewAdsDetailsActivity extends BaseActivity {
                             mBtnConnectAd.setEnabled(false);
                             mBtnConnectAd.setClickable(false);
                             mBtnConnectAd.setBackgroundColor(getResources().getColor(R.color.colorGreyDark));
-                            mBtnConnectAd.setText(getResources().getString(R.string.response_awaited));
+                            mBtnConnectAd.setText(getResources().getString(R.string.response_pending));
                         } else {
                             mBtnConnectAd.setEnabled(true);
                             mBtnConnectAd.setClickable(true);
@@ -363,7 +363,7 @@ public class ViewAdsDetailsActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

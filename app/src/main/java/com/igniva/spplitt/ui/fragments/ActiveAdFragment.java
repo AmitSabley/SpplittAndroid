@@ -311,6 +311,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);

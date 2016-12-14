@@ -55,9 +55,11 @@ public class MyGcmListenerService extends GcmListenerService {
         messageTicker = data.getString("message_ticker");
         bigImage = data.getString("big_image");
 
+/*
      if (userId.equals(PreferenceHandler.readString(this, PreferenceHandler.USER_ID, ""))) {
+*/
             sendNotificationRequest();
-       }
+//   }
     }
 
 

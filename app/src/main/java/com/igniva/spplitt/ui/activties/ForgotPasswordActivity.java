@@ -1,17 +1,13 @@
 package com.igniva.spplitt.ui.activties;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -24,34 +20,32 @@ import com.igniva.spplitt.utils.Validations;
 
 import org.json.JSONObject;
 
-import java.util.LinkedHashMap;
-
 
 /**
- * Created by igniva-php-08 on 6/5/16.
+ * Created by Jigyasa Saluja on 6/5/16.
  */
 public class ForgotPasswordActivity extends BaseActivity {
     EditText mEtEmail;
     TextView mToolbarTvText;
 //    SharedPreferences sharedpreferences;
 //    SharedPreferences.Editor editor;
-    public static  ForgotPasswordActivity forgotAccount;
+    public static ForgotPasswordActivity forgotAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        //initialize shared preferneces
-//        sharedpreferences = getSharedPreferences(Constants.SPPLITT_PREFERENCES, Context.MODE_PRIVATE);
-//        editor = sharedpreferences.edit();
-        forgotAccount=this;
-        //to open ot screen
-        if(PreferenceHandler.readInteger(this,PreferenceHandler.OTP_SCREEN_NO, 0)==2) {
+//       Initialize Shared Preferences
+//       sharedpreferences = getSharedPreferences(Constants.SPPLITT_PREFERENCES, Context.MODE_PRIVATE);
+//       editor = sharedpreferences.edit();
+        forgotAccount = this;
+//       TO Call OTP screen
+        if (PreferenceHandler.readInteger(this, PreferenceHandler.OTP_SCREEN_NO, 0) == 2) {
             startActivity(new Intent(getApplicationContext(), OtpConfirmationActivity.class));
         }
-        //set Layouts
+//      Set Layouts
         setUpLayouts();
-//        setFontStyle();
         setDataInViewLayouts();
     }
 
@@ -74,17 +68,30 @@ public class ForgotPasswordActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Layout Setup
+     */
     @Override
     public void setUpLayouts() {
         mEtEmail = (EditText) findViewById(R.id.et_forgot_email);
         mToolbarTvText = (TextView) findViewById(R.id.toolbar_tv_text);
     }
 
+
+    /**
+     * Set Data in Views
+     */
     @Override
     public void setDataInViewLayouts() {
         mToolbarTvText.setText(getResources().getString(R.string.forgot_password));
     }
 
+
+    /**
+     * OnClick Listeners
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -94,41 +101,28 @@ public class ForgotPasswordActivity extends BaseActivity {
             case R.id.btn_forgot_password:
                 boolean val = new Validations().isValidateForgotPassword(getApplicationContext(), mEtEmail);
                 if (val) {
-                    // Webservice Call
-                    // Step 1, Register Callback Interface
+//                  Webservice Call
+//                  Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListenerForgot);
-                    WebServiceClient.forgotPassword(this, createForgotPasswordPayload(), true, 1,responseHandlerListenerForgot);
+//                  Step 2: Call Webservice Method
+                    WebServiceClient.forgotPassword(this, createForgotPasswordPayload(), true, 1, responseHandlerListenerForgot);
                 }
                 break;
         }
     }
 
-//    @Override
-//    public void setFontStyle() {
-//        int[] arrayFont = {R.id.tv_reset_password, R.id.tv_reset_password_text, R.id.et_forgot_email};
-//        TextView textValue;
-//        for (int i = 0; i < arrayFont.length; i++) {
-//            textValue = (TextView) findViewById(arrayFont[i]);
-//            FontsView.changeFontStyle(getApplicationContext(), textValue);
-//        }
-//
-//        int[] arrayFontRegular = {R.id.tv_reset_password, R.id.btn_forgot_password, R.id.toolbar_tv_text};
-//        TextView textValueRegular;
-//        for (int i = 0; i < arrayFontRegular.length; i++) {
-//            textValueRegular = (TextView) findViewById(arrayFontRegular[i]);
-//            FontsView.changeFontStyleRegular(getApplicationContext(), textValueRegular);
-//        }
-//    }
-
-    //saving data to json...
+    /**
+     * Saving Data to JSON
+     *
+     */
     private String createForgotPasswordPayload() {
         String payload = null;
         try {
-            //get registration_by
+//          Get registration_by
             String registration_by = "", forgot_type = "";
 //            if (mEtEmail.getText().toString().trim().contains("@")) {
-                registration_by = "email";
-                forgot_type = "Email";
+            registration_by = "email";
+            forgot_type = "Email";
 //            } else {
 //                registration_by = "mobile";
 //                forgot_type = "Mobile";
@@ -142,7 +136,7 @@ public class ForgotPasswordActivity extends BaseActivity {
             }
             payload = userData.toString();
 
-            Log.e("rseponse", "" + payload);
+            Log.e("Response", "" + payload);
         } catch (Exception e) {
             payload = null;
         }
@@ -150,15 +144,21 @@ public class ForgotPasswordActivity extends BaseActivity {
     }
 
 
+    /**
+     * Forgot Password Response
+     *
+     * @param result
+     */
     private void getForgotPassword(ResponsePojo result) {
         try {
-            if (result.getStatus_code()==400) {
+            if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(this, result);
-            } else {//Success
+            } else {
+                //Success
                 DataPojo dataPojo = result.getData();
 //                if (mEtEmail.getText().toString().trim().contains("@")) {
-                    new Utility().showCreateAccountDialog(this, result);
+                new Utility().showCreateAccountDialog(this, result);
 //                } else {
 //                    PreferenceHandler.writeInteger(this,PreferenceHandler.OTP_SCREEN_NO,2);
 //                    PreferenceHandler.writeString(this,PreferenceHandler.TEMP_MOBILE_NO,mEtEmail.getText().toString());

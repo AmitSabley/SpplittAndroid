@@ -166,6 +166,7 @@
     <string name="other_age">Age :</string>
     <string name="not_available">Not Available</string>
     <string name="closed_ads">Connected Ads</string>
+    <string name="expired_ads">Expired Ads</string>
     <string name="posted_by">Posted By:</string>
     <string name="delete_popup_msg">Are you sure you want to delete?</string>
     <string name="invite_friends_header">Join me on spplitt and start saving money.</string>

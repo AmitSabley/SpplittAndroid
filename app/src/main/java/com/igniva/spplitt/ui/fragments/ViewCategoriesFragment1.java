@@ -1,17 +1,13 @@
 package com.igniva.spplitt.ui.fragments;
 
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -91,9 +87,9 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
 //        setFontStyle();
         setDataInViewLayouts();
 //         Webservice Call
-//         Step 1, Register Callback Interface
+//         Step 1: Register Callback Interface
         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-        // Step 2, Call Webservice Method
+//         Step 2: Call Webservice Method
         WebServiceClient.getCategoriesList(getContext(), postAdGetCategoriesPayload(), true, 1, responseHandlerListenerViewAD);
 
         return mView;
@@ -148,7 +144,8 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
             try {
                 WebNotificationManager.unRegisterResponseListener(responseHandlerListenerViewAD);
                 switch (mUrlNo) {
-                    case 1://to get categories list
+                    case 1:
+                        //to get categories list
                         if (error == null) {
                             getCategoriesData(result);
                         } else {
@@ -158,7 +155,8 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
                         if (mProgressDialog != null && mProgressDialog.isShowing())
                             mProgressDialog.dismiss();
                         break;
-                    case 2://to save user location
+                    case 2:
+                        //to save user location
                         if (error == null) {
                             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, countryName);
@@ -192,7 +190,8 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
             if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(getContext(), result);
-            } else {//Success
+            } else {
+                //Success
                 DataPojo dataPojo = result.getData();
                 List<CategoriesListPojo> listCategories = new ArrayList<CategoriesListPojo>();
                 listCategories = dataPojo.getCategories();
@@ -224,10 +223,12 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
                 }
 //                ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(1));
                 break;
-            case R.id.btn_post_ad://to go at post ad
+            case R.id.btn_post_ad:
+                //to go at post ad
                 ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(4));
                 break;
-            case R.id.btn_view_al_ad://to view all ads
+            case R.id.btn_view_al_ad:
+                //to view all ads
                 Intent in = new Intent(getActivity(), ViewAdsActivity.class);
                 getActivity().startActivity(in);
                 break;
@@ -262,9 +263,9 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     void saveLocation() {
         try {
             // Webservice Call
-            // Step 1, Register Callback Interface
+            // Step 1: Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
-            // Step 2, Call Webservice Method
+            // Step 2: Call Webservice Method
             WebServiceClient.saveLocationPayload(getActivity(), createSaveLocationPayload(), true, 2, responseHandlerListenerViewAD);
 
         } catch (Exception e) {
@@ -282,7 +283,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
             userData.put("country_id", countryId);
             userData.put("state_id", stateId);
             userData.put("city_id", cityId);
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

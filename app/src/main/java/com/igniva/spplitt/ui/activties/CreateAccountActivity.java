@@ -84,14 +84,13 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
-            //Call from city adapter
+//          Call from City Adapter
             if (PreferenceHandler.readInteger(this, PreferenceHandler.SHOW_EDIT_PROFILE, 1) == 10) {
                 showStaticFields = true;
             }
             PreferenceHandler.writeInteger(this, PreferenceHandler.SHOW_EDIT_PROFILE, 1);
             createAccount = this;
-
-            //To open otp screen
+//          To open OTP screen
             if (PreferenceHandler.readInteger(this, PreferenceHandler.OTP_SCREEN_NO, 0) == 1) {
                 startActivity(new Intent(getApplicationContext(), OtpConfirmationActivity.class));
             }
@@ -127,6 +126,10 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         }
     };
 
+    /**
+     * Layout Setup
+     */
+
     @Override
     public void setUpLayouts() {
         mSvMmain = (ScrollView) findViewById(R.id.sv_main);
@@ -145,7 +148,9 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         Utility.hideKeyboard(getApplicationContext(), mEtUsername);
     }
 
-
+    /**
+     * Set Data in Views
+     */
     @Override
     public void setDataInViewLayouts() {
         mToolbarTvText.setText(getResources().getString(R.string.register));
@@ -188,6 +193,12 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
             }
         }
     }
+
+    /**
+     * OnClick Listeners
+     *
+     * @param v
+     */
 
     @Override
     public void onClick(View v) {
@@ -276,7 +287,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
     }
 
 
-    //Image Picker
+//  Image Picker
     public void onPickImage() {
         try {
             Intent chooseImageIntent = ImagePicker.getPickImageIntent(getApplicationContext());
@@ -291,7 +302,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         try {
             super.onActivityResult(requestCode, resultCode, data);
             if (resultCode == 10) {
-//                if(resultCode == Activity.RESULT_OK){
+//              If(resultCode == Activity.RESULT_OK){
                 Log.v("======", data + "");
                 String result = data.getStringExtra("result");
                 Log.v("======", result);
@@ -348,8 +359,6 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
             else
                 myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-
-
             ContentBody contentPart = new ByteArrayBody(bos.toByteArray(), filename);
             MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
             reqEntity.addPart("fileToUpload", contentPart);
@@ -364,7 +373,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
     private String createSignUpPayload(String pictureUrl) {
         String payload = null;
         try {
-            //         get gender
+//          Get gender
             int selectedId = mRgGender.getCheckedRadioButtonId();
             mRbSelected = (RadioButton) findViewById(selectedId);
             String mGender = "";
@@ -373,7 +382,6 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
             } else {
                 mGender = "f";
             }
-
 //          Get registration_by
             String registration_by = "";
             String email = "";
@@ -416,15 +424,19 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         }
         return payload;
     }
-
+    /**
+     * Create User and Response
+     *
+     * @param result
+     */
 
     private void createUserAccount(ResponsePojo result) {
         try {
             if (result.getStatus_code() == 400) {
-                //Error
+//              Error
                 new Utility().showErrorDialog(this, result);
             } else {
-                //Success
+//              Success
                 DataPojo dataPojo = result.getData();
 //                if (dataPojo.getRegistration_by().equals("email")) {
                 new Utility().showCreateAccountDialog(this, result);
@@ -443,30 +455,45 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         }
     }
 
+    /**
+     * Sign Up Response..
+     *
+     * @param result
+     * @param urlResponseNo
+     */
+
     @Override
     public void onTaskResponse(Object result, int urlResponseNo) {
         switch (urlResponseNo) {
-            case 3://after uploading image
+            case 3:
+                //After uploading image
                 signUpUser(result.toString());
                 break;
-
         }
-
     }
 
+    /**
+     * Sign Up/Register User
+     *
+     * @param result
+     */
     private void signUpUser(String result) {
 //      Step 2: Call Webservice Method
         WebServiceClient.signUpUser(this, createSignUpPayload(result), true, 3, responseHandlerListener);
     }
 
-//  Cities data
-//  Saving data to json...
+
+    /**
+     * Cities data
+     * Saving data to json...
+     *
+     * @param countryId
+     */
     private String createCityListPayload(String countryId) {
         String payload = null;
         try {
             JSONObject userData = new JSONObject();
             userData.put("country_id", countryId);
-
             Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
@@ -475,6 +502,14 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         return payload;
     }
 
+
+    /**
+     * Permissions
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {

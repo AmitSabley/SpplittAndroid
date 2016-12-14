@@ -2,8 +2,6 @@ package com.igniva.spplitt.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -120,7 +118,7 @@ public class ViewAllAdsFragment extends BaseFragment{
                     case 0:
                         return getResources().getString(R.string.active_ads);
                     case 1:
-                        return getResources().getString(R.string.closed_ads);
+                        return getResources().getString(R.string.expired_ads);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -21,8 +21,9 @@ import org.json.JSONObject;
 
 
 /**
- * Created by igniva-php-08 on 6/5/16.
+ * Created by Jigyasa Saluja on 6/5/16.
  */
+
 public class ChangePasswordActivity extends BaseActivity {
     TextView mToolbarTvText;
     EditText mEtNewPassword;
@@ -34,25 +35,35 @@ public class ChangePasswordActivity extends BaseActivity {
         setContentView(R.layout.activity_change_password);
 
         in = getIntent();
-
-
 //         set Layouts
         setUpLayouts();
 //        setFontStyle();
         setDataInViewLayouts();
     }
 
+
+    /**
+     * Layout Setup
+     */
     @Override
     public void setUpLayouts() {
         mToolbarTvText = (TextView) findViewById(R.id.toolbar_tv_text);
         mEtNewPassword = (EditText) findViewById(R.id.et_new_password);
     }
 
+    /**
+     * Set Data in Views
+     */
     @Override
     public void setDataInViewLayouts() {
         mToolbarTvText.setText(getResources().getString(R.string.change_password));
     }
 
+    /**
+     * OnClick Listeners
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -74,6 +85,9 @@ public class ChangePasswordActivity extends BaseActivity {
     }
 
 
+    /**
+     * Change PassWord Payload to be sent
+     */
     private String createChangePasswordPayload() {
         String payload = null;
         try {
@@ -90,6 +104,7 @@ public class ChangePasswordActivity extends BaseActivity {
         }
         return payload;
     }
+
 
     ResponseHandlerListener responseHandlerListener = new ResponseHandlerListener() {
         @Override
@@ -114,6 +129,11 @@ public class ChangePasswordActivity extends BaseActivity {
 
     };
 
+    /**
+     * Change PassWord Response
+     *
+     * @param result
+     */
     private void changePassword(ResponsePojo result) {
         try {
             if (result.getStatus_code()==400) {

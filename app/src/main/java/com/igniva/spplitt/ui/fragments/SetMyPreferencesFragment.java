@@ -240,7 +240,9 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
         startDate = startDay + "-" + startMonthDate + "-" + startYear;
         endDate = endDay + "-" + endMonthDate + "-" + endYear;
         isDateGreater = CheckDates(startYear + "-" + startMonthDate + "-" + startDay, endYear + "-" + endMonthDate + "-" + endDay);
-        mEtDateRange.setText(getResources().getString(R.string.from_date) + ": " + startDay + "-" + startMonthDate + "-" + startYear + " " + getResources().getString(R.string.to_date) + ": " + endDay + "-" + endMonthDate + "-" + endYear);
+   //     mEtDateRange.setText(getResources().getString(R.string.from_date) + ": " + startDay + "-" + startMonthDate + "-" + startYear + " " + getResources().getString(R.string.to_date) + ": " + endDay + "-" + endMonthDate + "-" + endYear);
+        mEtDateRange.setText(startDay + "-" + startMonthDate + "-" + startYear +  " To " + endDay + "-" + endMonthDate + "-" + endYear);
+
     }
 
 

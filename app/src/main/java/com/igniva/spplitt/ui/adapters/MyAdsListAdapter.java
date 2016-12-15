@@ -195,6 +195,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 {
                     userViewHolder.mBtnRateUser.setVisibility(View.VISIBLE);
+                    userViewHolder.ratingBar.setVisibility(View.GONE);
                     userViewHolder.mBtnRateUser.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -230,6 +231,8 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     userViewHolder.mBtnRepostAd.setVisibility(View.VISIBLE);
                     userViewHolder.mBtnDeleteAd.setVisibility(View.GONE);
                     userViewHolder.mBtnDetailsAd.setVisibility(View.VISIBLE);
+                  /*  userViewHolder.mBtnRateUser.setVisibility(View.GONE);
+                    userViewHolder.ratingBar.setVisibility(View.GONE);*/
                 } else if (mAdsType.equals(mContext.getResources().getString(R.string.incomplete_ads))) {
                     userViewHolder.mLlBtn.setWeightSum(1);
                     userViewHolder.mTvAdTotalRequests.setVisibility(View.GONE);

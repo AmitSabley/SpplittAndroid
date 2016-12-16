@@ -1,32 +1,26 @@
 package com.igniva.spplitt.ui.activties;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -39,7 +33,6 @@ import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.fragments.EditProfileFragment;
 import com.igniva.spplitt.utils.ConnectionDetector;
-import com.igniva.spplitt.utils.Log;
 import com.igniva.spplitt.utils.Permissions;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
@@ -47,10 +40,10 @@ import com.igniva.spplitt.utils.gcm.RegistrationIntentService;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -77,6 +70,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);

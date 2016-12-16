@@ -31,6 +31,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".App"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -182,6 +183,9 @@
 
 
         <!-- GCM END-->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7f13cc184549fdf0b47c81233930bfdccce27582" />
     </application>
 
 </manifest>

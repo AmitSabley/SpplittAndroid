@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- End current session if app sleeps for a period of time -->
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- Enable automatic Activity measurement -->
+    <!--<bool name="ga_autoActivityTracking">true</bool>-->
+
+    <!--  The property id associated with this analytics tracker -->
+    <string name="ga_trackingId">UA-87815340-1</string>
+
+    <string name="ga_sampleFrequency">100.0</string>
+
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+
+    <screenName name="SplashActivity">Splash Screen</screenName>
+
+    <screenName name="IntroductionActivity">Introduction Activity</screenName>
+    <screenName name="HomeActivity">Home Activity</screenName>
+    <screenName name="SignUpActivity">SignUp Activity</screenName>
+    <screenName name="CreateProfileActivity">CreateProfile Activity</screenName>
+    <screenName name="LoginActivity">Login Activity</screenName>
+    <screenName name="ForgotPasswordActivity">ForgotPassword Activity</screenName>
+    <screenName name="MapActivity">Map Activity</screenName>
+    <screenName name="RecordedJamsActivity">RecordedJams Activity</screenName>
+
+    <screenName name="MenuActivity">Menu Activity</screenName>
+    <screenName name="SettingActivity">Setting Activity</screenName>
+    <screenName name="ContactActivity">Contact Activity</screenName>
+    <screenName name="ChangePasswordActivity">ChangePasseord Activity</screenName>
+
+    <screenName name="AudioRecordingActivity">AudioRecording Activity</screenName>
+    <screenName name="MapNearestPin">MapNearest Activity</screenName>
+    <screenName name="AllNextNearestJamsActivity">AllNextNearestJams Activity</screenName>
+    <screenName name="AllNotyficationsLayout">AllNotifications Activity</screenName>
+
+    <!--
+      See Project Structure -> Analytics -> Google Analytics -> Learn More
+      to learn more about configuring this file.
+    -->
+</resources>

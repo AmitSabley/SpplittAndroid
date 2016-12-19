@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -57,6 +58,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     ProgressBar mProgressBar;
     public static boolean isDataLoaded;
     public static ActiveAdFragment mViewActiveAds;
+    private static final String LOG_TAG = "ActiveAdFragment";
 
     public static ActiveAdFragment newInstance() {
         ActiveAdFragment fragment = new ActiveAdFragment();
@@ -128,6 +130,13 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_MY_ADS_ACTIVE;
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private String activeAdsPayload() {
@@ -317,6 +326,8 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_search:
+                App.getInstance().trackEvent(LOG_TAG, "Search Active Ads", "Search Active Ads");
+
 //                     Do Search here
                 searchView = (SearchView) MenuItemCompat.getActionView(item);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);

@@ -1,16 +1,13 @@
 package com.igniva.spplitt.ui.activties;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -26,7 +23,8 @@ import org.json.JSONObject;
  * Created by igniva-php-08 on 12/5/16.
  */
 public class UpdateEmailActivity extends BaseActivity {
-//    SharedPreferences sharedpreferences;
+    private static final String LOG_TAG = "UpdateEmailActivity";
+    //    SharedPreferences sharedpreferences;
 //    SharedPreferences.Editor editor;
     EditText mEtNewEmail,mEtOldPassword;
     @Override
@@ -65,6 +63,18 @@ public class UpdateEmailActivity extends BaseActivity {
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("UpdateEmailActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void getLoginData(ResponsePojo result) {
         try {
             if (result.getStatus_code()==400) {
@@ -95,6 +105,7 @@ public class UpdateEmailActivity extends BaseActivity {
             case R.id.btn_update_email:
                 boolean val = new Validations().isValidateUpdateEmail(getApplicationContext(), mEtNewEmail, mEtOldPassword);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Update Email", "Email Update Called");
                     // Webservice Call
                     // Step 1, Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListener);

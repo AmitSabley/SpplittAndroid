@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.utils.Constants;
@@ -17,6 +18,7 @@ import com.igniva.spplitt.utils.Constants;
  * Created by igniva-php-08 on 18/5/16.
  */
 public class AboutSpplittFragment extends BaseFragment {
+    private static final String LOG_TAG = "AboutSpplittFragment";
     View mView;
     WebView mWvTerms;
     ProgressBar mPbBar;
@@ -53,6 +55,13 @@ public class AboutSpplittFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_ABOUT_US;
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private class MyBrowser extends WebViewClient {

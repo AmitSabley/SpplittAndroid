@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
  * Created by igniva-php-08 on 18/5/16.
  */
 public class ContactUsFragment extends BaseFragment implements View.OnClickListener {
+    private static final String LOG_TAG = "ContactUsFragment";
     View mView;
     EditText mTvUsername;
     EditText mTvEmail;
@@ -66,6 +68,12 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_CONTACT_US;
+        Log.e("ContactUsFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -74,6 +82,8 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
             case R.id.btn_submit_contact_us:
                 boolean val = new Validations().isValidateContactUs(getActivity(), mEtDesc);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Contact Us Details Submit", "Contact Us Details Submit");
+
 //                   Step 2. Call Webservice Method
                     mBtnSubmit.setClickable(false);
 //                   Webservice Call
@@ -102,7 +112,7 @@ public class ContactUsFragment extends BaseFragment implements View.OnClickListe
             }
 //Url: http://spplitt.ignivastaging.com/users/ContactUs
 //Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","username":"harry","description":"xxzaXSXaDX","email":"harry@mailinator.com"}
-            Log.e("Response", "" + userData);
+            Log.e("Response Contact Us", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
  * Created by igniva-php-08 on 3/5/16.
  */
 public class LoginActivity extends BaseActivity  {
+    private static final String LOG_TAG = "LoginActivity";
     EditText mEtEmail, mEtPassword;
     TextView mToolbarTvText;
 //    SharedPreferences sharedpreferences;
@@ -64,6 +66,17 @@ public class LoginActivity extends BaseActivity  {
     };
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("LoginActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void setUpLayouts() {
         mEtEmail = (EditText) findViewById(R.id.et_email);
         mToolbarTvText = (TextView) findViewById(R.id.toolbar_tv_text);
@@ -89,12 +102,15 @@ public class LoginActivity extends BaseActivity  {
                 }
                 break;
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
                 break;
             case R.id.tv_register_here_login:
+                App.getInstance().trackEvent(LOG_TAG, "Register User Call", "Create Account");
                 startActivity(new Intent(getApplicationContext(), CreateAccountActivity.class));
                 break;
             case R.id.tv_forgot_pwd:
+                App.getInstance().trackEvent(LOG_TAG, "Forgot Password Call", "Forgot Password");
                 startActivity(new Intent(getApplicationContext(), ForgotPasswordActivity.class));
                 break;
         }
@@ -118,7 +134,7 @@ public class LoginActivity extends BaseActivity  {
             userData.put("device_id", PreferenceHandler.readString(this,PreferenceHandler.IMEI_NO, ""));
             userData.put("gcm_id", PreferenceHandler.readString(this,PreferenceHandler.GCM_REG_ID, ""));
             payload = userData.toString();
-            Log.e("response", "" + payload);
+            Log.e("Response", "" + payload);
         } catch (Exception e) {
             payload = null;
         }

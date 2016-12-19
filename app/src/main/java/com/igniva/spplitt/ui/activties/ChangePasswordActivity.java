@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
  */
 
 public class ChangePasswordActivity extends BaseActivity {
+    private static final String LOG_TAG = "ChangePasswordActivity" ;
     TextView mToolbarTvText;
     EditText mEtNewPassword;
     Intent in;
@@ -33,7 +35,6 @@ public class ChangePasswordActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-
         in = getIntent();
 //         set Layouts
         setUpLayouts();
@@ -49,6 +50,17 @@ public class ChangePasswordActivity extends BaseActivity {
     public void setUpLayouts() {
         mToolbarTvText = (TextView) findViewById(R.id.toolbar_tv_text);
         mEtNewPassword = (EditText) findViewById(R.id.et_new_password);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("ChangePasswordActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -68,9 +80,12 @@ public class ChangePasswordActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
+
                 onBackPressed();
                 break;
             case R.id.btn_change_password:
+                App.getInstance().trackEvent(LOG_TAG, "Change Password", "Change Password");
                 boolean val = new Validations().isValidateResetPassword(getApplicationContext(), mEtNewPassword);
                 if (val) {
  //                 Webservice Call
@@ -98,7 +113,7 @@ public class ChangePasswordActivity extends BaseActivity {
             userData.put("new_password", mEtNewPassword.getText().toString().trim());
             payload = userData.toString();
 
-            Log.e("response", "" + payload);
+            Log.e("Response", "" + payload);
         } catch (Exception e) {
             payload = null;
         }

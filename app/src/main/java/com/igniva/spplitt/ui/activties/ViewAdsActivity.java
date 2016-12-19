@@ -1,51 +1,25 @@
 package com.igniva.spplitt.ui.activties;
 
-import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
-import com.igniva.spplitt.controller.ResponseHandlerListener;
-import com.igniva.spplitt.controller.WebNotificationManager;
-import com.igniva.spplitt.controller.WebServiceClient;
-import com.igniva.spplitt.model.AdsListPojo;
-import com.igniva.spplitt.model.CategoriesListPojo;
-import com.igniva.spplitt.model.DataPojo;
-import com.igniva.spplitt.model.ResponsePojo;
-
-
-import com.igniva.spplitt.ui.fragments.ViewAllActiveAdsFragment;
 import com.igniva.spplitt.ui.fragments.ViewAllAdsFragment;
-import com.igniva.spplitt.utils.PreferenceHandler;
-import com.igniva.spplitt.utils.Utility;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by igniva-php-08 on 23/5/16.
  */
 public class ViewAdsActivity extends BaseActivity implements View.OnClickListener {
+    private static final String LOG_TAG = "ViewAdsActivity";
     TextView mToolbarTvText;
 
     @Override
@@ -56,7 +30,7 @@ public class ViewAdsActivity extends BaseActivity implements View.OnClickListene
             mToolbarTvText = (TextView) findViewById(R.id.toolbar_tv_text);
             mToolbarTvText.setText(getResources().getString(R.string.view_ad));
 
-            Intent in=getIntent();
+            Intent in = getIntent();
 
             Fragment fragment = ViewAllAdsFragment.newInstance();
             Bundle bundle = new Bundle();
@@ -74,6 +48,16 @@ public class ViewAdsActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("ViewAdsActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void setUpLayouts() {
@@ -89,6 +73,7 @@ public class ViewAdsActivity extends BaseActivity implements View.OnClickListene
         try {
             switch (v.getId()) {
                 case R.id.toolbar_btn_back:
+                    App.getInstance().trackEvent(LOG_TAG, "Back Press", "View Ads Back Pressed");
                     onBackPressed();
                     break;
             }

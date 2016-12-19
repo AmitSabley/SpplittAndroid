@@ -10,11 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -33,6 +35,7 @@ import java.util.List;
  * Created by igniva-php-08 on 4/7/16.
  */
 public class CountryActivity extends BaseActivity {
+    private static final String LOG_TAG = "CountryActivity";
     TextView mToolbarTvText;
     RecyclerView recyclerView;
     RecyclerViewFastScroller fastScroller;
@@ -42,6 +45,18 @@ public class CountryActivity extends BaseActivity {
     String userPassword;
     String userEmail;
     int userGender;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("CountryActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     String from;
     //1=create account;2=edit profile;3=set prefernces;4=post ad;5=dashboard
     @Override
@@ -114,6 +129,7 @@ public class CountryActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
                 break;
         }

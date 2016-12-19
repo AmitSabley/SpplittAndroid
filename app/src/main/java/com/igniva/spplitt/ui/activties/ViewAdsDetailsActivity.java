@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -36,6 +37,7 @@ import org.json.JSONObject;
  * ad_status=2 maen ad is closed and ad_status=1 mean ad is active
  */
 public class ViewAdsDetailsActivity extends BaseActivity {
+    private static final String LOG_TAG = "ViewAdsDetailsActivity";
     TextView mToolbarTvText;
     Button mBtnConnectAd;
     String mAdId;
@@ -84,9 +86,23 @@ public class ViewAdsDetailsActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("ViewAdsDetailsActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.btn_connect_ad:
+                App.getInstance().trackEvent(LOG_TAG, "Ad Connect", "Ad Connect Called");
+
                 //         Webservice Call
                 //         Step 1: Register Callback Interface
                 WebNotificationManager.registerResponseListener(responseHandlerListenerViewAdDetail);
@@ -94,6 +110,7 @@ public class ViewAdsDetailsActivity extends BaseActivity {
                 WebServiceClient.connectAnAd(this, connectAnAdPayload(), true, 2, responseHandlerListenerViewAdDetail);
                 break;
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "View Ad Details Back Pressed");
                 finish();
                 break;
         }

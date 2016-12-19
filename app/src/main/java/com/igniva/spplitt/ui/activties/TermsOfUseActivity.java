@@ -1,20 +1,22 @@
 package com.igniva.spplitt.ui.activties;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 
 /**
  * Created by igniva-php-08 on 11/7/16.
  */
 public class TermsOfUseActivity extends BaseActivity{
+    private static final String LOG_TAG = "TermsOfUseActivity";
     TextView mToolbarTvText;
     WebView mWvTerms;
     ProgressBar mPbBar;
@@ -24,6 +26,17 @@ public class TermsOfUseActivity extends BaseActivity{
         setContentView(R.layout.activity_terms);
         setUpLayouts();
         setDataInViewLayouts();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("TermsOfUseActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -47,10 +60,13 @@ public class TermsOfUseActivity extends BaseActivity{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_disagree:
+                App.getInstance().trackEvent(LOG_TAG, "T&C Disagreed", "T&C Disagree Click");
+
                 CreateAccountActivity.mCbTerms.setChecked(false);
                 finish();
                 break;
             case R.id.btn_agree:
+                App.getInstance().trackEvent(LOG_TAG, "T&C Agreed", "T&C Agree Click");
                 CreateAccountActivity.mCbTerms.setChecked(true);
                 finish();
                 break;

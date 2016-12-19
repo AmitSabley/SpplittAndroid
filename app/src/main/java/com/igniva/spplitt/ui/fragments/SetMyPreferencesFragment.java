@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -45,6 +46,7 @@ import java.util.Map;
  * Created by igniva-php-08 on 18/5/16.
  */
 public class SetMyPreferencesFragment extends BaseFragment implements View.OnClickListener, DateRangePickerFragment.OnDateRangeSelectedListener {
+    private static final String LOG_TAG = "SetMyPreferencesFragment";
     View view;
     EditText mEtDateRange;
     MultiSpinner mMspCategories;
@@ -170,12 +172,19 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_SET_PREFERENCES;
+        Log.e("SetMyPreferences", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_select_date_range:
+                App.getInstance().trackEvent(LOG_TAG, "Preferences Select Dates", "Set My Preferences Dates");
                 mEtDateRange.setFocusable(false);
                 mEtDateRange.setFocusableInTouchMode(false);
                 Utility.hideKeyboard(getActivity(), mEtDateRange);
@@ -185,6 +194,8 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
             case R.id.btn_submit_set_pref:
                 boolean val = new Validations().isValidateSetPreferences(getActivity(), mMspCategories, isCategoryItemSelected, countryId, stateId, cityId, isDateGreater, mEtDateRange);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Preferences Submit Data", "Set My Preferences Submit Details");
+
                     mBtnSubmitSetPref.setClickable(false);
 //         Webservice Call
 //         Step 1, Register Callback Interface
@@ -195,6 +206,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
                 break;
             case R.id.tv_countries:
                 try {
+                    App.getInstance().trackEvent(LOG_TAG, "Preferences Countries Data", "Set My Preferences Select Country");
                     Log.e("======", mArrayListSelectedCategories.size() + "");
                     dateRange = mEtDateRange.getText().toString();
                     Intent in = new Intent(getActivity(), CountryActivity.class);
@@ -206,6 +218,7 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
                 break;
             case R.id.tv_states:
                 if (countryId != null) {
+                    App.getInstance().trackEvent(LOG_TAG, "Preferences States Data", "Set My Preferences Select State");
                     dateRange = mEtDateRange.getText().toString();
                     Intent in = new Intent(getActivity(), StateActivity.class);
                     in.putExtra("country_id", countryId);
@@ -218,6 +231,8 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
                 break;
             case R.id.tv_cities:
                 if (stateId != null) {
+                    App.getInstance().trackEvent(LOG_TAG, "Preferences Cities Data", "Set My Preferences Select City");
+
                     dateRange = mEtDateRange.getText().toString();
                     Intent in = new Intent(getActivity(), CityActivity.class);
                     in.putExtra("countryId", countryId);
@@ -240,8 +255,8 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
         startDate = startDay + "-" + startMonthDate + "-" + startYear;
         endDate = endDay + "-" + endMonthDate + "-" + endYear;
         isDateGreater = CheckDates(startYear + "-" + startMonthDate + "-" + startDay, endYear + "-" + endMonthDate + "-" + endDay);
-   //     mEtDateRange.setText(getResources().getString(R.string.from_date) + ": " + startDay + "-" + startMonthDate + "-" + startYear + " " + getResources().getString(R.string.to_date) + ": " + endDay + "-" + endMonthDate + "-" + endYear);
-        mEtDateRange.setText(startDay + "-" + startMonthDate + "-" + startYear +  " To " + endDay + "-" + endMonthDate + "-" + endYear);
+        //     mEtDateRange.setText(getResources().getString(R.string.from_date) + ": " + startDay + "-" + startMonthDate + "-" + startYear + " " + getResources().getString(R.string.to_date) + ": " + endDay + "-" + endMonthDate + "-" + endYear);
+        mEtDateRange.setText(startDay + "-" + startMonthDate + "-" + startYear + " To " + endDay + "-" + endMonthDate + "-" + endYear);
 
     }
 

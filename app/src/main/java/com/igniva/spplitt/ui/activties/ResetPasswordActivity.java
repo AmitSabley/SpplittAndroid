@@ -1,6 +1,5 @@
 package com.igniva.spplitt.ui.activties;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.utils.Validations;
 
@@ -17,9 +17,22 @@ import java.util.LinkedHashMap;
 /**
  * Created by igniva-php-08 on 6/5/16.
  */
-public class ResetPasswordActivity extends BaseActivity  {
+public class ResetPasswordActivity extends BaseActivity {
+    private static final String LOG_TAG = "ResetPasswordActivity";
     TextView mToolbarTvText;
     EditText mEtNewPassword;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("ResetPasswordActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +45,8 @@ public class ResetPasswordActivity extends BaseActivity  {
 
     @Override
     public void setUpLayouts() {
-        mToolbarTvText=(TextView)findViewById(R.id.toolbar_tv_text);
-        mEtNewPassword=(EditText)findViewById(R.id.et_new_password);
+        mToolbarTvText = (TextView) findViewById(R.id.toolbar_tv_text);
+        mEtNewPassword = (EditText) findViewById(R.id.et_new_password);
     }
 
     @Override
@@ -43,13 +56,15 @@ public class ResetPasswordActivity extends BaseActivity  {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
                 break;
             case R.id.btn_change_password:
-                boolean val = new Validations().isValidateResetPassword(getApplicationContext(),mEtNewPassword);
+                boolean val = new Validations().isValidateResetPassword(getApplicationContext(), mEtNewPassword);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Change Password", "Change Password Call");
                     addDataToJson();
                 }
                 break;
@@ -57,7 +72,7 @@ public class ResetPasswordActivity extends BaseActivity  {
 
     }
 
-//    @Override
+    //    @Override
 //    public void setFontStyle() {
 //        int[] arrayFont = { R.id.tv_reset_password_text,R.id.et_new_password};
 //        TextView textValue;
@@ -86,7 +101,7 @@ public class ResetPasswordActivity extends BaseActivity  {
             e.printStackTrace();
         }
 
-        Log.e("response",""+userData);
+        Log.e("response", "" + userData);
 //        executeAsyncClass(userData);
     }
     //initializing async class

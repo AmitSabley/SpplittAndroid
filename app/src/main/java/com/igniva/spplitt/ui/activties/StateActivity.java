@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -35,6 +36,7 @@ import java.util.List;
  * Created by igniva-php-08 on 5/7/16.
  */
 public class StateActivity extends BaseActivity {
+    private static final String LOG_TAG = "StateActivity";
     TextView mToolbarTvText;
     RecyclerView recyclerView;
     RecyclerViewFastScroller fastScroller;
@@ -47,6 +49,18 @@ public class StateActivity extends BaseActivity {
     String userEmail;
     int userGender;
     String from;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("StateActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +132,7 @@ public class StateActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
                 break;
         }

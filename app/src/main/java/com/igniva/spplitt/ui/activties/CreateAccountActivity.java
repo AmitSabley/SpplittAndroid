@@ -21,6 +21,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.AsyncResult;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
@@ -49,6 +50,7 @@ import java.io.ByteArrayOutputStream;
  * Created by igniva-php-08 on 3/5/16.
  */
 public class CreateAccountActivity extends BaseActivity implements AsyncResult {
+    private static final String LOG_TAG = "CreateAccountActivity";
     TextView mToolbarTvText;
     TextView mTvCities;
     TextView mTvCountries;
@@ -205,21 +207,28 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         switch (v.getId()) {
             case R.id.riv_userImage:
                 if (Permissions.checkPermissionCamera(CreateAccountActivity.this)) {
+                    App.getInstance().trackEvent(LOG_TAG, "Pick Image", "Select User Image");
                     onPickImage();
                 }
                 break;
             case R.id.tv_login_here:
+                App.getInstance().trackEvent(LOG_TAG, "Login", "Start Login");
+
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
             case R.id.tv_track_location:
 //                updateLocation();
                 break;
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
+
                 onBackPressed();
                 break;
             case R.id.btn_register:
                 boolean val = new Validations().isValidate(getApplicationContext(), mSvMmain, myBitmap, mRivUserImage, mEtUsername, mEtPassword, mEtEmail, countryId, stateId, cityId, mCbTerms);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Register", "Register User");
+
                     mBtnRegister.setClickable(false);
 //              Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListener);
@@ -228,6 +237,8 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 break;
             case R.id.tv_countries:
                 try {
+                    App.getInstance().trackEvent(LOG_TAG, "Select Country", "Select from Countries List");
+
                     Intent in = new Intent(getApplicationContext(), CountryActivity.class);
 
                     if (!mEtUsername.getText().toString().trim().equals("")) {
@@ -249,6 +260,8 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 break;
             case R.id.tv_states:
                 if (countryId != null) {
+                    App.getInstance().trackEvent(LOG_TAG, "Select State", "Select from States List");
+
                     Intent in = new Intent(CreateAccountActivity.this, StateActivity.class);
                     in.putExtra("userName", mEtUsername.getText().toString());
                     in.putExtra("userPassword", mEtPassword.getText().toString());
@@ -264,6 +277,8 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
                 break;
             case R.id.tv_cities:
                 if (stateId != null) {
+                    App.getInstance().trackEvent(LOG_TAG, "Select City", "Select from Cities List");
+
                     Intent in = new Intent(CreateAccountActivity.this, CityActivity.class);
                     in.putExtra("userName", mEtUsername.getText().toString());
                     in.putExtra("userPassword", mEtPassword.getText().toString());
@@ -287,11 +302,22 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
     }
 
 
-//  Image Picker
+    //  Image Picker
     public void onPickImage() {
         try {
             Intent chooseImageIntent = ImagePicker.getPickImageIntent(getApplicationContext());
             startActivityForResult(chooseImageIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("CreateAccountActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -351,6 +377,8 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
 
     private void uploadBitmapAsMultipart() {
         try {
+            App.getInstance().trackEvent(LOG_TAG, "Upload Bitmap", "Bitmap on Registration");
+
             String filename = mImageName.toLowerCase();
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             if (filename.endsWith(".png"))
@@ -369,7 +397,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         }
     }
 
-//        Saving data to json...
+    //        Saving data to json...
     private String createSignUpPayload(String pictureUrl) {
         String payload = null;
         try {
@@ -424,6 +452,7 @@ public class CreateAccountActivity extends BaseActivity implements AsyncResult {
         }
         return payload;
     }
+
     /**
      * Create User and Response
      *

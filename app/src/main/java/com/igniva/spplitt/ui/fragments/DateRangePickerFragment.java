@@ -3,6 +3,7 @@ package com.igniva.spplitt.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +13,31 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TabHost;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 
 import java.util.Calendar;
 
 public class DateRangePickerFragment extends DialogFragment implements View.OnClickListener{
 
+    private static final String LOG_TAG = "DateRangePickerFragment" ;
     private OnDateRangeSelectedListener onDateRangeSelectedListener;
 
     private TabHost tabHost;
     private DatePicker startDatePicker;
     private DatePicker endDatePicker;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("DateRangePickerFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private Button butSetDateRange;
     boolean is24HourMode;
 
@@ -87,6 +102,7 @@ public class DateRangePickerFragment extends DialogFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         dismiss();
+        App.getInstance().trackEvent(LOG_TAG, "Start Date End Date", "Schedule Dates");
         onDateRangeSelectedListener.onDateRangeSelected(startDatePicker.getDayOfMonth(),startDatePicker.getMonth(),startDatePicker.getYear(),
                 endDatePicker.getDayOfMonth(),endDatePicker.getMonth(),endDatePicker.getYear());
     }

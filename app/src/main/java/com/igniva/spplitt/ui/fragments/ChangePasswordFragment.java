@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -16,6 +17,7 @@ import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.utils.Constants;
+import com.igniva.spplitt.utils.Log;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Validations;
@@ -26,6 +28,7 @@ import org.json.JSONObject;
  * Created by igniva-php-08 on 18/5/16.
  */
 public class ChangePasswordFragment extends BaseFragment implements View.OnClickListener {
+    private static final String LOG_TAG = "ChangePasswordFragment" ;
     EditText mEtOldPassword, mEtNewPassword;
     Button mBtnChangePassword;
     View view;
@@ -64,6 +67,8 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
                 case R.id.btn_change_password:
                     boolean val = new Validations().isValidateChangePassword(getActivity(), mEtOldPassword, mEtNewPassword);
                     if (val) {
+                        App.getInstance().trackEvent(LOG_TAG, "Change Password", "Change Password Called");
+
 //                        Webservice Call
 //                        Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerChangePassword);
@@ -92,7 +97,7 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            com.igniva.spplitt.utils.Log.e("rseponse", "" + userData);
+            com.igniva.spplitt.utils.Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -131,6 +136,12 @@ public class ChangePasswordFragment extends BaseFragment implements View.OnClick
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_CHANGE_PASSWORD;
+        Log.e("ChangePasswordFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getChangePasswordData(ResponsePojo result) {

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -37,6 +38,7 @@ import java.util.List;
  * Created by igniva-php-08 on 4/7/16.
  */
 public class CityActivity extends BaseActivity {
+    private static final String LOG_TAG = "CityActivity" ;
     TextView mToolbarTvText;
     RecyclerView recyclerView;
     RecyclerViewFastScroller fastScroller;
@@ -47,6 +49,18 @@ public class CityActivity extends BaseActivity {
     String stateName;
     List<CityListPojo> listCities = new ArrayList<CityListPojo>();
     String userName;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("CityActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     String userPassword;
     String userEmail;
     int userGender;
@@ -125,6 +139,7 @@ public class CityActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
                 break;
         }

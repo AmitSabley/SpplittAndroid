@@ -1,16 +1,14 @@
 package com.igniva.spplitt.ui.activties;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -27,9 +25,11 @@ import org.json.JSONObject;
  * Created by igniva-php-08 on 12/5/16.
  */
 public class UpdateMobileActivity extends BaseActivity {
-//    SharedPreferences sharedpreferences;
+    private static final String LOG_TAG = "UpdateMobileActivity";
+    //    SharedPreferences sharedpreferences;
 //    SharedPreferences.Editor editor;
-    EditText mEtNewMobileNo,mEtOldPassword;
+    EditText mEtNewMobileNo, mEtOldPassword;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +42,31 @@ public class UpdateMobileActivity extends BaseActivity {
         setUpLayouts();
 //        setFontStyle();
     }
-    ResponseHandlerListener responseHandlerListener=new ResponseHandlerListener() {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("UpdateMobileActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    ResponseHandlerListener responseHandlerListener = new ResponseHandlerListener() {
         @Override
         public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
             WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
             switch (mUrlNo) {
                 case 1:
-                    if (error==null)
-                    {
+                    if (error == null) {
                         updateMobileData(result);
-                    }else{
+                    } else {
                         // TODO display error dialog
                         new Utility().showErrorDialogRequestFailed(getApplicationContext());
                     }
-                    if(mProgressDialog!=null && mProgressDialog.isShowing())
+                    if (mProgressDialog != null && mProgressDialog.isShowing())
                         mProgressDialog.dismiss();
 
 
@@ -66,14 +77,14 @@ public class UpdateMobileActivity extends BaseActivity {
 
     private void updateMobileData(ResponsePojo result) {
         try {
-            if (result.getStatus_code()==400) {
+            if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(this, result);
             } else {
                 //Success
                 DataPojo dataPojo = result.getData();
-                PreferenceHandler.writeString(this,PreferenceHandler.MOBILE_NO,mEtNewMobileNo.getText().toString());
-                Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                PreferenceHandler.writeString(this, PreferenceHandler.MOBILE_NO, mEtNewMobileNo.getText().toString());
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
 //                PreferenceHandler.writeInteger(this,PreferenceHandler.OTP_SCREEN_NO,3);
 //                PreferenceHandler.writeString(this,PreferenceHandler.TEMP_MOBILE_NO,mEtNewMobileNo.getText().toString());
@@ -82,13 +93,15 @@ public class UpdateMobileActivity extends BaseActivity {
 //                Intent intent=new Intent(getApplicationContext(), OtpConfirmationActivity.class);
 //                startActivity(intent);
             }
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void setUpLayouts() {
-        mEtNewMobileNo=(EditText)findViewById(R.id.et_update_mobileno);
-        mEtOldPassword=(EditText)findViewById(R.id.et_update_password);
+        mEtNewMobileNo = (EditText) findViewById(R.id.et_update_mobileno);
+        mEtOldPassword = (EditText) findViewById(R.id.et_update_password);
     }
 
     @Override
@@ -98,15 +111,16 @@ public class UpdateMobileActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_update_mobileno:
                 boolean val = new Validations().isValidateUpdateMobileNo(getApplicationContext(), mEtNewMobileNo, mEtOldPassword);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Update Mobile", "Mobile Update Called");
                     // Webservice Call
                     // Step 1, Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListener);
                     // Step 2, Call Webservice Method
-                    WebServiceClient.updateMobileNo(this, createUpdateMobileNoPayload(), true, 1,responseHandlerListener);
+                    WebServiceClient.updateMobileNo(this, createUpdateMobileNoPayload(), true, 1, responseHandlerListener);
                 }
                 break;
         }
@@ -117,8 +131,8 @@ public class UpdateMobileActivity extends BaseActivity {
         try {
 
             JSONObject userData = new JSONObject();
-            userData.put("user_id",PreferenceHandler.readString(this,PreferenceHandler.USER_ID,""));
-            userData.put("auth_token",PreferenceHandler.readString(this,PreferenceHandler.AUTH_TOKEN,""));
+            userData.put("user_id", PreferenceHandler.readString(this, PreferenceHandler.USER_ID, ""));
+            userData.put("auth_token", PreferenceHandler.readString(this, PreferenceHandler.AUTH_TOKEN, ""));
             userData.put("profile_type", "mobile");
             userData.put("mobile", mEtNewMobileNo.getText().toString().trim());
             userData.put("password", mEtOldPassword.getText().toString().trim());

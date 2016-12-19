@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -37,6 +38,7 @@ import java.util.List;
 
 
 public class NotificationsFragment extends BaseFragment implements View.OnClickListener {
+    private static final String LOG_TAG = "NotificationsFragment" ;
     View mView;
     RecyclerView mRvAds;
     String mCatId;
@@ -130,6 +132,12 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_NOTIFICATIONS;
+        Log.e("NotificationsFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

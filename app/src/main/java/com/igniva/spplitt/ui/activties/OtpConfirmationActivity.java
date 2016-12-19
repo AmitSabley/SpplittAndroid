@@ -1,19 +1,16 @@
 package com.igniva.spplitt.ui.activties;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -32,12 +29,26 @@ import org.json.JSONObject;
  * otp_type=0 means user id from create account or from forgot password ;;otp_type=1 means user is from edit profile
  */
 public class OtpConfirmationActivity extends BaseActivity {
+    private static final String LOG_TAG = "OtpConfirmationActivity";
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("OtpConfirmationActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     EditText mEtOtp;
-//    SharedPreferences sharedpreferences;
+    //    SharedPreferences sharedpreferences;
 //    SharedPreferences.Editor editor;
     String mUserId, mMobileNo, mOtp;
     Button mBtnResendOtp;
     CountDownTimer mCdtResend;
+
     //    String in
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,9 +59,9 @@ public class OtpConfirmationActivity extends BaseActivity {
 //        sharedpreferences = getSharedPreferences(Constants.SPPLITT_PREFERENCES, Context.MODE_PRIVATE);
 //        editor = sharedpreferences.edit();
 
-        mUserId = PreferenceHandler.readString(this,PreferenceHandler.TEMP_USER_ID, "");
-        mMobileNo = PreferenceHandler.readString(this,PreferenceHandler.TEMP_MOBILE_NO, "");
-        mOtp = PreferenceHandler.readString(this,PreferenceHandler.TEMP_OTP, "");
+        mUserId = PreferenceHandler.readString(this, PreferenceHandler.TEMP_USER_ID, "");
+        mMobileNo = PreferenceHandler.readString(this, PreferenceHandler.TEMP_MOBILE_NO, "");
+        mOtp = PreferenceHandler.readString(this, PreferenceHandler.TEMP_OTP, "");
         //set Layouts
         setUpLayouts();
 //        setFontStyle();
@@ -60,7 +71,7 @@ public class OtpConfirmationActivity extends BaseActivity {
     @Override
     public void setUpLayouts() {
         mEtOtp = (EditText) findViewById(R.id.et_otp);
-        mBtnResendOtp=(Button)findViewById(R.id.btn_resend_otp);
+        mBtnResendOtp = (Button) findViewById(R.id.btn_resend_otp);
     }
 
     @Override
@@ -73,40 +84,45 @@ public class OtpConfirmationActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit_otp:
-                if(mCdtResend!=null){
+                if (mCdtResend != null) {
                     mCdtResend.cancel();
                 }
                 boolean val = new Validations().isValidateOtp(getApplicationContext(), mEtOtp);
                 if (val) {
-                    if(!mUserId.equals("")) {//user is coming from create account
+                    App.getInstance().trackEvent(LOG_TAG, "OTP Screen from Create Account", "OTP from Create Account");
+                    if (!mUserId.equals("")) {//user is coming from create account
                         // Webservice Call
                         // Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListener);
                         // Step 2, Call Webservice Method
-                        WebServiceClient.validateOtpPostActivation(this, createActivationOtpPayload(), true, 1,responseHandlerListener);
-                    }else{//user is coming from forgotpassword
+                        WebServiceClient.validateOtpPostActivation(this, createActivationOtpPayload(), true, 1, responseHandlerListener);
+                    } else {
+                        App.getInstance().trackEvent(LOG_TAG, "OTP Screen from Forgot PassWord", "OTP from Forgot PassWord");
+                         //user is coming from forgotpassword
                         // Webservice Call
                         // Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListener);
                         // Step 2, Call Webservice Method
-                        WebServiceClient.validateOtpForgotPassword(this, createForgotOtpPayload(), true, 1,responseHandlerListener);
+                        WebServiceClient.validateOtpForgotPassword(this, createForgotOtpPayload(), true, 1, responseHandlerListener);
                     }
                 }
                 break;
             case R.id.iv_close:
-                if(mCdtResend!=null){
+                App.getInstance().trackEvent(LOG_TAG, "OTP Screen from Create Account", "OTP from Create Account");
+                if (mCdtResend != null) {
                     mCdtResend.cancel();
                 }
                 Utility.removeTemperoryValueFromPreferences(this);
                 this.finish();
                 break;
             case R.id.btn_resend_otp:
+                App.getInstance().trackEvent(LOG_TAG, "Resend OTP", "Resend OTP");
                 mBtnResendOtp.setClickable(false);
                 // Webservice Call
                 // Step 1, Register Callback Interface
                 WebNotificationManager.registerResponseListener(responseHandlerListener);
                 // Step 2, Call Webservice Method
-                WebServiceClient.validateResendOtp(this, createResendOtpPayload(), true, 2,responseHandlerListener);
+                WebServiceClient.validateResendOtp(this, createResendOtpPayload(), true, 2, responseHandlerListener);
                 setClickableFalseBtn();
                 break;
         }
@@ -118,29 +134,30 @@ public class OtpConfirmationActivity extends BaseActivity {
         try {
 
             JSONObject userData = new JSONObject();
-            if(mUserId!=null) {
+            if (mUserId != null) {
                 userData.put("user_id", mUserId);
             }
             userData.put("mobile", mMobileNo);
             //otp_type=0 means user id from create account or from forgot password ;;otp_type=1 means user is from edit profile
-            if(PreferenceHandler.readInteger(OtpConfirmationActivity.this,PreferenceHandler.OTP_SCREEN_NO, 0)==1 ||PreferenceHandler.readInteger(OtpConfirmationActivity.this,PreferenceHandler.OTP_SCREEN_NO, 0)==2) {
+            if (PreferenceHandler.readInteger(OtpConfirmationActivity.this, PreferenceHandler.OTP_SCREEN_NO, 0) == 1 || PreferenceHandler.readInteger(OtpConfirmationActivity.this, PreferenceHandler.OTP_SCREEN_NO, 0) == 2) {
                 userData.put("otp_type", 0);
-            }else{
+            } else {
                 userData.put("otp_type", 1);
             }
             payload = userData.toString();
 
-            Log.e("response", "" + payload);
+            Log.e("Response OTP Resend", "" + payload);
         } catch (Exception e) {
             payload = null;
         }
         return payload;
     }
+
     private void setClickableFalseBtn() {
-        mCdtResend=new CountDownTimer(60000, 1000) {
+        mCdtResend = new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                mBtnResendOtp.setText("Enable in: " + millisUntilFinished / 1000+" seconds.");
+                mBtnResendOtp.setText("Enable in: " + millisUntilFinished / 1000 + " seconds.");
                 //here you can have your logic to set text to edittext
             }
 
@@ -244,13 +261,13 @@ public class OtpConfirmationActivity extends BaseActivity {
 
     private void resendOtp(ResponsePojo result) {
         try {
-            if (result.getStatus_code()==400) {
+            if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(this, result);
             } else {
                 //Success
                 DataPojo dataPojo = result.getData();
-                mOtp=dataPojo.getRequest_id();
+                mOtp = dataPojo.getRequest_id();
                 setDataInViewLayouts();
             }
         } catch (Exception e) {
@@ -260,26 +277,26 @@ public class OtpConfirmationActivity extends BaseActivity {
 
     private void otpVerify(ResponsePojo result) {
         try {
-            if (result.getStatus_code()==400) {
+            if (result.getStatus_code() == 400) {
                 //Error
                 new Utility().showErrorDialog(this, result);
             } else {
                 //Success
                 DataPojo dataPojo = result.getData();
-                if(CreateAccountActivity.createAccount!=null) {
+                if (CreateAccountActivity.createAccount != null) {
                     CreateAccountActivity.createAccount.finish();
                 }
-                if(ForgotPasswordActivity.forgotAccount!=null) {
+                if (ForgotPasswordActivity.forgotAccount != null) {
                     ForgotPasswordActivity.forgotAccount.finish();
                 }
-                if(!mUserId.equals("")) {//user is coming from create account
+                if (!mUserId.equals("")) {//user is coming from create account
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
-                }else{//user is coming from forgotpassword
+                } else {//user is coming from forgotpassword
 
-                    Intent intent=new Intent(getApplicationContext(), ChangePasswordActivity.class);
-                    intent.putExtra("user_id",dataPojo.getUser_id());
-                    intent.putExtra("auth_token",dataPojo.getAuth_token());
+                    Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
+                    intent.putExtra("user_id", dataPojo.getUser_id());
+                    intent.putExtra("auth_token", dataPojo.getAuth_token());
                     startActivity(intent);
                 }
                 Utility.removeTemperoryValueFromPreferences(this);
@@ -289,7 +306,6 @@ public class OtpConfirmationActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-
 
 
     @Override

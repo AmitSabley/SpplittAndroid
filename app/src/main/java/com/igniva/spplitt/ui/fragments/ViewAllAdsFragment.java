@@ -11,14 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.utils.Constants;
+import com.igniva.spplitt.utils.Log;
 
 /**
  * Created by igniva-php-08 on 14/6/16.
  */
 public class ViewAllAdsFragment extends BaseFragment{
+    private static final String LOG_TAG = "ViewAllAdsFragment";
     View mView;
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
@@ -54,6 +57,12 @@ public class ViewAllAdsFragment extends BaseFragment{
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_VIEW_EVENT;
+        Log.e("ViewAllAdsFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

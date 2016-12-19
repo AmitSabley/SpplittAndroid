@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -42,6 +43,7 @@ import java.util.List;
  * Created by igniva-php-08 on 18/5/16.
  */
 public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClickListener {
+    private static final String LOG_TAG = "ViewCategoriesFragment1";
     View mView;
     RecyclerView mRvCategories;
     TextView mTvLocation;
@@ -130,7 +132,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -215,6 +217,8 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
         switch (view.getId()) {
             case R.id.btn_change_location://to go at my profile
                 if (cityId == null || cityId.equals("")) {
+                    App.getInstance().trackEvent(LOG_TAG, "Change Location and Go to My Profile", "My Profile Call to Change Location");
+
                     Intent in1 = new Intent(getActivity(), CountryActivity.class);
                     in1.putExtra("from", "5");
                     startActivity(in1);
@@ -224,10 +228,14 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
 //                ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(1));
                 break;
             case R.id.btn_post_ad:
+                App.getInstance().trackEvent(LOG_TAG, "Post Ads", "Post Ads");
+
                 //to go at post ad
                 ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(4));
                 break;
             case R.id.btn_view_al_ad:
+                App.getInstance().trackEvent(LOG_TAG, "View All Ads From Categories", "View All Ads From Categories");
+
                 //to view all ads
                 Intent in = new Intent(getActivity(), ViewAdsActivity.class);
                 getActivity().startActivity(in);
@@ -246,6 +254,12 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_CATEGORIES;
+        Log.e("ViewCategoriesFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

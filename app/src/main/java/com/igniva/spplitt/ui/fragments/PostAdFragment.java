@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -50,6 +51,7 @@ import java.util.List;
  * Created by igniva-php-08 on 11/5/16.
  */
 public class PostAdFragment extends BaseFragment implements View.OnClickListener {
+    private static final String LOG_TAG = "PostAdFragment";
     View view;
     static EditText mEtSelectDate;
     static EditText mEtSelectTime;
@@ -163,6 +165,12 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_POST_ADS;
+        Log.e("PostAdFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -668,9 +676,6 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    /**
-     * @param payload payload for post ad
-     */
 
     private String createPostADPayload() {
 //      Get categoryid

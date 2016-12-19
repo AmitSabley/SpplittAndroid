@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -25,10 +26,23 @@ import org.json.JSONObject;
  * Created by Jigyasa Saluja on 6/5/16.
  */
 public class ForgotPasswordActivity extends BaseActivity {
+    private static final String LOG_TAG = "ForgotPasswordActivity";
     EditText mEtEmail;
     TextView mToolbarTvText;
-//    SharedPreferences sharedpreferences;
-//    SharedPreferences.Editor editor;
+
+    //    SharedPreferences sharedpreferences;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("ForgotPasswordActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //    SharedPreferences.Editor editor;
     public static ForgotPasswordActivity forgotAccount;
 
     @Override
@@ -56,6 +70,7 @@ public class ForgotPasswordActivity extends BaseActivity {
             switch (mUrlNo) {
                 case 1:
                     if (error == null) {
+
                         getForgotPassword(result);
                     } else {
                         // TODO display error dialog
@@ -96,11 +111,15 @@ public class ForgotPasswordActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
+
                 onBackPressed();
                 break;
             case R.id.btn_forgot_password:
                 boolean val = new Validations().isValidateForgotPassword(getApplicationContext(), mEtEmail);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Forgot Password", "Forgot Password Clicked");
+
 //                  Webservice Call
 //                  Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListenerForgot);
@@ -113,7 +132,6 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     /**
      * Saving Data to JSON
-     *
      */
     private String createForgotPasswordPayload() {
         String payload = null;

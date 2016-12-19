@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -41,6 +42,7 @@ import java.util.List;
  * Created by igniva-php-08 on 14/6/16.
  */
 public class ViewAllActiveAdsFragment extends BaseFragment  {
+    private static final String LOG_TAG = "ViewAllActiveAdsFragment";
     View mView;
     RecyclerView mRvAds;
     String mAdType = "new";
@@ -95,7 +97,7 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
             mCatId = "1";
         }
         String payload = null;
-        Log.e("rseponse", "" + mCatId);
+        Log.e("Response", "" + mCatId);
         try {
             JSONObject userData = new JSONObject();
             try {
@@ -106,7 +108,7 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -165,6 +167,12 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_VIEW_EVENT;
+        Log.e("ViewAllActiveAds", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        if(mAdsListAdapter!=null) {
 //
 //
@@ -251,7 +259,9 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_search:
-                //do sth here
+                App.getInstance().trackEvent(LOG_TAG, "Search All Active Ads", "Active Ads Search");
+
+                //Do Search here
                 final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -292,7 +302,7 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            android.util.Log.e("rseponse", "" + userData);
+            android.util.Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

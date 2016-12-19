@@ -13,14 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.utils.Constants;
+import com.igniva.spplitt.utils.Log;
 
 /**
  * Created by igniva-php-08 on 18/5/16.
  */
 public class ManageMyAdsFragment extends BaseFragment implements View.OnClickListener {
+    private static final String LOG_TAG = "ManageMyAdsFragment";
     View mView;
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
@@ -51,6 +54,12 @@ public class ManageMyAdsFragment extends BaseFragment implements View.OnClickLis
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_MANAGE_MY_ADS;
+        Log.e("ManageMyAdsFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -99,12 +108,15 @@ public class ManageMyAdsFragment extends BaseFragment implements View.OnClickLis
             Fragment fragment = null;
             switch (position) {
                 case 0:
+                    App.getInstance().trackEvent(LOG_TAG, "ActiveAdFragment Call", "AwaitedAdFragment Display");
                     fragment = ActiveAdFragment.newInstance();
                     break;
                 case 1:
+                    App.getInstance().trackEvent(LOG_TAG, "CompleteAdsFragment Call", "AwaitedAdFragment Display");
                     fragment = CompleteAdsFragment.newInstance();
                     break;
                 case 2:
+                    App.getInstance().trackEvent(LOG_TAG, "IncompleteAdsFragment Call", "AwaitedAdFragment Display");
                     fragment = IncompleteAdsFragment.newInstance();
                     break;
             }

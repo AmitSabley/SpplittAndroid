@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -30,8 +31,21 @@ import java.util.List;
  * Created by igniva-php-08 on 6/6/16.
  */
 public class AdsAppliedListActivity extends BaseActivity{
+    private static final String LOG_TAG = "AdsAppliedListActivity" ;
     String mOtherUserId;
     String mAdType;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("AdsAppliedListActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     RecyclerView mRvAds;
     TextView mToolbarTvText;
     @Override
@@ -72,6 +86,7 @@ public class AdsAppliedListActivity extends BaseActivity{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
                 break;
 

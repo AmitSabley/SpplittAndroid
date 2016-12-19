@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +25,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -50,6 +52,7 @@ import io.fabric.sdk.android.Fabric;
  * Created by igniva-php-08 on 3/5/16.
  */
 public class SplashActivity extends AppCompatActivity {
+    private static final String LOG_TAG = "SplashActivity" ;
     //gcm
     GoogleCloudMessaging gcm;
     String regid;
@@ -280,6 +283,12 @@ public class SplashActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver();
+        Log.e("SplashActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.AsyncResult;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
@@ -58,6 +59,7 @@ import java.io.ByteArrayOutputStream;
  * Created by igniva-php-08 on 10/5/16.
  */
 public class EditProfileFragment extends BaseFragment implements View.OnClickListener, AsyncResult {
+    private static final String LOG_TAG = "EditProfileFragment" ;
     View view;
     RoundedImageView mRivUserImage;
     static Bitmap myBitmap;
@@ -277,22 +279,28 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         switch (view.getId()) {
             case R.id.riv_userImage_edit:
                 if (Permissions.checkPermissionCamera(getActivity())) {
+                    App.getInstance().trackEvent(LOG_TAG, "Edit Profile Upload Image", "Upload Image Edit Profile");
                     onPickImage();
                 }
                 break;
             case R.id.btn_change_email_edit:
+                App.getInstance().trackEvent(LOG_TAG, "Edit Profile Change Email", "Change Email Edit Profile");
                 mBtnChangeEmail.setClickable(false);//enabled in on resume
                 mBtnChangeMobileNo.setClickable(false);
                 startActivity(new Intent(getContext(), UpdateEmailActivity.class));
                 break;
             case R.id.btn_edit_mobileno://enabled in on resume
+                App.getInstance().trackEvent(LOG_TAG, "Edit Profile Update Mobile", "Update Mobile Edit Profile");
                 mBtnChangeEmail.setClickable(false);
                 mBtnChangeMobileNo.setClickable(false);
                 startActivity(new Intent(getContext(), UpdateMobileActivity.class));
                 break;
             case R.id.btn_submit_profile_edit:
+
                 boolean val = new Validations().isValidateEditProfile(getContext(), mSvmain, myBitmap, mEtUsername, mEtAge, countryId, stateId,cityId);
                 if (val) {
+                    App.getInstance().trackEvent(LOG_TAG, "Edit Profile Submit Details Email", "Submit Details Edit Profile");
+
                     mBtnSubmitprofile.setClickable(false);
                     // Step 1: Register Callback Interface
                     WebNotificationManager.registerResponseListener(responseHandlerListener);
@@ -306,6 +314,8 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.tv_countries:
                 try {
+                    App.getInstance().trackEvent(LOG_TAG, "Edit Profile Country List", "Country List Edit Profile");
+
                     age=mEtAge.getText().toString();
                     isAge=mTbAge.isChecked();
                     Intent in = new Intent(getActivity(), CountryActivity.class);
@@ -324,6 +334,8 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.tv_states:
                 if(countryId!=null){
+                    App.getInstance().trackEvent(LOG_TAG, "Edit Profile State List", "State List Edit Profile");
+
                     age=mEtAge.getText().toString();
                     isAge=mTbAge.isChecked();
                     Intent in=new Intent(getActivity(),StateActivity.class);
@@ -339,6 +351,8 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.tv_cities:
                 if(stateId!=null){
+                    App.getInstance().trackEvent(LOG_TAG, "Edit Profile City List", "City List Edit Profile");
+
                     age=mEtAge.getText().toString();
                     isAge=mTbAge.isChecked();
                     Intent in=new Intent(getActivity(),CityActivity.class);
@@ -540,6 +554,12 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         MainActivity.currentFragmentId = Constants.FRAG_ID_MY_PROFILE;
         mBtnChangeEmail.setClickable(true);
         mBtnChangeMobileNo.setClickable(true);
+        Log.e("EditProfileFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

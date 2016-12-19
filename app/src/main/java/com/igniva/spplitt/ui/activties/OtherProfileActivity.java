@@ -16,6 +16,7 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.Animation;
@@ -28,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 
 import com.bumptech.glide.Glide;
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -47,12 +49,25 @@ import java.util.List;
 
 
 public class OtherProfileActivity extends BaseActivity implements View.OnClickListener {
+    private static final String LOG_TAG = "OtherProfileActivity";
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView mIvProfilePic;
     String otherUserId;
 
     DataPojo dataPojo;
     Bitmap myBitmap;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("OtherProfileActivity", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     RecyclerView mRvAds;
     FloatingActionButton mFab;
     FloatingActionButton mFabCross;
@@ -124,9 +139,9 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
     public void setUpLayouts() {
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFabCross = (FloatingActionButton) findViewById(R.id.fab_cross);
-        if(PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.USER_ID, "").equals(otherUserId)){
+        if (PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.USER_ID, "").equals(otherUserId)) {
             mFab.setVisibility(View.GONE);
-        }else{
+        } else {
             mFab.setVisibility(View.VISIBLE);
         }
         mRvAds = (RecyclerView) findViewById(R.id.rv_ads_applied);
@@ -241,8 +256,7 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
 //            mFab.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mFab.setImageResource(R.mipmap.check);
 
-                FrameLayout.LayoutParams parameters = (FrameLayout.LayoutParams)
-                        revealView.getLayoutParams();
+                FrameLayout.LayoutParams parameters = (FrameLayout.LayoutParams) revealView.getLayoutParams();
                 parameters.height = mIvProfilePic.getHeight();
                 revealView.setLayoutParams(parameters);
                 layoutButtons.setVisibility(View.VISIBLE);
@@ -274,24 +288,29 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_btn_back:
+                App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
                 break;
             case R.id.ll_ads_applied:
+                App.getInstance().trackEvent(LOG_TAG, "Applied Ads Called", "Applied Ads Fragment");
                 Intent intent = new Intent(this, AdsAppliedListActivity.class);
                 intent.putExtra("other_user_id", otherUserId);
                 intent.putExtra("ads_type", getResources().getString(R.string.applied_ads));
                 startActivity(intent);
                 break;
             case R.id.ll_ads_posted:
+                App.getInstance().trackEvent(LOG_TAG, "Posted Ads Called", "Posted Ads Fragment");
                 Intent intentPosted = new Intent(this, AdsAppliedListActivity.class);
                 intentPosted.putExtra("other_user_id", otherUserId);
                 intentPosted.putExtra("ads_type", getResources().getString(R.string.posted_ads));
                 startActivity(intentPosted);
                 break;
             case R.id.fab:
+                App.getInstance().trackEvent(LOG_TAG, "Review and Rate User", "Review And Rate User Dialog");
                 reviewsAndRating(v);
                 break;
             case R.id.fab_cross:
+                App.getInstance().trackEvent(LOG_TAG, "Close Rate User", "Close Rate User Dialog");
                 closeRatingSection(v);
                 break;
         }
@@ -360,9 +379,9 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
                 userData.put("user_id", PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.USER_ID, ""));
                 userData.put("auth_token", PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.AUTH_TOKEN, ""));
                 userData.put("other_user_id", otherUserId);
-                if(PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.USER_ID, "").equals(otherUserId)){
+                if (PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.USER_ID, "").equals(otherUserId)) {
                     userData.put("profile_type", "my");
-                }else {
+                } else {
                     userData.put("profile_type", "other");
                 }
             } catch (Exception e) {
@@ -482,7 +501,7 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
 
                     anim.start();
                     flag = true;
-                }else{
+                } else {
                     mFabCross.setVisibility(View.GONE);
                     mFab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimaryDark));
                     mFab.setImageResource(R.mipmap.star);
@@ -509,12 +528,12 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
                 setDataInViewLayouts();
                 mReviewList = dataPojo.getOther_review();
 //                if(mReviewList.size()>0) {
-                    ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(OtherProfileActivity.this, mReviewList, dataPojo);
-                    mRvAds.setAdapter(mAdsListAdapter);
-                    mAdsListAdapter.notifyDataSetChanged();
-                    mRvAds.setHasFixedSize(true);
-                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(OtherProfileActivity.this);
-                    mRvAds.setLayoutManager(mLayoutManager);
+                ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(OtherProfileActivity.this, mReviewList, dataPojo);
+                mRvAds.setAdapter(mAdsListAdapter);
+                mAdsListAdapter.notifyDataSetChanged();
+                mRvAds.setHasFixedSize(true);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(OtherProfileActivity.this);
+                mRvAds.setLayoutManager(mLayoutManager);
 //                }
             }
         } catch (Exception e) {

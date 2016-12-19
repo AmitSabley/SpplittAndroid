@@ -2,6 +2,7 @@ package com.igniva.spplitt.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.utils.Constants;
@@ -17,6 +19,7 @@ import com.igniva.spplitt.utils.Constants;
  * Created by igniva-php-08 on 11/7/16.
  */
 public class PrivacyPolicy extends BaseFragment {
+    private static final String LOG_TAG = "PrivacyPolicy";
     View mView;
     WebView mWvTerms;
     ProgressBar mPbBar;
@@ -51,6 +54,13 @@ public class PrivacyPolicy extends BaseFragment {
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_PRIVACY_POLICY;
+        Log.e("PrivacyPolicy", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
     private class MyBrowser extends WebViewClient {
         private ProgressBar progressBar;

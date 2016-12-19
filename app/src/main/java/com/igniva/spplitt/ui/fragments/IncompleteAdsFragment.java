@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
@@ -41,6 +42,7 @@ import java.util.List;
 
 
 public class IncompleteAdsFragment extends BaseFragment implements View.OnClickListener {
+    private static final String LOG_TAG = "IncompleteAdsFragment";
     View mView;
     RecyclerView mRvAdsIncomplete;
     String mCatId;
@@ -128,6 +130,12 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_MY_ADS_ACTIVE;
+        Log.e("IncompleteAdsFragment", "OnResume Called");
+        try {
+            App.getInstance().trackScreenView(LOG_TAG);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String activeAdsPayload() {
@@ -313,7 +321,9 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_search:
-                //do sth here
+                App.getInstance().trackEvent(LOG_TAG, "Search InComplete Ads", "Search InComplete Ads");
+
+                //do Search here
                 searchView = (SearchView) MenuItemCompat.getActionView(item);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));

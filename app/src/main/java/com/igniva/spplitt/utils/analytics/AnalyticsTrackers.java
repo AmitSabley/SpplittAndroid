@@ -1,4 +1,4 @@
-package com.igniva.spplitt.utils;
+package com.igniva.spplitt.utils.analytics;
 
 import android.content.Context;
 

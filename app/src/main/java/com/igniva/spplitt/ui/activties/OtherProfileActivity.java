@@ -139,11 +139,11 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
     public void setUpLayouts() {
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFabCross = (FloatingActionButton) findViewById(R.id.fab_cross);
-        if (PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.USER_ID, "").equals(otherUserId)) {
+      /*  if (PreferenceHandler.readString(OtherProfileActivity.this, PreferenceHandler.USER_ID, "").equals(otherUserId)) {
             mFab.setVisibility(View.GONE);
         } else {
             mFab.setVisibility(View.VISIBLE);
-        }
+        }*/
         mRvAds = (RecyclerView) findViewById(R.id.rv_ads_applied);
         mRvAds.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int scrollDy = 0;
@@ -307,7 +307,7 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.fab:
                 App.getInstance().trackEvent(LOG_TAG, "Review and Rate User", "Review And Rate User Dialog");
-                reviewsAndRating(v);
+                /*reviewsAndRating(v);*/
                 break;
             case R.id.fab_cross:
                 App.getInstance().trackEvent(LOG_TAG, "Close Rate User", "Close Rate User Dialog");

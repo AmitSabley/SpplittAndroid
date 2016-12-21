@@ -210,9 +210,9 @@
     <string name="err_msg_terms">Please check the terms and conditions</string>
     <string name="not_agree">Not Agree</string>
     <string name="agree">Agree</string>
-    <string name="terms_url">http://spplitt.ignivastaging.com/pages/terms</string>
-    <string name="privacy_url">http://spplitt.ignivastaging.com/pages/privacy</string>
-    <string name="about_url">http://spplitt.ignivastaging.com/pages/about</string>
+    <string name="terms_url">http://api.spplitt.com/pages/terms</string>
+    <string name="privacy_url">http://api.spplitt.com/pages/privacy</string>
+    <string name="about_url">http://api.spplitt.com/pages/about</string>
     <string name="select_all">Select All</string>
     <string name="rate_this_user">Rate this User</string>
 

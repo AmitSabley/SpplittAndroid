@@ -1,8 +1,9 @@
-package com.igniva.spplitt;
+package com.igniva.spplitt.utils.analytics;
 
 import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.igniva.spplitt.R;
 
 
 /**

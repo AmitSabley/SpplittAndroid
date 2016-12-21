@@ -50,8 +50,8 @@ public class WebServiceClient {
      */
 
     public static final String HTTP_PROTOCOL = "http://";
-    public static final String HTTP_HOST_IP = "spplitt.ignivastaging.com";
-    public final static String BASE_URL="http://spplitt.ignivastaging.com/";
+    public static final String HTTP_HOST_IP = "api.spplitt.com";
+    public final static String BASE_URL="http://api.spplitt.com/";
     public static final String HTTP_LOGIN = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/login?";
     public static final String HTTP_REGISTR = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/register";
     public static final String HTTP_FORGOT_PASSWORD = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/forgotPassword";
@@ -68,7 +68,7 @@ public class WebServiceClient {
     private static final String HTTP_FLAG_AD = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/flagAd";
     private static final String HTTP_GET_ADS_DESC = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/adDetails";
     private static final String HTTP_SEARCH_ADS = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getAds";
-    public static final  String MULTIPART_URL="http://spplitt.ignivastaging.com/upload.php";
+    public static final  String MULTIPART_URL="http://api.spplitt.com/upload.php";
     public static String API_BASE = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
     private static final String HTTP_CITY_LIST = HTTP_PROTOCOL + HTTP_HOST_IP + "/countries/getCity";
     private static final String HTTP_OTHER_PROFILE = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/getProfile";

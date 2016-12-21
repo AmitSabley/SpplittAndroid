@@ -154,7 +154,7 @@
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
         app:theme="@style/ThemeOverlay.AppCompat.Light"
-        android:visibility="gone"/>
+        android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_cross"

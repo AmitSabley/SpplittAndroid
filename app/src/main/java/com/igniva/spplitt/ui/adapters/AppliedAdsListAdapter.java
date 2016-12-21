@@ -401,7 +401,7 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            android.util.Log.e("rseponse", "" + userData);
+            android.util.Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

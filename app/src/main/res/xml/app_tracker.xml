@@ -7,18 +7,18 @@
     <!--<bool name="ga_autoActivityTracking">true</bool>-->
 
     <!--  The property id associated with this analytics tracker -->
-    <string name="ga_trackingId">UA-87815340-1</string>
+    <string name="ga_trackingId">UA-89257376-1</string>
 
     <string name="ga_sampleFrequency">100.0</string>
 
     <bool name="ga_reportUncaughtExceptions">true</bool>
 
 
-    <screenName name="SplashActivity">Splash Screen</screenName>
+    <screenName name="AdsAppliedListActivity">Applied Ads</screenName>
 
-    <screenName name="IntroductionActivity">Introduction Activity</screenName>
-    <screenName name="HomeActivity">Home Activity</screenName>
-    <screenName name="SignUpActivity">SignUp Activity</screenName>
+    <screenName name="ChangePasswordActivity">Change Password</screenName>
+    <screenName name="CityActivity">City List Activity</screenName>
+    <screenName name="CountryActivity">Country List Activity</screenName>
     <screenName name="CreateProfileActivity">CreateProfile Activity</screenName>
     <screenName name="LoginActivity">Login Activity</screenName>
     <screenName name="ForgotPasswordActivity">ForgotPassword Activity</screenName>

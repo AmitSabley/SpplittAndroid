@@ -10,7 +10,7 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.android.gms.analytics.Tracker;
-import com.igniva.spplitt.utils.AnalyticsTrackers;
+import com.igniva.spplitt.utils.analytics.AnalyticsTrackers;
 import com.igniva.spplitt.utils.Log;
 
 import io.fabric.sdk.android.Fabric;

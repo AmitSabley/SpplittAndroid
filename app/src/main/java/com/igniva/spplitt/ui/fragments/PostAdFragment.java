@@ -713,7 +713,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void postAdData(ResponsePojo result) {
-        if (result.getStatus_code() == 400) {
+         if (result.getStatus_code() == 400) {
             //Error
             new Utility().showErrorDialog(getActivity(), result);
         } else {

@@ -57,7 +57,8 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
     boolean mIsCloseAds;
     int connectPosition;
     int flagPosition;
-    int pos = 0;private Button mbtnRating;
+    int pos = 0;
+    private Button mbtnRating;
     private RatingBar mratingBar_popup;
     private EditTextNonRegular met_review;
     private DataPojo dataPojo;
@@ -156,7 +157,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                     @Override
                     public void onClick(View view) {
                         pos = position;
-                       // showRatingDialog(mContext, position);
+                        // showRatingDialog(mContext, position);
                     }
                 });
 
@@ -195,7 +196,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                             public void onClick(View view) {
                                 mBttnFlagAd = holder.mBtnFlagAd;
                                 connectPosition = position;
-                                showCreateAccountDialogUpdate(mContext, mListAds.get(position).getAd_id(), mListAds.get(position).getCategory_id());
+                                showCreateAccountDialog(mContext, mListAds.get(position).getAd_id(), mListAds.get(position).getCategory_id());
                             }
                         });
                     }
@@ -245,6 +246,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
 
         }
     }
+
     public void showRatingDialog(final Context mContext, final int position) {
         try {
             LayoutInflater li = LayoutInflater.from(mContext);
@@ -282,6 +284,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                     mContext.getResources().getString(R.string.invalid_session));
         }
     }
+
     private void addReviews(int position) {
         boolean val = new Validations().isValidateReviews(mContext, mratingBar_popup, met_review);
         if (val) {
@@ -292,6 +295,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             WebServiceClient.addRating_MyAds(mContext, createReviewsPayload(position), true, 2, responseHandlerListenerLogin);
         }
     }
+
     private String createReviewsPayload(int position) {
         String payload = null;
         try {
@@ -411,42 +415,66 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
     }
 
 
-    public void showCreateAccountDialogUpdate(final Context mContext, final String mAdId, final String mCategoryId) {
+    public void showCreateAccountDialog(final Context mContext, final String mAdId, final String mCategoryId) {
         try {
             LayoutInflater li = LayoutInflater.from(mContext);
             View promptsView = li.inflate(R.layout.dialog_flag_ad, null);
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
+             AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
                     R.style.CustomPopUpTheme);
             // set prompts.xml to alertdialog builder
-            builder.setView(promptsView);
 
             final EditText mEtReportAbuseMsg = (EditText) promptsView
                     .findViewById(R.id.et_report_abuse_message);
-
             builder.setCancelable(true);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
+                builder.setPositiveButton("OK", new AlertDialog.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+            builder.setNegativeButton("CANCEL", new AlertDialog.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Utility.hideKeyboard(mContext, mEtReportAbuseMsg);
-                    //         Webservice Call
-                    //         Step 1, Register Callback Interface
-                    WebNotificationManager.registerResponseListener(responseHandlerListenerFlagAd);
-                    // Step 2, Call Webservice Method
-                    WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 1, responseHandlerListenerFlagAd);
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-                    dialog.dismiss();
-                }
-            });
-            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
                 }
             });
 
-            builder.show();
+            builder.setView(promptsView);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
+                    // if EditText is empty disable closing on possitive button
+                    if (!val)
+                    {
+                        // Webservice Call
+                        // Step 1, Register Callback Interface
+                        WebNotificationManager.registerResponseListener(responseHandlerListenerFlagAd);
+                        // Step 2, Call Webservice Method
+                        WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 2, responseHandlerListenerFlagAd);
+                        alertDialog.dismiss();
+                    }
+                    else{
+                        Log.e("Enter your text", "Enter your text");
+                        Utility.showToastMessageLong(mContext, "Enter your Text");
+                    }
+                }
+
+            });
+
+
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -464,7 +492,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -485,7 +513,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("rseponse", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

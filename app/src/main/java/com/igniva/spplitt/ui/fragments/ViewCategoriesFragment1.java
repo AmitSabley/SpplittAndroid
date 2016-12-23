@@ -111,13 +111,17 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
 
     @Override
     public void setDataInViewLayouts() {
-        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0) == 6) {
+        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6) {
+/*
             PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
+*/
             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.tick, 0);
             mTvLocation.setText(cityName + "," + countryName);
         } else {
             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
             mTvLocation.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "") + "," + PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, ""));
+//            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
+
         }
     }
 

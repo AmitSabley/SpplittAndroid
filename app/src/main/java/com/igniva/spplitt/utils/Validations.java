@@ -294,6 +294,16 @@ public class Validations {
         return true;
     }
 
+    public boolean isValidateTextDialog(Context applicationContext, EditText mEtReportAbuseMsg) {
+
+        if (!validateText(applicationContext, mEtReportAbuseMsg)) {
+
+            return false;
+        }
+        return true;
+    }
+
+
     private boolean validateRating(Context applicationContext, RatingBar mRatingBar) {
         if (mRatingBar.getRating() == 0) {
             Utility.showToastMessageLong(applicationContext, applicationContext.getResources().getString(R.string.err_msg_rating));
@@ -592,6 +602,16 @@ public class Validations {
 //            mEtAdDesc.setError(applicationContext.getString(R.string.err_msg_adDesc));
             Utility.showToastMessageLong(applicationContext, applicationContext.getResources().getString(R.string.err_msg_reviews));
             requestFocus(applicationContext, mEtReviews);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateText(Context applicationContext, EditText mEtReportAbuseMsg) {
+        if (mEtReportAbuseMsg.getText().toString().trim().isEmpty()) {
+//            mEtAdDesc.setError(applicationContext.getString(R.string.err_msg_adDesc));
+            Utility.showToastMessageLong(applicationContext, applicationContext.getResources().getString(R.string.err_msg_reviews));
+            //requestFocus(applicationContext, mEtReportAbuseMsg);
             return false;
         }
         return true;

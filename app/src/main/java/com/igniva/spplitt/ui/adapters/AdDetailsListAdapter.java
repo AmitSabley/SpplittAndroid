@@ -54,13 +54,14 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
     int clickPos;
     ViewHolder mViewHolder;
     int connectPosition;
+
     public AdDetailsListAdapter(Context context, List<ConnectionRequestsListPojo> mListRequestAds, DataPojo dataPojo, String mAdId, int connectPosition) {
 
         this.mListRequestAds = mListRequestAds;
         this.mContext = context;
         this.dataPojo = dataPojo;
         this.mAdId = mAdId;
-        this.connectPosition=connectPosition;
+        this.connectPosition = connectPosition;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -178,7 +179,7 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                                 @Override
                                 public void onClick(View view) {
                                     mBtnFlagAnAd = holder.mBtnViewAdFlagAd;
-                                    showCreateAccountDialogUpdate(mContext, mAdId, "");
+                                    showCreateAccountDialog(mContext, mAdId, "");
                                 }
                             });
                         }
@@ -214,13 +215,13 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 Glide.with(mContext)
                         .load(WebServiceClient.BASE_URL + mListRequestAds.get(position - 1).getConnected_by_photo()).asBitmap()
                         .into(holder.mRivConnectorName);
-                if (dataPojo.getAd_status() ==5) {
+                if (dataPojo.getAd_status() == 5) {
                     mViewHolder.mBtnAcceptAd.setVisibility(View.GONE);
                     mViewHolder.mBtnRejectAd.setVisibility(View.GONE);
-                }else{
+                } else {
                     if (mListRequestAds.get(position - 1).getConnectivity().equals("request")) {
                         if (mListRequestAds.get(position - 1).is_accept()) {
-                            if(ViewAdsDetailsActivity.menuItem!=null) {
+                            if (ViewAdsDetailsActivity.menuItem != null) {
                                 ViewAdsDetailsActivity.showoptions = false;
                                 ViewAdsDetailsActivity.details.onCreateOptionsMenu(ViewAdsDetailsActivity.menuItem);
                             }
@@ -230,13 +231,13 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                             mViewHolder.mBtnAcceptAd.setFocusableInTouchMode(false);
                             mViewHolder.mBtnAcceptAd.setEnabled(false);
                         } else {
-                            ViewAdsDetailsActivity.showoptions=true;
+                            ViewAdsDetailsActivity.showoptions = true;
                             mViewHolder.mBtnAcceptAd.setVisibility(View.VISIBLE);
                             mViewHolder.mBtnAcceptAd.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_check_circle_grey, 0, 0, 0);
                             mViewHolder.mBtnAcceptAd.setClickable(true);
                         }
                         if (mListRequestAds.get(position - 1).is_reject()) {
-                            if(ViewAdsDetailsActivity.menuItem!=null) {
+                            if (ViewAdsDetailsActivity.menuItem != null) {
                                 ViewAdsDetailsActivity.showoptions = false;
                                 ViewAdsDetailsActivity.details.onCreateOptionsMenu(ViewAdsDetailsActivity.menuItem);
                             }
@@ -246,14 +247,14 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                             mViewHolder.mBtnRejectAd.setFocusableInTouchMode(false);
                             mViewHolder.mBtnRejectAd.setEnabled(false);
                         } else {
-                            ViewAdsDetailsActivity.showoptions=true;
+                            ViewAdsDetailsActivity.showoptions = true;
                             mViewHolder.mBtnRejectAd.setVisibility(View.VISIBLE);
                             mViewHolder.mBtnRejectAd.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_cancel_black_grey, 0, 0, 0);
                             mViewHolder.mBtnRejectAd.setClickable(true);
                         }
                     } else if (mListRequestAds.get(position - 1).getConnectivity().equals("confirm")) {
                         if (mListRequestAds.get(position - 1).is_accept()) {
-                            if(ViewAdsDetailsActivity.menuItem!=null) {
+                            if (ViewAdsDetailsActivity.menuItem != null) {
                                 ViewAdsDetailsActivity.showoptions = false;
                                 ViewAdsDetailsActivity.details.onCreateOptionsMenu(ViewAdsDetailsActivity.menuItem);
                             }
@@ -264,13 +265,13 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                             mViewHolder.mBtnAcceptAd.setFocusableInTouchMode(false);
                             mViewHolder.mBtnAcceptAd.setEnabled(false);
                         } else {
-                            ViewAdsDetailsActivity.showoptions=true;
+                            ViewAdsDetailsActivity.showoptions = true;
                             mViewHolder.mBtnAcceptAd.setVisibility(View.VISIBLE);
                             mViewHolder.mBtnRejectAd.setVisibility(View.GONE);
                         }
 
                     } else if (mListRequestAds.get(position - 1).getConnectivity().equals("reject")) {
-                        if(ViewAdsDetailsActivity.menuItem!=null) {
+                        if (ViewAdsDetailsActivity.menuItem != null) {
                             ViewAdsDetailsActivity.showoptions = false;
                             ViewAdsDetailsActivity.details.onCreateOptionsMenu(ViewAdsDetailsActivity.menuItem);
                         }
@@ -310,14 +311,14 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 holder.mBtnAcceptAd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        clickPos=position;
-                      showSuccessDialog(mContext, mListRequestAds.get(position - 1).getConnected_by_id(),mContext.getResources().getString(R.string.accept_msg),"confirm",1);
+                        clickPos = position;
+                        showSuccessDialog(mContext, mListRequestAds.get(position - 1).getConnected_by_id(), mContext.getResources().getString(R.string.accept_msg), "confirm", 1);
                     }
                 });
                 holder.mBtnRejectAd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        clickPos=position;
+                        clickPos = position;
                         showSuccessDialog(mContext, mListRequestAds.get(position - 1).getConnected_by_id(), mContext.getResources().getString(R.string.reject_msg), "rejected", 3);
                     }
                 });
@@ -394,7 +395,7 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 e.printStackTrace();
             }
             payload = userData.toString();
-            Log.e("respose",payload);
+            Log.e("Response", payload);
         } catch (Exception e) {
             payload = null;
         }
@@ -408,7 +409,7 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
             final AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
                     R.style.CustomPopUpTheme);
             TextView tvOtherName = (TextView) promptsView.findViewById(R.id.tv_header_accepted);
-            tvOtherName.setText(mContext.getResources().getString(R.string.requested) +" "+ dataPojo.getOther_username() +" "+ mContext.getResources().getString(R.string.requested_request));
+            tvOtherName.setText(mContext.getResources().getString(R.string.requested) + " " + dataPojo.getOther_username() + " " + mContext.getResources().getString(R.string.requested_request));
             TextView tvOtherEmail = (TextView) promptsView.findViewById(R.id.tv_other_email);
             tvOtherEmail.setText(dataPojo.getOther_user_email());
             tvOtherEmail.setOnClickListener(new View.OnClickListener() {
@@ -460,45 +461,112 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
         return position == 0;
     }
 
-    public void showCreateAccountDialogUpdate(final Context mContext, final String mAdId, final String mCategoryId) {
+    public void showCreateAccountDialog(final Context mContext, final String mAdId, final String mCategoryId) {
         try {
             LayoutInflater li = LayoutInflater.from(mContext);
             View promptsView = li.inflate(R.layout.dialog_flag_ad, null);
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
                     R.style.CustomPopUpTheme);
             // set prompts.xml to alertdialog builder
-            builder.setView(promptsView);
 
             final EditText mEtReportAbuseMsg = (EditText) promptsView
                     .findViewById(R.id.et_report_abuse_message);
-
             builder.setCancelable(true);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
+            builder.setPositiveButton("OK", new AlertDialog.OnClickListener(){
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //         Webservice Call
-                    //         Step 1, Register Callback Interface
-                    WebNotificationManager.registerResponseListener(responseHandlerListenerViewAdDetail);
-                    // Step 2, Call Webservice Method
-                    WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 2, responseHandlerListenerViewAdDetail);
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-                    dialog.dismiss();
-                }
-            });
-            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
                 }
             });
 
-            builder.show();
+            builder.setNegativeButton("CANCEL", new AlertDialog.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            builder.setView(promptsView);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
+                    // if EditText is empty disable closing on possitive button
+                    if (!val)
+                    {
+                        // Webservice Call
+                        // Step 1, Register Callback Interface
+                        WebNotificationManager.registerResponseListener(responseHandlerListenerViewAdDetail);
+                        // Step 2, Call Webservice Method
+                        WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 2, responseHandlerListenerViewAdDetail);
+                        alertDialog.dismiss();
+                    }
+                    else{
+                        Log.e("Enter your text", "Enter your text");
+                        Utility.showToastMessageLong(mContext, "Enter your Text");
+                    }
+                }
+
+            });
+
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+//    public void showCreateAccountDialogUpdate(final Context mContext, final String mAdId, final String mCategoryId) {
+//        try {
+//            LayoutInflater li = LayoutInflater.from(mContext);
+//            View promptsView = li.inflate(R.layout.dialog_flag_ad, null);
+//            final AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
+//                    R.style.CustomPopUpTheme);
+//            // set prompts.xml to alertdialog builder
+//            builder.setView(promptsView);
+//
+//            final EditText mEtReportAbuseMsg = (EditText) promptsView
+//                    .findViewById(R.id.et_report_abuse_message);
+//
+//            builder.setCancelable(true);
+//            mEtReportAbuseMsg.requestFocus();
+//            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    boolean val = new Validations().isValidateTextDialog(mContext,mEtReportAbuseMsg);
+//                    if (val) {
+//                        // Webservice Call
+//                        // Step 1, Register Callback Interface
+//                        WebNotificationManager.registerResponseListener(responseHandlerListenerViewAdDetail);
+//                        // Step 2, Call Webservice Method
+//                        WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 2, responseHandlerListenerViewAdDetail);
+//                    }
+//                }
+//            });
+//            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+//
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                }
+//            });
+//
+//            builder.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 
     private String flagAnAdPayload(String mAdId, String mEtReportAbuseMsg, String mCategoryId) {
         String payload = null;
@@ -585,10 +653,9 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 mListRequestAds.get(clickPos - 1).setIs_accept(true);
                 mListRequestAds.get(clickPos - 1).setConnectivity("confirm");
                 notifyDataSetChanged();
-                if(ActiveAdFragment.mViewActiveAds!=null){
+                if (ActiveAdFragment.mViewActiveAds != null) {
                     ActiveAdFragment.mViewActiveAds.getPosition(connectPosition);
-                }
-                else if(IncompleteAdsFragment.mViewIncompleteAds!=null){
+                } else if (IncompleteAdsFragment.mViewIncompleteAds != null) {
                     IncompleteAdsFragment.mViewIncompleteAds.getPosition(connectPosition);
                 }
             }

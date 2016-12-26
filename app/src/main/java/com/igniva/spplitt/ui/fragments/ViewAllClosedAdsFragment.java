@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.igniva.spplitt.App;
@@ -44,6 +46,7 @@ import java.util.List;
 public class ViewAllClosedAdsFragment extends BaseFragment  {
     private static final String LOG_TAG = "ViewAllClosedAdsFragment";
     View mView;
+    boolean isSearch;
     RecyclerView mRvAds;
     String mAdType = "completed";
     String mAdTypeSearch = "search_completed";
@@ -53,6 +56,8 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
     AdsListAdapter mAdsListAdapter;
     List<AdsListPojo> listAds = new ArrayList<AdsListPojo>();
     List<AdsListPojo> beforeFilterListAds = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
+
     public static ViewAllClosedAdsFragment newInstance() {
         ViewAllClosedAdsFragment fragment = new ViewAllClosedAdsFragment();
         return fragment;
@@ -160,6 +165,7 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
 
     private void getAdsData(ResponsePojo result) {
         try {
+            isSearch=false;
             if (result.getStatus_code() == 400) {
                 ErrorPojo errorPojo=result.getError();
                 if(errorPojo.getError_code().equals("533")){
@@ -175,12 +181,15 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
 
                 listAds = dataPojo.getAdsList();
                 beforeFilterListAds.addAll(listAds);
+
+                tempListAds=beforeFilterListAds;//beforeFilterListAds;
                 if (listAds.size() > 0) {
+                    mRvAds.setVisibility(View.VISIBLE);
                     mTvNoAdsFound.setVisibility(View.GONE);
-                    if (mAdType.equals("new")) {
-                        mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
-                    } else {
+                    if (mAdType.equals("completed")) {
                         mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, false);
+                    } else {
+                        mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
                     }
 
                     mRvAds.setAdapter(mAdsListAdapter);
@@ -229,6 +238,38 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
                         return false;
                     }
                 });
+
+                final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
+                // Get the search close button image view
+                ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+
+                // Set on click listener
+                closeButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+//                        getActiveAds(true);
+                        isSearch=true;
+                        mEtSearchView.setText("");
+//                        getActiveAds(true);
+                        if(beforeFilterListAds.size()>0) {
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            listAds=tempListAds;
+
+                            if (mAdType.equals("completed")) {
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), beforeFilterListAds, false);
+                            } else {
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), beforeFilterListAds, true);
+                            }
+
+                            mRvAds.setAdapter(mAdsListAdapter);
+                            mAdsListAdapter.notifyDataSetChanged();
+                        }
+//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+
                 return true;
         }
         return false;
@@ -249,7 +290,7 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            android.util.Log.e("rseponse", "" + userData);
+            android.util.Log.e("Response Expired Ads", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

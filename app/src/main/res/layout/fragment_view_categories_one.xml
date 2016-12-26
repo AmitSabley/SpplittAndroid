@@ -24,17 +24,19 @@
                 android:orientation="horizontal">
                 <com.igniva.spplitt.ui.views.TextViewNonRegular
                     android:id="@+id/tv_my_location"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:drawableLeft="@mipmap/location"
                     android:drawablePadding="10dp"
                     android:text="@string/my_location"
+                    android:singleLine="true"
+                    android:layout_toLeftOf="@+id/btn_change_location"
                     android:textColor="@color/nav_text_color"
                     android:textSize="@dimen/tv_textSize" />
                 <Button
                     android:id="@+id/btn_change_location"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_height="wrap_content"
                     android:padding="20dp"

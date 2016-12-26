@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.igniva.spplitt.App;
@@ -50,10 +52,13 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
     String mCatId;
     boolean _areLecturesLoaded = false;
     TextView mTvNoAdsFound;
+    boolean isSearch;
     AdsListAdapter mAdsListAdapter;
     public static  ViewAllActiveAdsFragment mViewAllAds;
     List<AdsListPojo> listAds = new ArrayList<AdsListPojo>();
     List<AdsListPojo> beforeFilterListAds = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
+
     public static ViewAllActiveAdsFragment newInstance() {
         ViewAllActiveAdsFragment fragment = new ViewAllActiveAdsFragment();
         return fragment;
@@ -167,6 +172,9 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_VIEW_EVENT;
+        if(mAdsListAdapter!=null) {
+            mAdsListAdapter.notifyDataSetChanged();
+        }
         Log.e("ViewAllActiveAds", "OnResume Called");
         try {
             App.getInstance().trackScreenView(LOG_TAG);
@@ -213,6 +221,7 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
 
     private void getAdsData(ResponsePojo result) {
         try {
+            isSearch=false;
             if (result.getStatus_code() == 400) {
                 //Error
                 ErrorPojo errorPojo=result.getError();
@@ -228,7 +237,9 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
                 DataPojo dataPojo = result.getData();
                 listAds = dataPojo.getAdsList();
                 beforeFilterListAds.addAll(listAds);
+                tempListAds=beforeFilterListAds;//beforeFilterListAds;
                 if (listAds.size() > 0) {
+
                     mTvNoAdsFound.setVisibility(View.GONE);
                     if (mAdType.equals("new")) {
                         mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
@@ -282,6 +293,38 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
                         return false;
                     }
                 });
+
+                final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
+                // Get the search close button image view
+                ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+
+                // Set on click listener
+                closeButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+//                        getActiveAds(true);
+                        isSearch=true;
+                        mEtSearchView.setText("");
+//                        getActiveAds(true);
+                        if(beforeFilterListAds.size()>0) {
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            listAds=tempListAds;
+                            if (mAdType.equals("new")) {
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
+                            } else {
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, false);
+                            }
+                            mRvAds.setAdapter(mAdsListAdapter);
+                            mAdsListAdapter.notifyDataSetChanged();
+                        }
+//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
                 return true;
         }
         return false;

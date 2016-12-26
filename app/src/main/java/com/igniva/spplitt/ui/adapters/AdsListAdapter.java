@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.AppCompatRatingBar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -318,29 +317,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
         return payload;
     }
 
-    private void getOthersProfileData(ResponsePojo result) {
-        try {
-            if (result.getStatus_code() == 400) {
-//                Error
-                new Utility().showErrorDialog(mContext, result);
-            } else {
-                //Success
-                dataPojo = result.getData();
 
-
-//                if(mReviewList.size()>0) {
-                ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(mContext, mReviewList, dataPojo);
-                mRvAds.setAdapter(mAdsListAdapter);
-                mAdsListAdapter.notifyDataSetChanged();
-                mRvAds.setHasFixedSize(true);
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-                mRvAds.setLayoutManager(mLayoutManager);
-//                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private void getReviewsData(ResponsePojo result) {
         try {
@@ -387,7 +364,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             if (error == null) {
                 switch (mUrlNo) {
                     case 1:
-                        getOthersProfileData(result);
+
                         break;
                     case 2:
                         getReviewsData(result);
@@ -419,7 +396,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
         try {
             LayoutInflater li = LayoutInflater.from(mContext);
             View promptsView = li.inflate(R.layout.dialog_flag_ad, null);
-             AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
                     R.style.CustomPopUpTheme);
             // set prompts.xml to alertdialog builder
 
@@ -427,12 +404,12 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                     .findViewById(R.id.et_report_abuse_message);
             builder.setCancelable(true);
 
-                builder.setPositiveButton("OK", new AlertDialog.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+            builder.setPositiveButton("OK", new AlertDialog.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
+                }
+            });
 
             builder.setNegativeButton("CANCEL", new AlertDialog.OnClickListener() {
                 @Override
@@ -448,20 +425,18 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
+                    boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
                     // if EditText is empty disable closing on possitive button
-                    if (!val)
-                    {
+                    if (!val) {
                         // Webservice Call
                         // Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerFlagAd);
                         // Step 2, Call Webservice Method
-                        WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 2, responseHandlerListenerFlagAd);
+                        WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 1, responseHandlerListenerFlagAd);
                         alertDialog.dismiss();
-                    }
-                    else{
+                    } else {
                         Log.e("Enter your text", "Enter your text");
-                        Utility.showToastMessageLong(mContext, "Enter your Text");
+                        Utility.showToastMessageShort(mContext, "Enter your Text");
                     }
                 }
 
@@ -583,7 +558,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                 mListAds.get(connectPosition).setIs_flagged(true);
 
                 mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
-
+//                notifyDataSetChanged();
             }
         } catch (Exception e) {
             e.printStackTrace();

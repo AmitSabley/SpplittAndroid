@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -50,8 +52,10 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
     TextView mTvNoAdsFound;
     List<AppliedlistPojo> listAds = new ArrayList<AppliedlistPojo>();
     List<AppliedlistPojo> beforeFilterListAds = new ArrayList<AppliedlistPojo>();
+    List<AppliedlistPojo> tempListAds = new ArrayList<AppliedlistPojo>();
     AppliedAdsListAdapter mUserAdapter;
     SearchView mSearchView;
+    boolean isSearch;
     boolean isLoadMore;
     ProgressBar mProgressBar;
     public static boolean isDataLoaded;
@@ -177,6 +181,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
 
     private void getSearchAdsData(ResponsePojo result) {
         try {
+            isSearch=false;
             if (mSearchView != null) {
                 Utility.hideKeyboard(getActivity(), mSearchView);
             }
@@ -196,9 +201,11 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                 DataPojo dataPojo = result.getData();
                 listAds.addAll(dataPojo.getAppliedlist());
 
+
                 if (listAds.size() > 0) {
                     mTvNoAdsFound.setVisibility(View.GONE);
                     mRvAds.setVisibility(View.VISIBLE);
+                    mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.awaited_ads), mRvAds);
                     mRvAds.setAdapter(mUserAdapter);
                     mUserAdapter.notifyDataSetChanged();
                 }
@@ -236,6 +243,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                 DataPojo dataPojo = result.getData();
                 listAds.addAll(dataPojo.getAppliedlist());
                 beforeFilterListAds.addAll(listAds);
+                tempListAds=beforeFilterListAds;//beforeFilterListAds;
                 if (listAds.size() > 0) {
                     if (!isLoadMore) {
                         setDataToList();
@@ -301,6 +309,33 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                         return false;
                     }
                 });
+
+                final EditText mEtSearchView = (EditText) mSearchView.findViewById(R.id.search_src_text);
+                // Get the search close button image view
+                ImageView closeButton = (ImageView)mSearchView.findViewById(R.id.search_close_btn);
+
+                // Set on click listener
+                closeButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+//                        getActiveAds(true);
+                        isSearch=true;
+                        mEtSearchView.setText("");
+//                        getActiveAds(true);
+                        if(beforeFilterListAds.size()>0) {
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            listAds=tempListAds;
+
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), beforeFilterListAds, getResources().getString(R.string.awaited_ads), mRvAds);
+                            mRvAds.setAdapter(mUserAdapter);
+                            mUserAdapter.notifyDataSetChanged();
+                        }
+//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+
                 return true;
         }
         return false;
@@ -319,7 +354,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            android.util.Log.e("rseponse", "" + userData);
+            android.util.Log.e("Awaited Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;

@@ -27,7 +27,7 @@ public class MyGcmListenerService extends GcmListenerService {
     private static final String TAG = "MyGcmListenerService";
     private int userid = 0;
     private String userId = "";
-    private String bigImage="";
+    private String bigImage = "";
     private String notificationType = "";
     private String messsgeTitle = "";
     private String messageDescription = "";
@@ -44,7 +44,7 @@ public class MyGcmListenerService extends GcmListenerService {
      */
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        Log.e("Payload noty is ",""+from+" "+data);
+        Log.e("Payload noty is ", "" + from + " " + data);
 
         messageId = data.getString("message_id");
         notificationType = data.getString("notification_type");
@@ -54,12 +54,13 @@ public class MyGcmListenerService extends GcmListenerService {
         messageDescription = data.getString("message");
         messageTicker = data.getString("message_ticker");
         bigImage = data.getString("big_image");
-
-/*
-     if (userId.equals(PreferenceHandler.readString(this, PreferenceHandler.USER_ID, ""))) {
-*/
-            sendNotificationRequest();
-//   }
+        try {
+            if (userId.equals(PreferenceHandler.readString(this, PreferenceHandler.USER_ID, ""))) {
+                sendNotificationRequest();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -73,7 +74,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder;
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-             notificationBuilder = new NotificationCompat.Builder(this)
+            notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(messsgeTitle)
                     .setContentText(messageDescription)

@@ -111,11 +111,15 @@ public class ViewAdsDetailsActivity extends BaseActivity {
                 break;
             case R.id.toolbar_btn_back:
                 App.getInstance().trackEvent(LOG_TAG, "Back Press", "View Ad Details Back Pressed");
-                finish();
+                onBackPressed();
                 break;
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     private String connectAnAdPayload() {
         String payload = null;
@@ -263,9 +267,11 @@ public class ViewAdsDetailsActivity extends BaseActivity {
                 new Utility().showErrorDialog(ViewAdsDetailsActivity.this, result);
             } else {//Success
                 dataPojo = result.getData();
-                AdDetailsListAdapter mAdsListAdapter = new AdDetailsListAdapter(ViewAdsDetailsActivity.this, dataPojo.getRequest(), dataPojo, mAdId, connectPosition);
-                mRvAdDetails.setAdapter(mAdsListAdapter);
-                mAdsListAdapter.notifyDataSetChanged();
+                if (dataPojo != null) {
+                    AdDetailsListAdapter mAdsListAdapter = new AdDetailsListAdapter(ViewAdsDetailsActivity.this, dataPojo.getRequest(), dataPojo, mAdId, connectPosition);
+                    mRvAdDetails.setAdapter(mAdsListAdapter);
+                    mAdsListAdapter.notifyDataSetChanged();
+                }
                 mRvAdDetails.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(ViewAdsDetailsActivity.this);
                 mRvAdDetails.setLayoutManager(mLayoutManager);

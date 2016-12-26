@@ -68,20 +68,22 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_view_categories_one, container, false);
         in = getActivity().getIntent();
-        if (in != null) {
-            if (in.hasExtra("countryId")) {
-                countryId = in.getStringExtra("countryId");
-                countryName = in.getStringExtra("countryName");
+        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6) {
+            if (in != null) {
+                if (in.hasExtra("countryId")) {
+                    countryId = in.getStringExtra("countryId");
+                    countryName = in.getStringExtra("countryName");
 
-            }
-            if (in.hasExtra("stateId")) {
-                stateId = in.getStringExtra("stateId");
-                stateName = in.getStringExtra("stateName");
+                }
+                if (in.hasExtra("stateId")) {
+                    stateId = in.getStringExtra("stateId");
+                    stateName = in.getStringExtra("stateName");
 
-            }
-            if (in.hasExtra("cityId")) {
-                cityId = in.getStringExtra("cityId");
-                cityName = in.getStringExtra("cityName");
+                }
+                if (in.hasExtra("cityId")) {
+                    cityId = in.getStringExtra("cityId");
+                    cityName = in.getStringExtra("cityName");
+                }
             }
         }
         setHasOptionsMenu(true);
@@ -111,17 +113,14 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
 
     @Override
     public void setDataInViewLayouts() {
-        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6) {
-/*
-            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
-*/
+        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6 && cityId!=null && cityName!=null) {
+//            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.tick, 0);
             mTvLocation.setText(cityName + "," + countryName);
         } else {
             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
             mTvLocation.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "") + "," + PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, ""));
-//            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
-
+            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
         }
     }
 
@@ -163,7 +162,10 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
                         break;
                     case 2:
                         //to save user location
+                        mBtnChangeLocation.setClickable(true);
                         if (error == null) {
+                            Log.e("====result",result+"");
+
                             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, countryName);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_STATE_NAME, stateName);
@@ -215,25 +217,29 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
         }
     }
 
+
     @Override
     public void onClick(View view) {
         NavigationView navigationView = (NavigationView) MainActivity.main.findViewById(R.id.nav_view);
         switch (view.getId()) {
             case R.id.btn_change_location://to go at my profile
-                if (cityId == null || cityId.equals("")) {
-                    App.getInstance().trackEvent(LOG_TAG, "Change Location and Go to My Profile", "My Profile Call to Change Location");
+                mBtnChangeLocation.setClickable(false);
+                App.getInstance().trackEvent(LOG_TAG, "Change Location and Go to My Profile", "My Profile Call to Change Location");
+//                if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6) {
+                if (cityId!=null && !cityId.equals("") ) {
+                    saveLocation();
+                } else {
+
 
                     Intent in1 = new Intent(getActivity(), CountryActivity.class);
                     in1.putExtra("from", "5");
                     startActivity(in1);
-                } else {
-                    saveLocation();
+
                 }
-//                ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(1));
+// ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(1));
                 break;
             case R.id.btn_post_ad:
                 App.getInstance().trackEvent(LOG_TAG, "Post Ads", "Post Ads");
-
                 //to go at post ad
                 ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(4));
                 break;
@@ -257,6 +263,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        mBtnChangeLocation.setClickable(true);
         MainActivity.currentFragmentId = Constants.FRAG_ID_CATEGORIES;
         Log.e("ViewCategoriesFragment", "OnResume Called");
         try {

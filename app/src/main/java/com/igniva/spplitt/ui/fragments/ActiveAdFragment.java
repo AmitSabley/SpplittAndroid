@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -49,6 +51,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     TextView mTvNoAdsFound;
     List<AdsListPojo> listAds = new ArrayList<AdsListPojo>();
     List<AdsListPojo> beforeFilterListAds = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
     LinearLayout mLlLoading;
     int mPageNo = 1;
     int mPosition;
@@ -59,6 +62,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     public static boolean isDataLoaded;
     public static ActiveAdFragment mViewActiveAds;
     private static final String LOG_TAG = "ActiveAdFragment";
+    boolean isSearch;
 
     public static ActiveAdFragment newInstance() {
         ActiveAdFragment fragment = new ActiveAdFragment();
@@ -193,6 +197,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
 
     private void getSearchAdsData(ResponsePojo result) {
         try {
+            isSearch=false;
             if (searchView != null) {
                 Utility.hideKeyboard(getActivity(), searchView);
             }
@@ -216,6 +221,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                 if (listAds.size() > 0) {
                     mTvNoAdsFound.setVisibility(View.GONE);
                     mRvAds.setVisibility(View.VISIBLE);
+                    mUserAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.active_ads), mRvAds);
                     mRvAds.setAdapter(mUserAdapter);
                     mUserAdapter.notifyDataSetChanged();
                 }
@@ -261,6 +267,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                 mPosition = dataPojo.getTotal_page();
                 listAds.addAll(dataPojo.getAdsList());
                 beforeFilterListAds.addAll(listAds);
+                tempListAds=beforeFilterListAds;//beforeFilterListAds;
                 if (listAds.size() > 0) {
                     if (!isLoadMore) {
                         setDataToList();
@@ -350,6 +357,35 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                         return false;
                     }
                 });
+
+
+                final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
+                // Get the search close button image view
+                ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+
+                // Set on click listener
+                closeButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+//                        getActiveAds(true);
+                        isSearch=true;
+                        mEtSearchView.setText("");
+//                        getActiveAds(true);
+                        if(beforeFilterListAds.size()>0) {
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            listAds=tempListAds;
+
+                            mUserAdapter = new MyAdsListAdapter(getActivity(), beforeFilterListAds, getResources().getString(R.string.active_ads), mRvAds);
+                            mRvAds.setAdapter(mUserAdapter);
+                            mUserAdapter.notifyDataSetChanged();
+                        }
+//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
                 return true;
         }
         return false;

@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,8 +51,10 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
     RecyclerView mRvAds;
     boolean _areLecturesLoaded = false;
     TextView mTvNoAdsFound;
+    boolean isSearch;
     List<AppliedlistPojo> listAds = new ArrayList<AppliedlistPojo>();
     List<AppliedlistPojo> beforeFilterListAds = new ArrayList<AppliedlistPojo>();
+    List<AppliedlistPojo> tempListAds = new ArrayList<AppliedlistPojo>();
     AppliedAdsListAdapter mUserAdapter;
     SearchView searchView;
     boolean isLoadMore;
@@ -174,6 +178,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
 
     private void getSearchAdsData(ResponsePojo result) {
         try {
+            isSearch=false;
             if(searchView!=null) {
                 Utility.hideKeyboard(getActivity(), searchView);
             }
@@ -196,6 +201,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                 if (listAds.size() > 0) {
                     mTvNoAdsFound.setVisibility(View.GONE);
                     mRvAds.setVisibility(View.VISIBLE);
+                    mUserAdapter = new AppliedAdsListAdapter(getActivity(), listAds,getResources().getString(R.string.rejected_ads), mRvAds);
                     mRvAds.setAdapter(mUserAdapter);
                     mUserAdapter.notifyDataSetChanged();
                 }
@@ -235,6 +241,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                 DataPojo dataPojo = result.getData();
                 listAds.addAll(dataPojo.getAppliedlist());
                 beforeFilterListAds.addAll(listAds);
+                tempListAds=beforeFilterListAds;//beforeFilterListAds;
                 if (listAds.size() > 0) {
                     if(!isLoadMore){
                         setDataToList();
@@ -301,6 +308,34 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                         return false;
                     }
                 });
+                final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
+                // Get the search close button image view
+                ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+
+                // Set on click listener
+                closeButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+//                        getActiveAds(true);
+                        isSearch=true;
+                        mEtSearchView.setText("");
+//                        getActiveAds(true);
+                        if(beforeFilterListAds.size()>0) {
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            listAds=tempListAds;
+
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), beforeFilterListAds, getResources().getString(R.string.rejected_ads), mRvAds);
+                            mRvAds.setAdapter(mUserAdapter);
+                            mUserAdapter.notifyDataSetChanged();
+                        }
+//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
                 return true;
         }
         return false;

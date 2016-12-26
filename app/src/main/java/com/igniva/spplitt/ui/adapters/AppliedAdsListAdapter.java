@@ -199,14 +199,14 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 dataPojo = result.getData();
 
 
-//                if(mReviewList.size()>0) {
+                if(mReviewList.size()>0) {
                 ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(mContext, mReviewList, dataPojo);
                 mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
                 mRvAds.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
                 mRvAds.setLayoutManager(mLayoutManager);
-//                }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

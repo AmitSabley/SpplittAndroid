@@ -1,38 +1,26 @@
 package com.igniva.spplitt.utils;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import com.igniva.spplitt.R;
-import com.igniva.spplitt.model.ErrorPojo;
-import com.igniva.spplitt.model.ResponsePojo;
-import com.igniva.spplitt.ui.activties.LoginActivity;
-import com.igniva.spplitt.ui.activties.LoginOptionActivity;
-import com.igniva.spplitt.ui.activties.MainActivity;
-import com.igniva.spplitt.ui.activties.UpdateEmailActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.igniva.spplitt.R;
+import com.igniva.spplitt.model.ErrorPojo;
+import com.igniva.spplitt.model.ResponsePojo;
+import com.igniva.spplitt.ui.activties.LoginActivity;
+import com.igniva.spplitt.ui.activties.LoginOptionActivity;
+import com.igniva.spplitt.ui.activties.MainActivity;
 
 
 public class Utility {
@@ -332,7 +320,7 @@ public class Utility {
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
 					R.style.CustomPopUpTheme);
-			builder.setTitle(mContext.getResources().getString(R.string.unknown_error));
+//			builder.setTitle(mContext.getResources().getString(R.string.unknown_error));
 			builder.setMessage(mContext.getResources().getString(R.string.unknown_error_message));
 			builder.setPositiveButton("OK", new OnClickListener() {
 

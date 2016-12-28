@@ -144,17 +144,21 @@ public class MainActivity extends BaseActivity
             if (id == R.id.nav_view_ad) {
                 if (currentFragmentId != Constants.FRAG_ID_CATEGORIES) {
                     App.getInstance().trackEvent(LOG_TAG, "Categories Fragment Called", "Categories Fragment");
-
                     mToolbarTvText.setText(getResources().getString(R.string.nav_view_ad));
 //                    mToolbarOptions = true;
                     fragmentTransaction.replace(R.id.fl_main_content, ViewCategoriesFragment1.newInstance());
                 }
             } else if (id == R.id.nav_profile) {
                 if (currentFragmentId != Constants.FRAG_ID_MY_PROFILE) {
-                    App.getInstance().trackEvent(LOG_TAG, "Edit Profile Fragment Called", "Edit Profile Fragment");
-
-                    mToolbarTvText.setText(getResources().getString(R.string.nav_profile));
+                    if (drawer == null)
+                        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);
+                    //
                     fragmentTransaction.replace(R.id.fl_main_content, EditProfileFragment.newInstance());
+                    fragmentTransaction.commitAllowingStateLoss();
+                    mToolbarTvText.setText(getResources().getString(R.string.nav_profile));
+                    App.getInstance().trackEvent(LOG_TAG, "Edit Profile Fragment Called", "Edit Profile Fragment");
+                    return true;
                 }
             } else if (id == R.id.nav_change_password) {
                 if (currentFragmentId != Constants.FRAG_ID_CHANGE_PASSWORD) {

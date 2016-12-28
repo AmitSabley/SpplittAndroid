@@ -81,6 +81,8 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     String stateId;
     String stateName;
     String cityId;
+    String userName;
+    String eMail;
     Intent in;
     static String age;
     static boolean isAge;
@@ -226,6 +228,9 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             cityId=PreferenceHandler.readString(getActivity(), PreferenceHandler.CITY, "");
             countryName=PreferenceHandler.readString(getActivity(), PreferenceHandler.COUNTRY_NAME, "");
             stateName=PreferenceHandler.readString(getActivity(), PreferenceHandler.STATE_NAME, "");
+            userName = PreferenceHandler.readString(getActivity(),PreferenceHandler.USER_NAME, "");
+            eMail = PreferenceHandler.readString(getActivity(), PreferenceHandler.EMAIL,"");
+
             if(showStaticFields) {
                 if (in != null) {
                     if (in.hasExtra("countryId")) {
@@ -242,12 +247,14 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                         cityId = in.getStringExtra("cityId");
                         mTvCities.setText(in.getStringExtra("cityName"));
                     }
-                    if (in.hasExtra("userName")) {
-                        mEtUsername.setText(in.getStringExtra("userName"));
-                    }
-                    if (in.hasExtra("userEmail")) {
-                        mEtEmail.setText(in.getStringExtra("userEmail"));
-                    }
+//                    if (in.hasExtra("userName")) {
+//                        userName = in.getStringExtra("userName");
+//                        mEtUsername.setText(in.getStringExtra("userName"));
+//                    }
+//                    if (in.hasExtra("userEmail")) {
+//                        eMail = in.getStringExtra("userEmail");
+//                        mEtEmail.setText(in.getStringExtra("userEmail"));
+//                    }
                 }
                 if (myBitmap != null) {
                     mRivUserImage.setImageBitmap(myBitmap);
@@ -552,8 +559,8 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     public void onResume() {
         super.onResume();
         MainActivity.currentFragmentId = Constants.FRAG_ID_MY_PROFILE;
-        mBtnChangeEmail.setClickable(true);
-        mBtnChangeMobileNo.setClickable(true);
+       /* mBtnChangeEmail.setClickable(true);
+        mBtnChangeMobileNo.setClickable(true);*/
         Log.e("EditProfileFragment", "OnResume Called");
         try {
             App.getInstance().trackScreenView(LOG_TAG);

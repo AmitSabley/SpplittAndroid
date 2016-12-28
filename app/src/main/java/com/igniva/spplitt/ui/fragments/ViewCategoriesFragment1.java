@@ -120,7 +120,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
         } else {
             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
             mTvLocation.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "") + "," + PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, ""));
-            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
+//            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
         }
     }
 

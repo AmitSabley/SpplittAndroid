@@ -49,10 +49,13 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     String mCatId;
     boolean _areLecturesLoaded = false;
     TextView mTvNoAdsFound;
-    List<AdsListPojo> listAds = new ArrayList<AdsListPojo>();
-    List<AdsListPojo> beforeFilterListAds = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> allAdsList = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> searchResultAdsList = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> tempAdDataList = new ArrayList<AdsListPojo>();
     List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
     LinearLayout mLlLoading;
+    //    call type 1= all ads,calltype=2 only searched ad result
+    private int mCallType = 1;
     int mPageNo = 1;
     int mPosition;
     MyAdsListAdapter mUserAdapter;
@@ -95,7 +98,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
 
     private void getActiveAds(boolean showProgress) {
         try {
-
+            mCallType = 1;
 //            Webservice Call
 //            Step 1, Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
@@ -133,12 +136,11 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        setDataToList();
         MainActivity.currentFragmentId = Constants.FRAG_ID_MY_ADS_ACTIVE;
         try {
             App.getInstance().trackScreenView(LOG_TAG);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -176,7 +178,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                             break;
                         case 2:
                             //to search ad list
-                            getSearchAdsData(result);
+                            getAdsData(result);
                             break;
                     }
                 } else {
@@ -194,108 +196,198 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
         }
     };
 
-
-    private void getSearchAdsData(ResponsePojo result) {
-        try {
-            isSearch=false;
-            if (searchView != null) {
-                Utility.hideKeyboard(getActivity(), searchView);
-            }
-            if (result.getStatus_code() == 400) {
-                mRvAds.setAdapter(null);
-                mTvNoAdsFound.setVisibility(View.VISIBLE);
-                mRvAds.setVisibility(View.GONE);
-                // Error
-                ErrorPojo errorPojo = result.getError();
-                if (!errorPojo.getError_code().equals("533")) {
-                    new Utility().showErrorDialog(getActivity(), result);
-                }
-            } else {
-                // Success
-                if (listAds.size() > 0) {
-                    listAds.clear();
-                }
-                DataPojo dataPojo = result.getData();
-                listAds.addAll(dataPojo.getAdsList());
-
-                if (listAds.size() > 0) {
-                    mTvNoAdsFound.setVisibility(View.GONE);
-                    mRvAds.setVisibility(View.VISIBLE);
-                    mUserAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.active_ads), mRvAds);
-                    mRvAds.setAdapter(mUserAdapter);
-                    mUserAdapter.notifyDataSetChanged();
-                }
-
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void getAdsData(ResponsePojo result) {
         try {
+            isSearch = false;
             if (result.getStatus_code() == 400) {
-                isDataLoaded = true;
-                if (mProgressBar != null) {
-                    if (mProgressBar.getVisibility() == View.VISIBLE) {
-                        mProgressBar.setVisibility(View.INVISIBLE);
-                    }
-                }
-                //Error
                 ErrorPojo errorPojo = result.getError();
                 if (errorPojo.getError_code().equals("533")) {
-                    if (mPageNo > 1) {
-                        if (mLlLoading.getVisibility() == View.VISIBLE) {
-                            mLlLoading.setVisibility(View.GONE);
-                        }
-                    } else {
-                        mRvAds.setAdapter(null);
-                        mTvNoAdsFound.setVisibility(View.VISIBLE);
-                        mRvAds.setVisibility(View.GONE);
-                    }
+                    mRvAds.setAdapter(null);
+                    mTvNoAdsFound.setVisibility(View.VISIBLE);
+                    mRvAds.setVisibility(View.GONE);
+
                 } else {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
-            } else {
-                //Success
-                if (listAds.size() > 0) {
-                    listAds.remove(listAds.size() - 1);
-                    mUserAdapter.notifyItemRemoved(listAds.size());
-                }
+            } else {//Success
                 DataPojo dataPojo = result.getData();
-                mPosition = dataPojo.getTotal_page();
-                listAds.addAll(dataPojo.getAdsList());
-                beforeFilterListAds.addAll(listAds);
-                tempListAds=beforeFilterListAds;//beforeFilterListAds;
-                if (listAds.size() > 0) {
-                    if (!isLoadMore) {
-                        setDataToList();
-                        isLoadMore = true;
-                    } else {
-                        isDataLoaded = true;
-                        if (mProgressBar != null) {
-                            if (mProgressBar.getVisibility() == View.VISIBLE) {
-                                mProgressBar.setVisibility(View.INVISIBLE);
+
+                if (mCallType == 1) {
+                    allAdsList = dataPojo.getAdsList();
+                    if (allAdsList.size() > 0) {
+                        tempAdDataList.addAll(allAdsList);
+                        mRvAds.setVisibility(View.VISIBLE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        if (!isLoadMore) {
+                            setDataToList();
+                            isLoadMore = true;
+                        } else {
+                            isDataLoaded = true;
+                            if (mProgressBar != null) {
+                                if (mProgressBar.getVisibility() == View.VISIBLE) {
+                                    mProgressBar.setVisibility(View.INVISIBLE);
+                                }
                             }
+                            mUserAdapter.notifyDataSetChanged();
+                            mUserAdapter.setLoaded();
                         }
-                        mUserAdapter.notifyDataSetChanged();
-                        mUserAdapter.setLoaded();
+
+
+                        mUserAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads), mRvAds);
+
                     }
-                    mTvNoAdsFound.setVisibility(View.GONE);
-                    mRvAds.setVisibility(View.VISIBLE);
+                } else {
+                    searchResultAdsList.clear();
+                    searchResultAdsList = dataPojo.getAdsList();
+                    if (searchResultAdsList.size() > 0) {
+                        mRvAds.setVisibility(View.VISIBLE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        mUserAdapter = new MyAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.active_ads), mRvAds);
+
+                    }
                 }
+//                searchResultAdsList.addAll(allAdsList);
+
+//                tempListAds=searchResultAdsList;//searchResultAdsList;
+//                if (allAdsList.size() > 0) {
+//                    mRvAds.setVisibility(View.VISIBLE);
+//                    mTvNoAdsFound.setVisibility(View.GONE);
+//                    if (mAdType.equals("completed")) {
+//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+//                    } else {
+//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+//                    }
+//
+                mRvAds.setAdapter(mUserAdapter);
+                mUserAdapter.notifyDataSetChanged();
+                mRvAds.setHasFixedSize(true);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                mRvAds.setLayoutManager(mLayoutManager);
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+//    private void getSearchAdsData(ResponsePojo result) {
+//        try {
+//            isSearch = false;
+//            if (searchView != null) {
+//                Utility.hideKeyboard(getActivity(), searchView);
+//            }
+//            if (result.getStatus_code() == 400) {
+//                mRvAds.setAdapter(null);
+//                mTvNoAdsFound.setVisibility(View.VISIBLE);
+//                mRvAds.setVisibility(View.GONE);
+//                // Error
+//                ErrorPojo errorPojo = result.getError();
+//                if (!errorPojo.getError_code().equals("533")) {
+//                    new Utility().showErrorDialog(getActivity(), result);
+//                }
+//            } else {
+//                DataPojo dataPojo = result.getData();
+//                searchResultAdsList.clear();
+//                searchResultAdsList = dataPojo.getAdsList();
+//                if (searchResultAdsList.size() > 0) {
+//                    mRvAds.setVisibility(View.VISIBLE);
+//                    mTvNoAdsFound.setVisibility(View.GONE);
+//                    mUserAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads), mRvAds);
+//
+//                }
+//                mRvAds.setAdapter(mUserAdapter);
+//                mUserAdapter.notifyDataSetChanged();
+//
+//
+//               /* // Success
+//                if (allAdsList.size() > 0) {
+//                    allAdsList.clear();
+//                }
+//
+//                allAdsList.addAll(dataPojo.getAdsList());
+//
+//                if (allAdsList.size() > 0) {
+//                    mTvNoAdsFound.setVisibility(View.GONE);
+//                    mRvAds.setVisibility(View.VISIBLE);
+//                    mUserAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads), mRvAds);
+//                    mRvAds.setAdapter(mUserAdapter);
+//                    mUserAdapter.notifyDataSetChanged();
+//                }
+//*/
+//
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    private void getAdsData(ResponsePojo result) {
+//        try {
+//            if (result.getStatus_code() == 400) {
+//                isDataLoaded = true;
+//                if (mProgressBar != null) {
+//                    if (mProgressBar.getVisibility() == View.VISIBLE) {
+//                        mProgressBar.setVisibility(View.INVISIBLE);
+//                    }
+//                }
+//                //Error
+//                ErrorPojo errorPojo = result.getError();
+//                if (errorPojo.getError_code().equals("533")) {
+//                    if (mPageNo > 1) {
+//                        if (mLlLoading.getVisibility() == View.VISIBLE) {
+//                            mLlLoading.setVisibility(View.GONE);
+//                        }
+//                    } else {
+//                        mRvAds.setAdapter(null);
+//                        mTvNoAdsFound.setVisibility(View.VISIBLE);
+//                        mRvAds.setVisibility(View.GONE);
+//                    }
+//                } else {
+//                    new Utility().showErrorDialog(getActivity(), result);
+//                }
+//            } else {
+//                if (mCallType == 1) {
+//
+//
+//                    //Success
+//                    if (allAdsList.size() > 0) {
+//                        allAdsList.remove(allAdsList.size() - 1);
+//                        mUserAdapter.notifyItemRemoved(allAdsList.size());
+//                    }
+//                    DataPojo dataPojo = result.getData();
+//                    mPosition = dataPojo.getTotal_page();
+//                    allAdsList.addAll(dataPojo.getAdsList());
+////                    searchResultAdsList.addAll(allAdsList);
+////                    tempListAds = searchResultAdsList;//searchResultAdsList;
+//                    if (allAdsList.size() > 0) {
+//                        if (!isLoadMore) {
+//                            setDataToList();
+//                            isLoadMore = true;
+//                        } else {
+//                            isDataLoaded = true;
+//                            if (mProgressBar != null) {
+//                                if (mProgressBar.getVisibility() == View.VISIBLE) {
+//                                    mProgressBar.setVisibility(View.INVISIBLE);
+//                                }
+//                            }
+//                            mUserAdapter.notifyDataSetChanged();
+//                            mUserAdapter.setLoaded();
+//                        }
+//                        mTvNoAdsFound.setVisibility(View.GONE);
+//                        mRvAds.setVisibility(View.VISIBLE);
+//                    }
+//
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void setDataToList() {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRvAds.setLayoutManager(mLayoutManager);
-        mUserAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.active_ads), mRvAds);
+        mUserAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads), mRvAds);
         mRvAds.setAdapter(mUserAdapter);
         mRvAds.setHasFixedSize(true);
         if (mLlLoading.getVisibility() == View.VISIBLE) {
@@ -308,8 +400,8 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
             public void onLoadMore() {
                 isDataLoaded = false;
 
-                listAds.add(null);
-                mUserAdapter.notifyItemInserted(listAds.size() - 1);
+                allAdsList.add(null);
+                mUserAdapter.notifyItemInserted(allAdsList.size() - 1);
                 if (mPageNo < mPosition) {
                     mPageNo++;
                     getActiveAds(false);
@@ -344,6 +436,8 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                     public boolean onQueryTextSubmit(String query) {
                         Utility.hideKeyboard(getActivity(), searchView);
                         searchView.clearFocus();
+                        mCallType = 2;
+
 //                        Webservice Call
 //                        Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
@@ -354,14 +448,22 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
+                       /* Utility.hideKeyboard(getActivity(), searchView);
+                        searchView.clearFocus();
+//                        Webservice Call
+//                        Step 1, Register Callback Interface
+                        WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
+//                         Step 2, Call Webservice Method
+                        WebServiceClient.getSearchMyAdsList(getActivity(), searchAdListPayload(newText), true, 2, responseHandlerListenerViewAD);
+                       */
                         return false;
                     }
                 });
 
-
                 final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
+
                 // Get the search close button image view
-                ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+                ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
 
                 // Set on click listener
                 closeButton.setOnClickListener(new View.OnClickListener() {
@@ -369,19 +471,40 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onClick(View v) {
 //                        getActiveAds(true);
-                        isSearch=true;
+                        isSearch = true;
                         mEtSearchView.setText("");
 //                        getActiveAds(true);
-                        if(beforeFilterListAds.size()>0) {
+                        if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-//                            listAds=tempListAds;
+//                            allAdsList=tempListAds;
 
-                            mUserAdapter = new MyAdsListAdapter(getActivity(), beforeFilterListAds, getResources().getString(R.string.active_ads), mRvAds);
+                            mUserAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads), mRvAds);
                             mRvAds.setAdapter(mUserAdapter);
                             mUserAdapter.notifyDataSetChanged();
                         }
 //                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+                MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+
+                        if (allAdsList.size() > 0) {
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            allAdsList=tempListAds;
+
+                            mUserAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads), mRvAds);
+                            mRvAds.setAdapter(mUserAdapter);
+                            mUserAdapter.notifyDataSetChanged();
+                        }
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
                     }
                 });
 
@@ -423,9 +546,9 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
             getActiveAds(true);
             _areLecturesLoaded = true;
         } else {
-            if (listAds != null) {
-                listAds.clear();
-                listAds.addAll(beforeFilterListAds);
+            if (allAdsList != null) {
+                allAdsList.clear();
+                allAdsList.addAll(tempAdDataList);
             }
             if (mUserAdapter != null) {
                 mUserAdapter.notifyDataSetChanged();
@@ -434,7 +557,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     }
 
     public void getPosition(int pos) {
-        listAds.remove(pos);
+        allAdsList.remove(pos);
         mUserAdapter.notifyDataSetChanged();
     }
 }

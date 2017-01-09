@@ -265,7 +265,7 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
                 mPosition=dataPojo.getTotal_page();
                 listAds.addAll(dataPojo.getAdsList());
                 beforeFilterListAds.addAll(listAds);
-                tempListAds=beforeFilterListAds;//beforeFilterListAds;
+                tempListAds=beforeFilterListAds;//searchResultAdsList;
                 if (listAds.size() > 0) {
 //                    if(!isSearch) {
                         if (!isLoadMore) {
@@ -357,7 +357,18 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        return false;
+//                        if(newText.length()==0){return true;}
+//                        else {
+//                            Utility.hideKeyboard(getActivity(), searchView);
+//                            searchView.clearFocus();
+////                        Webservice Call
+////                        Step 1, Register Callback Interface
+//                            WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
+//                            // Step 2, Call Webservice Method
+//                            WebServiceClient.getSearchMyAdsList(getActivity(), searchAdListPayload(newText), true, 2, responseHandlerListenerViewAD);
+
+                            return false;
+
                     }
                 });
 
@@ -391,13 +402,35 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
                         if(beforeFilterListAds.size()>0) {
                             mRvAdsIncomplete.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-//                            listAds=tempListAds;
+//                            allAdsList=tempListAds;
 
                             mUserAdapter = new MyAdsListAdapter(getActivity(), beforeFilterListAds, getResources().getString(R.string.incomplete_ads), mRvAdsIncomplete);
                             mRvAdsIncomplete.setAdapter(mUserAdapter);
                             mUserAdapter.notifyDataSetChanged();
                         }
 //                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+
+                        if(beforeFilterListAds.size()>0) {
+                            mRvAdsIncomplete.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            allAdsList=tempListAds;
+
+                            mUserAdapter = new MyAdsListAdapter(getActivity(), beforeFilterListAds, getResources().getString(R.string.incomplete_ads), mRvAdsIncomplete);
+                            mRvAdsIncomplete.setAdapter(mUserAdapter);
+                            mUserAdapter.notifyDataSetChanged();
+                        }
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
                     }
                 });
 

@@ -38,6 +38,7 @@
 
         <RelativeLayout
             android:id="@+id/rl_center"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -50,6 +51,7 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -180,17 +182,16 @@
             </LinearLayout>-->
 
 
-            <com.igniva.spplitt.ui.views.ButtonRegular
+            <ImageView
+                android:layout_centerVertical="true"
                 android:id="@+id/btn_flag_ad"
-                android:layout_width="28dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:background="@android:color/transparent"
-                android:drawableRight="@mipmap/inactive"
+                android:background="@mipmap/inactive"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlue" />
-
 
         </RelativeLayout>
 

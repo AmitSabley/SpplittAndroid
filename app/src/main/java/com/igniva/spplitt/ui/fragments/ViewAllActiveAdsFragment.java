@@ -55,8 +55,12 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
     boolean isSearch;
     AdsListAdapter mAdsListAdapter;
     public static  ViewAllActiveAdsFragment mViewAllAds;
-    List<AdsListPojo> listAds = new ArrayList<AdsListPojo>();
-    List<AdsListPojo> beforeFilterListAds = new ArrayList<AdsListPojo>();
+    //    call type 1= all ads,calltype=2 only searched ad result
+
+    private int mCallType = 1;
+    List<AdsListPojo> allAdsList = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> searchResultAdsList = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> tempAdDataList = new ArrayList<AdsListPojo>();
     List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
 
     public static ViewAllActiveAdsFragment newInstance() {
@@ -87,6 +91,8 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
     }
 
     private void getActiveAds(boolean b) {
+        mCallType = 1;
+
         //         Webservice Call
 //         Step 1, Register Callback Interface
         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
@@ -98,7 +104,8 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
         Bundle mBundle = this.getArguments();
         if (mBundle != null) {//u are coming from categories to view ads
             mCatId = mBundle.getString("cat_id", "");
-        } else {// u are coming from view event ads
+        } else {
+            // Call from view event ads
             mCatId = "1";
         }
         String payload = null;
@@ -121,6 +128,11 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
         return payload;
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     public void setUpLayouts() {
@@ -184,8 +196,8 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
 //        if(mAdsListAdapter!=null) {
 //
 //
-//            mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
-//            android.util.Log.e("val,",listAds.get(5).is_connect()+"");
+//            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+//            android.util.Log.e("val,",allAdsList.get(5).is_connect()+"");
 //            mAdsListAdapter.notifyDataSetChanged();
 //        }
     }
@@ -219,46 +231,80 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
         }
     };
 
+
+
+
     private void getAdsData(ResponsePojo result) {
         try {
-            isSearch=false;
+            isSearch = false;
             if (result.getStatus_code() == 400) {
-                //Error
-                ErrorPojo errorPojo=result.getError();
-                if(errorPojo.getError_code().equals("533")){
-                        mRvAds.setAdapter(null);
-                        mTvNoAdsFound.setVisibility(View.VISIBLE);
-                        mRvAds.setVisibility(View.GONE);
+                ErrorPojo errorPojo = result.getError();
+                if (errorPojo.getError_code().equals("533")) {
+                    mRvAds.setAdapter(null);
+                    mTvNoAdsFound.setVisibility(View.VISIBLE);
+                    mRvAds.setVisibility(View.GONE);
 
-                }else{
+                } else {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
             } else {//Success
                 DataPojo dataPojo = result.getData();
-                listAds = dataPojo.getAdsList();
-                beforeFilterListAds.addAll(listAds);
-                tempListAds=beforeFilterListAds;//beforeFilterListAds;
-                if (listAds.size() > 0) {
 
-                    mTvNoAdsFound.setVisibility(View.GONE);
-                    if (mAdType.equals("new")) {
-                        mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
-                    } else {
-                        mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, false);
+                if (mCallType == 1) {
+                    allAdsList = dataPojo.getAdsList();
+                    if (allAdsList.size() > 0) {
+                        tempAdDataList.addAll(allAdsList);
+                        mRvAds.setVisibility(View.VISIBLE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        if (mAdType.equals("new")) {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+                        } else {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+                        }
+
                     }
+                } else {
+                    searchResultAdsList.clear();
+                    searchResultAdsList = dataPojo.getAdsList();
+                    if (searchResultAdsList.size() > 0) {
+                        mRvAds.setVisibility(View.VISIBLE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        if (mAdType.equals("new")) {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, true);
+                        } else {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, false);
+                        }
 
+                    }
+                }
+//                searchResultAdsList.addAll(allAdsList);
+
+//                tempListAds=searchResultAdsList;//searchResultAdsList;
+//                if (allAdsList.size() > 0) {
+//                    mRvAds.setVisibility(View.VISIBLE);
+//                    mTvNoAdsFound.setVisibility(View.GONE);
+//                    if (mAdType.equals("completed")) {
+//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+//                    } else {
+//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+//                    }
+//
                 mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
-                }
-
                 mRvAds.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 mRvAds.setLayoutManager(mLayoutManager);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
@@ -274,11 +320,15 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
 
                 //Do Search here
                 final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+                final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
                 SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+                        Utility.hideKeyboard(getActivity(), searchView);
+                        searchView.clearFocus();
+                        mCallType = 2;
                         //         Webservice Call
 //         Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
@@ -290,13 +340,23 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
+                       /* Utility.hideKeyboard(getActivity(), searchView);
+                        searchView.clearFocus();
+                        //                        getActiveAds(true);
+                        //         Webservice Call
+//         Step 1, Register Callback Interface
+                        WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
+                        // Step 2, Call Webservice Method
+                        WebServiceClient.getSearchAdsList(getActivity(), searchAdListPayload(newText), true, 2, responseHandlerListenerViewAD);*/
                         return false;
-                    }
+                        }
+
                 });
 
-                final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
+
                 // Get the search close button image view
                 ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+                ImageView backbutton = (ImageView)searchView.findViewById(R.id.search_close_btn);
 
                 // Set on click listener
                 closeButton.setOnClickListener(new View.OnClickListener() {
@@ -307,14 +367,15 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
                         isSearch=true;
                         mEtSearchView.setText("");
 //                        getActiveAds(true);
-                        if(beforeFilterListAds.size()>0) {
+                        if(allAdsList.size()>0) {
+
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-//                            listAds=tempListAds;
+//                            allAdsList=tempListAds;
                             if (mAdType.equals("new")) {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
                             } else {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, false);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
                             }
                             mRvAds.setAdapter(mAdsListAdapter);
                             mAdsListAdapter.notifyDataSetChanged();
@@ -323,9 +384,35 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
                     }
                 });
 
+                MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
 
+                        if(allAdsList.size()>0) {
+
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            allAdsList=tempListAds;
+                            if (mAdType.equals("new")) {
+//                                Toast.makeText(getContext(),""+searchResultAdsList.size(),Toast.LENGTH_SHORT).show();
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+                            } else {
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+                            }
+                            mRvAds.setAdapter(mAdsListAdapter);
+                            mAdsListAdapter.notifyDataSetChanged();
+                        }
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
+                    }
+                });
 
                 return true;
+
         }
         return false;
     }
@@ -360,9 +447,9 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
             getActiveAds(true);
             _areLecturesLoaded = true;
         } else {
-            if (listAds != null) {
-                listAds.clear();
-                listAds.addAll(beforeFilterListAds);
+            if (allAdsList != null) {
+                allAdsList.clear();
+                allAdsList.addAll(tempAdDataList);
             }
             if (mAdsListAdapter != null) {
                 mAdsListAdapter.notifyDataSetChanged();
@@ -374,21 +461,23 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
 
     public void getPosition(int pos, boolean isConnect)
     {
-        listAds.get(pos).setIs_connect(isConnect);
+        allAdsList.get(pos).setIs_connect(isConnect);
         mAdsListAdapter.notifyDataSetChanged();
     }
 
     public void getPosition(int pos)
     {
-        listAds.remove(pos);
+        allAdsList.remove(pos);
         mAdsListAdapter.notifyDataSetChanged();
     }
 
-    public void getPositionFlag(int pos, boolean isConnect)
+    public void getPositionFlag(int pos, boolean isFlagged)
     {
-        listAds.get(pos).setIs_flagged(isConnect);
+        allAdsList.get(pos).setIs_flagged(isFlagged);
         mAdsListAdapter.notifyDataSetChanged();
     }
+
+
 }
 
 

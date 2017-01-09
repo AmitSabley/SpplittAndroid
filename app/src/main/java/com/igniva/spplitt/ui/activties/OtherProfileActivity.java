@@ -527,14 +527,14 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
 
                 setDataInViewLayouts();
                 mReviewList = dataPojo.getOther_review();
-                if(mReviewList.size()>0) {
+//                if(mReviewList.size()>0) {
                 ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(OtherProfileActivity.this, mReviewList, dataPojo);
                 mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
                 mRvAds.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(OtherProfileActivity.this);
                 mRvAds.setLayoutManager(mLayoutManager);
-                }
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();

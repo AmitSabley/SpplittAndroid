@@ -1,5 +1,6 @@
 package com.igniva.spplitt.ui.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -51,7 +52,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
     List<AdsListPojo> mListAds;
     Context mContext;
     RecyclerView mRvAds;
-    Button mBttnFlagAd;
+    ImageView mBttnFlagAd;
     Button mBttnConnectAd;
     boolean mIsCloseAds;
     int connectPosition;
@@ -64,6 +65,8 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
     float rating = 0;
     List<ReviewListPojo> mReviewList = new ArrayList<>();
     AlertDialog alertDialog;
+    String LOG_TAG = "AdsListAdapter";
+    ArrayList<Integer> mClikedPositionList = new ArrayList<>();
 
 
     public AdsListAdapter(Context context, List<AdsListPojo> listAds, boolean isCloseAds) {
@@ -82,7 +85,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
         //        TextView mTvAdDetails;
         ImageView mBtnRateUser;
         TextView mTvAdLocation;
-        Button mBtnFlagAd;
+        ImageView mBtnFlagAd;
         Button mBtnConnectAd;
         LinearLayout mCvmain;
 
@@ -96,7 +99,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             mBtnRateUser = (ImageView) itemView.findViewById(R.id.ButtonRate_User);
 
 //            mTvAdDetails = (TextView) itemView.findViewById(R.id.tv_ads_details);
-            mBtnFlagAd = (Button) itemView.findViewById(R.id.btn_flag_ad);
+            mBtnFlagAd = (ImageView) itemView.findViewById(R.id.btn_flag_ad);
             mBtnConnectAd = (Button) itemView.findViewById(R.id.btn_connect_ad);
             mCvmain = (LinearLayout) itemView.findViewById(R.id.cv_category_main);
             mTvAdLocation = (TextView) itemView.findViewById(R.id.tv_ad_location);
@@ -135,10 +138,8 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             holder.mTvAdTime.setText(newFormat);
 
             //to change color of specific selected flag at on scroll
-            if (mBttnFlagAd != null) {
-                holder.mBtnFlagAd.setClickable(false);
-                mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.inactive), null, null);
-            }
+
+
             boolean isRating = mListAds.get(position).getIs_Rating();
             String rating;
             if (isRating) {
@@ -159,9 +160,8 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                         // showRatingDialog(mContext, position);
                     }
                 });
-
-
             }
+
             if (mIsCloseAds) {//close or active ads
                 holder.mBtnFlagAd.setVisibility(View.VISIBLE);
                 holder.mBtnConnectAd.setVisibility(View.VISIBLE);
@@ -171,31 +171,47 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                     holder.mBtnFlagAd.setVisibility(View.GONE);
                 } else {//other adds
                     if (mListAds.get(position).is_connect()) {
+                        holder.mBtnConnectAd.setVisibility(View.VISIBLE);
+                        holder.mBtnFlagAd.setVisibility(View.VISIBLE);
                         holder.mBtnConnectAd.setEnabled(false);
                         holder.mBtnConnectAd.setClickable(false);
                         holder.mBtnConnectAd.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreyDark));
                         holder.mBtnConnectAd.setText(mContext.getResources().getString(R.string.response_pending));
                     } else {
+                        holder.mBtnConnectAd.setVisibility(View.VISIBLE);
+                        holder.mBtnFlagAd.setVisibility(View.VISIBLE);
                         holder.mBtnConnectAd.setEnabled(true);
                         holder.mBtnConnectAd.setClickable(true);
                         holder.mBtnConnectAd.setBackgroundColor(mContext.getResources().getColor(R.color.colorDarkGreen));
                         holder.mBtnConnectAd.setText(mContext.getResources().getString(R.string.connect));
                     }
-                    holder.mBtnConnectAd.setVisibility(View.VISIBLE);
-                    holder.mBtnFlagAd.setVisibility(View.VISIBLE);
+                    if (mBttnFlagAd != null) {
+                        if (mListAds.get(position).is_flagged()) {
+                            holder.mBtnFlagAd.setClickable(true);
+                            holder.mBtnFlagAd.setBackgroundResource(R.mipmap.active);
+
+                        } else {
+                            holder.mBtnFlagAd.setClickable(false);
+                            holder.mBtnFlagAd.setBackgroundResource(R.mipmap.inactive);
+
+                        }
+                    }
                     if (mListAds.get(position).is_flagged()) {
                         //ad is flagged or not
                         holder.mBtnFlagAd.setClickable(false);
-                        holder.mBtnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
+                        holder.mBtnFlagAd.setBackgroundResource(R.mipmap.active);
                     } else {
                         holder.mBtnFlagAd.setClickable(true);
-                        holder.mBtnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.inactive), null, null);
+                        holder.mBtnFlagAd.setBackgroundResource(R.mipmap.inactive);
+                        // TODO update list
                         holder.mBtnFlagAd.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 mBttnFlagAd = holder.mBtnFlagAd;
+
                                 connectPosition = position;
-                                showCreateAccountDialog(mContext, mListAds.get(position).getAd_id(), mListAds.get(position).getCategory_id());
+                                //Toast.makeText(mContext," Position is "+connectPosition,Toast.LENGTH_SHORT).show();
+                                showCreateAccountDialog(mContext, mListAds.get(connectPosition).getAd_id(), mListAds.get(connectPosition).getCategory_id());
                             }
                         });
                     }
@@ -244,6 +260,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             e.printStackTrace();
 
         }
+
     }
 
     public void showRatingDialog(final Context mContext, final int position) {
@@ -316,7 +333,6 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
         }
         return payload;
     }
-
 
 
     private void getReviewsData(ResponsePojo result) {
@@ -403,10 +419,26 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             final EditText mEtReportAbuseMsg = (EditText) promptsView
                     .findViewById(R.id.et_report_abuse_message);
             builder.setCancelable(true);
+            builder.setView(promptsView);
+
 
             builder.setPositiveButton("OK", new AlertDialog.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+
+//                    boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
+//                    if (!val) {
+//                        // Webservice Call
+//                        // Step 1, Register Callback Interface
+//                        WebNotificationManager.registerResponseListener(responseHandlerListenerFlagAd);
+//                        // Step 2, Call Webservice Method
+//                        WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 1, responseHandlerListenerFlagAd);
+//                        if (alertDialog != null)
+//                            alertDialog.dismiss();
+//                    } else {
+//                        Log.e("Enter your text", "Enter your text");
+//                        Utility.showToastMessageShort(mContext, "Enter your Text");
+//                    }
 
                 }
             });
@@ -418,14 +450,29 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                 }
             });
 
-            builder.setView(promptsView);
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
+                    if (!val) {
+                        // Webservice Call
+                        // Step 1, Register Callback Interface
+                        WebNotificationManager.registerResponseListener(responseHandlerListenerFlagAd);
+                        // Step 2, Call Webservice Method
+                        WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 1, responseHandlerListenerFlagAd);
+                        if (alertDialog != null)
+                            alertDialog.dismiss();
+                    } else {
+                        Log.e("Enter your text", "Enter your text");
+                        Utility.showToastMessageShort(mContext, "Enter your Text");
+                    }
+
+
+                   /* boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
                     // if EditText is empty disable closing on possitive button
                     if (!val) {
                         // Webservice Call
@@ -437,7 +484,7 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                     } else {
                         Log.e("Enter your text", "Enter your text");
                         Utility.showToastMessageShort(mContext, "Enter your Text");
-                    }
+                    }*/
                 }
 
             });
@@ -553,12 +600,39 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
             } else {//Success
                 //Error
                 showSuccessDialog(mContext, result, mContext.getString(R.string.success_msg_flag));
-                DataPojo dataPojo = result.getData();
-                mBttnFlagAd.setClickable(false);
-                mListAds.get(connectPosition).setIs_flagged(true);
+                Log.d(LOG_TAG, "setPositiveButton before update, list is " + mListAds.get(connectPosition).is_flagged());
+                AdsListPojo listPojo = new AdsListPojo();
+                listPojo = mListAds.get(connectPosition);
+                listPojo.setIs_flagged(true);
+                mListAds.set(connectPosition, listPojo);
+                //mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
+                ((Activity) mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
 
-                mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
-//                notifyDataSetChanged();
+                    }
+                });
+
+                Log.d(LOG_TAG, "setPositiveButton After update, list is " + mListAds.get(connectPosition).is_flagged());
+
+//                Log.d(LOG_TAG,"setPositiveButton before update, list is "+mListAds.get(connectPosition).is_flagged());
+//                AdsListPojo listPojo = new AdsListPojo();
+//                listPojo = mListAds.get(connectPosition);
+//                listPojo.setIs_flagged(true);
+//                mListAds.set(connectPosition, listPojo);
+//                //mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
+//                ((Activity) mContext).runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        notifyDataSetChanged();
+//
+//                    }
+//                });
+//                Log.d(LOG_TAG,"setPositiveButton After update, list is "+mListAds.get(connectPosition).is_flagged());
+//                Utility.showToastMessageShort(mContext, " Positionm is " + connectPosition);
+//
+
             }
         } catch (Exception e) {
             e.printStackTrace();

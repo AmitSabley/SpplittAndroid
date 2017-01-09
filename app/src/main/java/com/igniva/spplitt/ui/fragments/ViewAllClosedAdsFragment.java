@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * Created by igniva-php-08 on 14/6/16.
  */
-public class ViewAllClosedAdsFragment extends BaseFragment  {
+public class ViewAllClosedAdsFragment extends BaseFragment {
     private static final String LOG_TAG = "ViewAllClosedAdsFragment";
     View mView;
     boolean isSearch;
@@ -54,9 +54,13 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
     boolean _areLecturesLoaded = false;
     TextView mTvNoAdsFound;
     AdsListAdapter mAdsListAdapter;
-    List<AdsListPojo> listAds = new ArrayList<AdsListPojo>();
-    List<AdsListPojo> beforeFilterListAds = new ArrayList<AdsListPojo>();
-    List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
+
+    //    call type 1= all ads,calltype=2 only searched ad result
+    private int mCallType = 1;
+    List<AdsListPojo> allAdsList = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> tempAdDataList = new ArrayList<AdsListPojo>();
+    List<AdsListPojo> searchResultAdsList = new ArrayList<AdsListPojo>();
+//    List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
 
     public static ViewAllClosedAdsFragment newInstance() {
         ViewAllClosedAdsFragment fragment = new ViewAllClosedAdsFragment();
@@ -110,7 +114,7 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
     public void setUpLayouts() {
         try {
             mRvAds = (RecyclerView) mView.findViewById(R.id.rv_ads);
-            mTvNoAdsFound=(TextView)mView.findViewById(R.id.tv_no_ads_found);
+            mTvNoAdsFound = (TextView) mView.findViewById(R.id.tv_no_ads_found);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,6 +125,15 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
     @Override
     public void onResume() {
@@ -165,45 +178,69 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
 
     private void getAdsData(ResponsePojo result) {
         try {
-            isSearch=false;
+            isSearch = false;
             if (result.getStatus_code() == 400) {
-                ErrorPojo errorPojo=result.getError();
-                if(errorPojo.getError_code().equals("533")){
+                ErrorPojo errorPojo = result.getError();
+                if (errorPojo.getError_code().equals("533")) {
                     mRvAds.setAdapter(null);
                     mTvNoAdsFound.setVisibility(View.VISIBLE);
                     mRvAds.setVisibility(View.GONE);
 
-                }else{
+                } else {
                     new Utility().showErrorDialog(getActivity(), result);
                 }
             } else {//Success
                 DataPojo dataPojo = result.getData();
 
-                listAds = dataPojo.getAdsList();
-                beforeFilterListAds.addAll(listAds);
-
-                tempListAds=beforeFilterListAds;//beforeFilterListAds;
-                if (listAds.size() > 0) {
-                    mRvAds.setVisibility(View.VISIBLE);
-                    mTvNoAdsFound.setVisibility(View.GONE);
-                    if (mAdType.equals("completed")) {
-                        mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, false);
-                    } else {
-                        mAdsListAdapter = new AdsListAdapter(getActivity(), listAds, true);
+                if (mCallType == 1) {
+                    allAdsList = dataPojo.getAdsList();
+                    if (allAdsList.size() > 0) {
+                        tempAdDataList.addAll(allAdsList);
+                        mRvAds.setVisibility(View.VISIBLE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        if (mAdType.equals("completed")) {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+                        } else {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+                        }
                     }
-
-                    mRvAds.setAdapter(mAdsListAdapter);
-                    mAdsListAdapter.notifyDataSetChanged();
+                } else {
+                    searchResultAdsList.clear();
+                    searchResultAdsList = dataPojo.getAdsList();
+                    if (searchResultAdsList.size() > 0) {
+                        mRvAds.setVisibility(View.VISIBLE);
+                        mTvNoAdsFound.setVisibility(View.GONE);
+                        if (mAdType.equals("completed")) {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, false);
+                        } else {
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, true);
+                        }
+                    }
                 }
+//                searchResultAdsList.addAll(allAdsList);
 
+//                tempListAds=searchResultAdsList;//searchResultAdsList;
+//                if (allAdsList.size() > 0) {
+//                    mRvAds.setVisibility(View.VISIBLE);
+//                    mTvNoAdsFound.setVisibility(View.GONE);
+//                    if (mAdType.equals("completed")) {
+//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+//                    } else {
+//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+//                    }
+//
+                mRvAds.setAdapter(mAdsListAdapter);
+                mAdsListAdapter.notifyDataSetChanged();
                 mRvAds.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 mRvAds.setLayoutManager(mLayoutManager);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
@@ -224,8 +261,11 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+                        Utility.hideKeyboard(getActivity(), searchView);
+                        searchView.clearFocus();
                         //         Webservice Call
-//         Step 1, Register Callback Interface
+                        //         Step 1, Register Callback Interface
+                        mCallType = 2;
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewClosedAD);
                         // Step 2, Call Webservice Method
                         WebServiceClient.getSearchAdsList(getActivity(), searchAdListPayload(query), true, 2, responseHandlerListenerViewClosedAD);
@@ -235,13 +275,21 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
+                        /*Utility.hideKeyboard(getActivity(), searchView);
+                        searchView.clearFocus();
+                        //         Webservice Call
+//         Step 1, Register Callback Interface
+                        WebNotificationManager.registerResponseListener(responseHandlerListenerViewClosedAD);
+                        // Step 2, Call Webservice Method
+                        WebServiceClient.getSearchAdsList(getActivity(), searchAdListPayload(newText), true, 2, responseHandlerListenerViewClosedAD);
+*/
                         return false;
                     }
                 });
 
                 final EditText mEtSearchView = (EditText) searchView.findViewById(R.id.search_src_text);
                 // Get the search close button image view
-                ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+                ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
 
                 // Set on click listener
                 closeButton.setOnClickListener(new View.OnClickListener() {
@@ -249,24 +297,51 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
                     @Override
                     public void onClick(View v) {
 //                        getActiveAds(true);
-                        isSearch=true;
+                        isSearch = true;
                         mEtSearchView.setText("");
 //                        getActiveAds(true);
-                        if(beforeFilterListAds.size()>0) {
+                        if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-//                            listAds=tempListAds;
+//                            allAdsList=tempListAds;
 
                             if (mAdType.equals("completed")) {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), beforeFilterListAds, false);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
                             } else {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), beforeFilterListAds, true);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+                            }
+
+                            mRvAds.setAdapter(mAdsListAdapter);
+//                            mAdsListAdapter.notifyDataSetChanged();
+                        }
+//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+                MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+
+                        if (allAdsList.size() > 0) {
+                            mRvAds.setVisibility(View.VISIBLE);
+                            mTvNoAdsFound.setVisibility(View.GONE);
+//                            allAdsList=tempListAds;
+                            if (mAdType.equals("completed")) {
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+                            } else {
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
                             }
 
                             mRvAds.setAdapter(mAdsListAdapter);
                             mAdsListAdapter.notifyDataSetChanged();
                         }
-//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
                     }
                 });
 
@@ -274,7 +349,6 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
         }
         return false;
     }
-
 
 
     private String searchAdListPayload(String searchText) {
@@ -304,11 +378,15 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
         if (isVisibleToUser && !_areLecturesLoaded) {
             getClosedAds(true);
             _areLecturesLoaded = true;
-        }else {
-            if (listAds != null) {
-                listAds.clear();
-                listAds.addAll(beforeFilterListAds);
+        } else {
+            if (allAdsList != null ) {
+                allAdsList.clear();
+                allAdsList.addAll(tempAdDataList);
             }
+            /*else if (allAdsList != null && mCallType == 2) {
+                allAdsList.clear();
+                allAdsList.addAll(searchResultAdsList);
+            }*/
             if (mAdsListAdapter != null) {
                 mAdsListAdapter.notifyDataSetChanged();
             }
@@ -318,9 +396,10 @@ public class ViewAllClosedAdsFragment extends BaseFragment  {
     private void getClosedAds(boolean b) {
         //         Webservice Call
 //         Step 1, Register Callback Interface
-            WebNotificationManager.registerResponseListener(responseHandlerListenerViewClosedAD);
-            // Step 2, Call Webservice Method
-            WebServiceClient.getAdsList(getActivity(), postAdGetCategoriesPayload(), true, 1, responseHandlerListenerViewClosedAD);
+        mCallType = 1;
+        WebNotificationManager.registerResponseListener(responseHandlerListenerViewClosedAD);
+        // Step 2, Call Webservice Method
+        WebServiceClient.getAdsList(getActivity(), postAdGetCategoriesPayload(), true, 1, responseHandlerListenerViewClosedAD);
 
     }
 }

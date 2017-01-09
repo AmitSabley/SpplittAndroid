@@ -202,7 +202,7 @@ public class CityActivity extends BaseActivity {
             } else {
                 //Success
                 DataPojo dataPojo = result.getData();
-                listCities = dataPojo.getCityList();
+                listCities =     dataPojo.getCityList();
                 setDataInViewLayouts();
 //                mArrayListCityName.clear();
 //                mArrayListCityId.clear();

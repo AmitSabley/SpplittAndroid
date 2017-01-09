@@ -661,7 +661,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 DataPojo dataPojo = result.getData();
                 List<CategoriesListPojo> listCategories = new ArrayList<CategoriesListPojo>();
                 listCategories = dataPojo.getCategories();
-                if (listCategories != null) {
+                if (listCategories   != null) {
                     for (CategoriesListPojo categoriesListPojo : listCategories) {
                         mArrayListCategories.add(categoriesListPojo.getCategory_title());
                         mArrayListCategoryId.add(categoriesListPojo.getCategory_id());

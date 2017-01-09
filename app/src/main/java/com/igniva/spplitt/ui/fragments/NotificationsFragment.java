@@ -237,7 +237,7 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
         mRvAds.setLayoutManager(mLayoutManager);
         mUserAdapter = new NotificationsListAdapter(getActivity(), listAds, mRvAds);
 
-//        final MyAdsListAdapter mAdsListAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.active_ads),mRvAds);
+//        final MyAdsListAdapter mAdsListAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads),mRvAds);
         mRvAds.setAdapter(mUserAdapter);
         mRvAds.setHasFixedSize(true);
         if (mLlLoading.getVisibility() == View.VISIBLE) {

@@ -58,7 +58,8 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private Button mbtnRating;
     private RatingBar mratingBar_popup;
     private EditTextNonRegular met_review;
-
+    String adIdPos ;
+    private int adIdPosition = 0;
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView mTvAdTitle;
@@ -137,6 +138,7 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     @Override
                     public void onClick(View view) {
                         pos = position;
+                        adIdPos = mListAds.get(position).getAd_id();
                         showRatingDialog(mContext, position);
                     }
                 });
@@ -247,10 +249,18 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 mListAds.get(pos).setRating_value(rating + "");
                 notifyDataSetChanged();
 
+                for (int i = 0; i < mTempListAds.size(); i++) {
+                    if (mTempListAds.get(i).getAd_id().equalsIgnoreCase(adIdPos)) {
+                        adIdPosition = i;
+                        break;
+                    }
+                }
+
+
                 if(mTempListAds!=null) {
                     if(mTempListAds.size()>0) {
-                        mTempListAds.get(pos).setIs_rating(true);
-                        mTempListAds.get(pos).setRating_value(rating + "");
+                        mTempListAds.get(adIdPosition).setIs_rating(true);
+                        mTempListAds.get(adIdPosition).setRating_value(rating + "");
                     }
                 }
 

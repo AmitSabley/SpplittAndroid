@@ -72,6 +72,9 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     int pos = 0;
     float rating = 0;
 
+    String adIdPos ;
+    private int adIdPosition = 0;
+
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView mTvAdTitle;
         TextView mTvAdTime;
@@ -173,6 +176,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         @Override
                         public void onClick(View view) {
                             pos = position;
+                            adIdPos = mListAds.get(position).getAd_id();
                             showRatingDialog(mContext, position);
                         }
                     });
@@ -343,10 +347,17 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 mListAds.get(pos).setRating_value(rating + "");
                 notifyDataSetChanged();
 
+                for (int i = 0; i < mTempListAds.size(); i++) {
+                    if (mTempListAds.get(i).getAd_id().equalsIgnoreCase(adIdPos)) {
+                        adIdPosition = i;
+                        break;
+                    }
+                }
+
                 if(mTempListAds!=null) {
                     if(mTempListAds.size()>0) {
-                        mTempListAds.get(pos).setIs_rating(true);
-                        mTempListAds.get(pos).setRating_value(rating + "");
+                        mTempListAds.get(adIdPosition).setIs_rating(true);
+                        mTempListAds.get(adIdPosition).setRating_value(rating + "");
                     }
                 }
 

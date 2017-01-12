@@ -56,7 +56,6 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
     List<AppliedlistPojo> allAdsList = new ArrayList<AppliedlistPojo>();
     List<AppliedlistPojo> tempAdDataList = new ArrayList<AppliedlistPojo>();
     List<AppliedlistPojo> searchResultAdsList = new ArrayList<AppliedlistPojo>();
-    List<AppliedlistPojo> tempListAds = new ArrayList<AppliedlistPojo>();
     AppliedAdsListAdapter mUserAdapter;
     SearchView searchView;
     boolean isLoadMore;
@@ -200,7 +199,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                         tempAdDataList.addAll(allAdsList);
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, tempAdDataList);
 
                     }
                 } else {
@@ -209,7 +208,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                     if (searchResultAdsList.size() > 0) {
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.rejected_ads), mRvAds, tempAdDataList);
 
                     }
                 }
@@ -279,7 +278,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                         if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, tempAdDataList);
                             mRvAds.setAdapter(mUserAdapter);
                         }
                     }
@@ -292,7 +291,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                         if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, tempAdDataList);
                             mRvAds.setAdapter(mUserAdapter);
                             mUserAdapter.notifyDataSetChanged();
 
@@ -342,7 +341,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
             _areLecturesLoaded = true;
         }else {
             if (tempAdDataList.size() > 0) {
-                mUserAdapter = new AppliedAdsListAdapter(getActivity(), tempAdDataList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
+                mUserAdapter = new AppliedAdsListAdapter(getActivity(), tempAdDataList, getResources().getString(R.string.rejected_ads), mRvAds, tempAdDataList);
                 mRvAds.setAdapter(mUserAdapter);
                 mUserAdapter.notifyDataSetChanged();
                 mTvNoAdsFound.setVisibility(View.GONE);

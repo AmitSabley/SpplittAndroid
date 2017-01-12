@@ -1,6 +1,5 @@
 package com.igniva.spplitt.ui.adapters;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -64,13 +63,15 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
     private DataPojo dataPojo;
     float rating = 0;
     List<ReviewListPojo> mReviewList = new ArrayList<>();
+    List<AdsListPojo> listTempAds = new ArrayList<>();
     AlertDialog alertDialog;
     String LOG_TAG = "AdsListAdapter";
     ArrayList<Integer> mClikedPositionList = new ArrayList<>();
 
 
-    public AdsListAdapter(Context context, List<AdsListPojo> listAds, boolean isCloseAds) {
+    public AdsListAdapter(Context context, List<AdsListPojo> listAds, boolean isCloseAds, List<AdsListPojo> listTempAds) {
         this.mListAds = listAds;
+        this.listTempAds = listTempAds;
         this.mContext = context;
         this.mIsCloseAds = isCloseAds;
     }
@@ -605,33 +606,9 @@ public class AdsListAdapter extends RecyclerView.Adapter<AdsListAdapter.ViewHold
                 listPojo = mListAds.get(connectPosition);
                 listPojo.setIs_flagged(true);
                 mListAds.set(connectPosition, listPojo);
-                //mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
-                ((Activity) mContext).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        notifyDataSetChanged();
+                notifyDataSetChanged();
 
-                    }
-                });
-
-                Log.d(LOG_TAG, "setPositiveButton After update, list is " + mListAds.get(connectPosition).is_flagged());
-
-//                Log.d(LOG_TAG,"setPositiveButton before update, list is "+mListAds.get(connectPosition).is_flagged());
-//                AdsListPojo listPojo = new AdsListPojo();
-//                listPojo = mListAds.get(connectPosition);
-//                listPojo.setIs_flagged(true);
-//                mListAds.set(connectPosition, listPojo);
-//                //mBttnFlagAd.setCompoundDrawablesWithIntrinsicBounds(null, mContext.getResources().getDrawable(R.mipmap.active), null, null);
-//                ((Activity) mContext).runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        notifyDataSetChanged();
-//
-//                    }
-//                });
-//                Log.d(LOG_TAG,"setPositiveButton After update, list is "+mListAds.get(connectPosition).is_flagged());
-//                Utility.showToastMessageShort(mContext, " Positionm is " + connectPosition);
-//
+                listTempAds.set(connectPosition, listPojo);
 
             }
         } catch (Exception e) {

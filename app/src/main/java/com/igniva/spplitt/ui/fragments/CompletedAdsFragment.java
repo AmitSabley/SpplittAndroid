@@ -51,9 +51,7 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
     boolean _areLecturesLoaded = false;
     TextView mTvNoAdsFound;
     List<AppliedlistPojo> allAdsList = new ArrayList<AppliedlistPojo>();
-    List<AppliedlistPojo> tempAdDataList = new ArrayList<AppliedlistPojo>();
     List<AppliedlistPojo> searchResultAdsList = new ArrayList<AppliedlistPojo>();
-    List<AppliedlistPojo> tempListAds = new ArrayList<AppliedlistPojo>();
     AppliedAdsListAdapter mUserAdapter;
     SearchView searchView;
     boolean isSearch;
@@ -197,12 +195,14 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
                 DataPojo dataPojo = result.getData();
 
                 if (mCallType == 1) {
-                    allAdsList = dataPojo.getAppliedlist();
-                    if (allAdsList.size() > 0) {
-                        tempAdDataList.addAll(allAdsList);
+                    if (dataPojo.getAppliedlist().size() > 0) {
+
+                        allAdsList.addAll(dataPojo.getAppliedlist());
+
+
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds, searchResultAdsList);
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds, allAdsList);
 
                     }
                 } else {
@@ -211,7 +211,7 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
                     if (searchResultAdsList.size() > 0) {
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.complete_ads), mRvAds, searchResultAdsList);
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.complete_ads), mRvAds, allAdsList);
 
                     }
                 }
@@ -281,9 +281,8 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
                         if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds, searchResultAdsList);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds, allAdsList);
                             mRvAds.setAdapter(mUserAdapter);
-                            mUserAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -294,7 +293,7 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
                         if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds, searchResultAdsList);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds, allAdsList);
                             mRvAds.setAdapter(mUserAdapter);
                             mUserAdapter.notifyDataSetChanged();
                         }
@@ -340,8 +339,8 @@ public class CompletedAdsFragment extends BaseFragment implements View.OnClickLi
             getActiveAds(true);
             _areLecturesLoaded = true;
         }else {
-            if (tempAdDataList.size() > 0) {
-                mUserAdapter = new AppliedAdsListAdapter(getActivity(), tempAdDataList, getResources().getString(R.string.complete_ads), mRvAds, tempAdDataList);
+            if (allAdsList.size() > 0) {
+                mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds, allAdsList);
                 mRvAds.setAdapter(mUserAdapter);
                 mUserAdapter.notifyDataSetChanged();
                 mTvNoAdsFound.setVisibility(View.GONE);

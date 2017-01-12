@@ -204,7 +204,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                         tempAdDataList.addAll(allAdsList);
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.awaited_ads), mRvAds, searchResultAdsList);
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.awaited_ads), mRvAds, tempAdDataList);
 
                     }
                 } else {
@@ -213,7 +213,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                     if (searchResultAdsList.size() > 0) {
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.awaited_ads), mRvAds, searchResultAdsList);
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.awaited_ads), mRvAds, tempAdDataList);
 
                     }
                 }
@@ -281,7 +281,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                         if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.awaited_ads), mRvAds, searchResultAdsList);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.awaited_ads), mRvAds, tempAdDataList);
                             mRvAds.setAdapter(mUserAdapter);
 
                         }
@@ -296,7 +296,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
                         if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.awaited_ads), mRvAds, searchResultAdsList);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.awaited_ads), mRvAds, tempAdDataList);
                             mRvAds.setAdapter(mUserAdapter);
                             mUserAdapter.notifyDataSetChanged();
 
@@ -345,7 +345,7 @@ public class AwaitedAdFragment extends BaseFragment implements View.OnClickListe
             _areLecturesLoaded = true;
         } else {
             if (tempAdDataList.size() > 0) {
-                mUserAdapter = new AppliedAdsListAdapter(getActivity(), tempAdDataList, getResources().getString(R.string.awaited_ads), mRvAds, searchResultAdsList);
+                mUserAdapter = new AppliedAdsListAdapter(getActivity(), tempAdDataList, getResources().getString(R.string.awaited_ads), mRvAds, tempAdDataList);
                 mRvAds.setAdapter(mUserAdapter);
                 mUserAdapter.notifyDataSetChanged();
                 mTvNoAdsFound.setVisibility(View.GONE);

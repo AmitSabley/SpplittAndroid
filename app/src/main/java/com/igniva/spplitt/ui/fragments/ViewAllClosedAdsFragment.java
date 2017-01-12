@@ -57,7 +57,6 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
 
     private int mCallType = 1;
     List<AdsListPojo> allAdsList = new ArrayList<AdsListPojo>();
-    List<AdsListPojo> tempAdDataList = new ArrayList<AdsListPojo>();
     List<AdsListPojo> searchResultAdsList = new ArrayList<AdsListPojo>();
 //    List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
 
@@ -192,15 +191,15 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
                 DataPojo dataPojo = result.getData();
 
                 if (mCallType == 1) {
-                    allAdsList = dataPojo.getAdsList();
-                    if (allAdsList.size() > 0) {
-                        tempAdDataList.addAll(allAdsList);
+//                    allAdsList = dataPojo.getAdsList();
+                    if (dataPojo.getAdsList().size() > 0) {
+                        allAdsList.addAll(dataPojo.getAdsList());
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
                         if (mAdType.equals("completed")) {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
                         } else {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true,allAdsList);
                         }
                     }
                 } else {
@@ -210,9 +209,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
                         if (mAdType.equals("completed")) {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, false);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, false,allAdsList);
                         } else {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, true);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, true,allAdsList);
                         }
                     }
                 }
@@ -305,9 +304,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
 //                            allAdsList=tempListAds;
 
                             if (mAdType.equals("completed")) {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
                             } else {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true,allAdsList);
                             }
 
                             mRvAds.setAdapter(mAdsListAdapter);
@@ -327,9 +326,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
                             mTvNoAdsFound.setVisibility(View.GONE);
 //                            allAdsList=tempListAds;
                             if (mAdType.equals("completed")) {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
                             } else {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true,allAdsList);
                             }
 
                             mRvAds.setAdapter(mAdsListAdapter);
@@ -378,8 +377,8 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
             getClosedAds(true);
             _areLecturesLoaded = true;
         } else {
-            if (tempAdDataList.size()>0) {
-                mAdsListAdapter = new AdsListAdapter(getActivity(), tempAdDataList, false);
+            if (allAdsList.size()>0) {
+                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
                 mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
                 mTvNoAdsFound.setVisibility(View.GONE);

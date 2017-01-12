@@ -71,7 +71,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private OnLoadMoreListener mOnLoadMoreListener;
     private boolean isLoading;
-    private int visibleThreshold = 8;
+    private int visibleThreshold = 10;
     private int lastVisibleItem, totalItemCount;
 
     static class UserViewHolder extends RecyclerView.ViewHolder {

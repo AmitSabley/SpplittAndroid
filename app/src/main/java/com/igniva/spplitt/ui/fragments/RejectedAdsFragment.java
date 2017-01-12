@@ -178,96 +178,6 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
         }
     };
 
-
-//    private void getSearchAdsData(ResponsePojo result) {
-//        try {
-//            isSearch=false;
-//            if(searchView!=null) {
-//                Utility.hideKeyboard(getActivity(), searchView);
-//            }
-//            if (result.getStatus_code() == 400) {
-//                mRvAds.setAdapter(null);
-//                mTvNoAdsFound.setVisibility(View.VISIBLE);
-//                mRvAds.setVisibility(View.GONE);
-//                //Error
-//                ErrorPojo errorPojo = result.getError();
-//                if (!errorPojo.getError_code().equals("533")) {
-//                    new Utility().showErrorDialog(getActivity(), result);
-//                }
-//            } else {//Success
-//                if(allAdsList.size()>0){
-//                    allAdsList.clear();
-//                }
-//                DataPojo dataPojo = result.getData();
-//                allAdsList.addAll(dataPojo.getAppliedlist());
-//
-//                if (allAdsList.size() > 0) {
-//                    mTvNoAdsFound.setVisibility(View.GONE);
-//                    mRvAds.setVisibility(View.VISIBLE);
-//                    mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList,getResources().getString(R.string.rejected_ads), mRvAds);
-//                    mRvAds.setAdapter(mUserAdapter);
-//                    mUserAdapter.notifyDataSetChanged();
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void getAdsData(ResponsePojo result) {
-//        try {
-//
-//            if (result.getStatus_code() == 400) {
-//                isDataLoaded=true;
-//                if(mProgressBar!=null) {
-//                    if (mProgressBar.getVisibility() == View.VISIBLE) {
-//                        mProgressBar.setVisibility(View.INVISIBLE);
-//                    }
-//                }
-//                //Error
-//                ErrorPojo errorPojo = result.getError();
-//                if (errorPojo.getError_code().equals("533")) {
-//
-//
-//                    mRvAds.setAdapter(null);
-//                    mTvNoAdsFound.setVisibility(View.VISIBLE);
-//                    mRvAds.setVisibility(View.GONE);
-//
-//                } else {
-//                    new Utility().showErrorDialog(getActivity(), result);
-//                }
-//            } else {//Success
-//                if(allAdsList.size()>0) {
-//                    allAdsList.remove(allAdsList.size() - 1);
-//                    mUserAdapter.notifyItemRemoved(allAdsList.size());
-//                }
-//                DataPojo dataPojo = result.getData();
-//                allAdsList.addAll(dataPojo.getAppliedlist());
-//                searchResultAdsList.addAll(allAdsList);
-//                tempListAds=searchResultAdsList;//searchResultAdsList;
-//                if (allAdsList.size() > 0) {
-//                    if(!isLoadMore){
-//                        setDataToList();
-//                        isLoadMore=true;
-//                    }else{
-//                        isDataLoaded=true;
-//                        if(mProgressBar!=null) {
-//                            if (mProgressBar.getVisibility() == View.VISIBLE) {
-//                                mProgressBar.setVisibility(View.INVISIBLE);
-//                            }
-//                        }
-//                        mUserAdapter.notifyDataSetChanged();
-//                    }
-//                    mTvNoAdsFound.setVisibility(View.GONE);
-//                    mRvAds.setVisibility(View.VISIBLE);
-//                }
-//
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     private void getAdsData(ResponsePojo result) {
         try {
             isSearch = false;
@@ -290,22 +200,8 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                         tempAdDataList.addAll(allAdsList);
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                        if (!isLoadMore) {
-                            setDataToList();
-                            isLoadMore = true;
-                        } else {
-                            isDataLoaded = true;
-                            if (mProgressBar != null) {
-                                if (mProgressBar.getVisibility() == View.VISIBLE) {
-                                    mProgressBar.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                            mUserAdapter.notifyDataSetChanged();
-//                            mUserAdapter.setLoaded();
-                        }
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
 
-
-                mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList,getResources().getString(R.string.rejected_ads), mRvAds);
                     }
                 } else {
                     searchResultAdsList.clear();
@@ -313,26 +209,17 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                     if (searchResultAdsList.size() > 0) {
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
-                   mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList,getResources().getString(R.string.rejected_ads), mRvAds);
+                        mUserAdapter = new AppliedAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
+
                     }
                 }
-//                searchResultAdsList.addAll(allAdsList);
 
-//                tempListAds=searchResultAdsList;//searchResultAdsList;
-//                if (allAdsList.size() > 0) {
-//                    mRvAds.setVisibility(View.VISIBLE);
-//                    mTvNoAdsFound.setVisibility(View.GONE);
-//                    if (mAdType.equals("completed")) {
-//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
-//                    } else {
-//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
-//                    }
-//
                 mRvAds.setAdapter(mUserAdapter);
                 mUserAdapter.notifyDataSetChanged();
                 mRvAds.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 mRvAds.setLayoutManager(mLayoutManager);
+
 
             }
         } catch (Exception e) {
@@ -340,13 +227,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-    private void setDataToList() {
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mRvAds.setLayoutManager(mLayoutManager);
-        mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList,getResources().getString(R.string.rejected_ads), mRvAds);
-        mRvAds.setAdapter(mUserAdapter);
-        mRvAds.setHasFixedSize(true);
-    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -393,20 +274,14 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
 
                     @Override
                     public void onClick(View v) {
-//                        getActiveAds(true);
-                        isSearch=true;
+                        isSearch = true;
                         mEtSearchView.setText("");
-//                        getActiveAds(true);
-                        if(allAdsList.size()>0) {
+                        if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-//                            allAdsList=tempListAds;
-
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
                             mRvAds.setAdapter(mUserAdapter);
-                            mUserAdapter.notifyDataSetChanged();
                         }
-//                        Toast.makeText(getActivity(), tempListAds.size()+"==", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -414,14 +289,13 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
 
-                        if(searchResultAdsList.size()>0) {
+                        if (allAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
-//                            allAdsList=tempListAds;
-
-                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds);
+                            mUserAdapter = new AppliedAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
                             mRvAds.setAdapter(mUserAdapter);
                             mUserAdapter.notifyDataSetChanged();
+
                         }
                         return true;
                     }
@@ -452,7 +326,7 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
             }
             //URL: http://spplitt.ignivastaging.com/ads/getBuyerAppliedAds
             // Payload: {"user_id":"19","auth_token":"2CUWSLXOU1QY","ads_type":"rejected"}
-            android.util.Log.e("Reponse Rejected Ads", "" + userData);
+            android.util.Log.e("Response Rejected Ads", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -467,12 +341,12 @@ public class RejectedAdsFragment extends BaseFragment implements View.OnClickLis
             getActiveAds(true);
             _areLecturesLoaded = true;
         }else {
-            if (allAdsList != null) {
-                allAdsList.clear();
-                allAdsList.addAll(tempAdDataList);
-            }
-            if (mUserAdapter != null) {
+            if (tempAdDataList.size() > 0) {
+                mUserAdapter = new AppliedAdsListAdapter(getActivity(), tempAdDataList, getResources().getString(R.string.rejected_ads), mRvAds, searchResultAdsList);
+                mRvAds.setAdapter(mUserAdapter);
                 mUserAdapter.notifyDataSetChanged();
+                mTvNoAdsFound.setVisibility(View.GONE);
+                mRvAds.setVisibility(View.VISIBLE);
             }
         }
     }

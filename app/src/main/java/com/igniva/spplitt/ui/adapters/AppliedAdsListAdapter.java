@@ -47,6 +47,7 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     List<AppliedlistPojo> mListAds;
     Context mContext;
     String mAdsType;
+    List<AppliedlistPojo> mTempListAds;
     int cancelAdPosition;
     RecyclerView mRvAds;
     private DataPojo dataPojo;
@@ -86,11 +87,12 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
-    public AppliedAdsListAdapter(Context context, List<AppliedlistPojo> listAds, String ads_type, RecyclerView mRvAds) {
+    public AppliedAdsListAdapter(Context context, List<AppliedlistPojo> listAds, String ads_type, RecyclerView mRvAds, List<AppliedlistPojo> templistAds) {
         this.mListAds = listAds;
         this.mContext = context;
         this.mRvAds = mRvAds;
         this.mAdsType = ads_type;
+        this.mTempListAds = templistAds;
     }
 
     @Override
@@ -238,16 +240,19 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 mReviewList.add(mReviewListPojo);
                 dataPojo.setOther_review(mReviewList);
 
-                //dataPojo.notifyDataSetChanged();
+
                 mratingBar_popup.setRating(0);
                 met_review.setText("");
-
                 mListAds.get(pos).setIs_rating(true);
-                Log.e("rating ", rating + "");
                 mListAds.get(pos).setRating_value(rating + "");
-
                 notifyDataSetChanged();
 
+                if(mTempListAds!=null) {
+                    if(mTempListAds.size()>0) {
+                        mTempListAds.get(pos).setIs_rating(true);
+                        mTempListAds.get(pos).setRating_value(rating + "");
+                    }
+                }
 
             }
         } catch (Exception e) {

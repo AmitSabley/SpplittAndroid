@@ -386,17 +386,7 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
                 mRvAds.setVisibility(View.VISIBLE);
             }
 
-//            if (allAdsList != null ) {
-//                allAdsList.clear();
-//                allAdsList.addAll(tempAdDataList);
-//            }
-//            /*else if (allAdsList != null && mCallType == 2) {
-//                allAdsList.clear();
-//                allAdsList.addAll(searchResultAdsList);
-//            }*/
-//            if (mAdsListAdapter != null) {
-//                mAdsListAdapter.notifyDataSetChanged();
-//            }
+
         }
     }
 

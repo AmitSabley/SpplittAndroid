@@ -55,7 +55,6 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
     TextView mTvNoAdsFound;
     AdsListAdapter mAdsListAdapter;
 
-    //    call type 1= all ads,calltype=2 only searched ad result
     private int mCallType = 1;
     List<AdsListPojo> allAdsList = new ArrayList<AdsListPojo>();
     List<AdsListPojo> tempAdDataList = new ArrayList<AdsListPojo>();
@@ -379,17 +378,25 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
             getClosedAds(true);
             _areLecturesLoaded = true;
         } else {
-            if (allAdsList != null ) {
-                allAdsList.clear();
-                allAdsList.addAll(tempAdDataList);
-            }
-            /*else if (allAdsList != null && mCallType == 2) {
-                allAdsList.clear();
-                allAdsList.addAll(searchResultAdsList);
-            }*/
-            if (mAdsListAdapter != null) {
+            if (tempAdDataList.size()>0) {
+                mAdsListAdapter = new AdsListAdapter(getActivity(), tempAdDataList, false);
+                mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
+                mTvNoAdsFound.setVisibility(View.GONE);
+                mRvAds.setVisibility(View.VISIBLE);
             }
+
+//            if (allAdsList != null ) {
+//                allAdsList.clear();
+//                allAdsList.addAll(tempAdDataList);
+//            }
+//            /*else if (allAdsList != null && mCallType == 2) {
+//                allAdsList.clear();
+//                allAdsList.addAll(searchResultAdsList);
+//            }*/
+//            if (mAdsListAdapter != null) {
+//                mAdsListAdapter.notifyDataSetChanged();
+//            }
         }
     }
 

@@ -30,6 +30,7 @@ import com.igniva.spplitt.model.ErrorPojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.ui.adapters.AdsListAdapter;
+import com.igniva.spplitt.ui.adapters.MyAdsListAdapter;
 import com.igniva.spplitt.utils.Constants;
 import com.igniva.spplitt.utils.Log;
 import com.igniva.spplitt.utils.PreferenceHandler;
@@ -61,7 +62,6 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
     List<AdsListPojo> allAdsList = new ArrayList<AdsListPojo>();
     List<AdsListPojo> searchResultAdsList = new ArrayList<AdsListPojo>();
     List<AdsListPojo> tempAdDataList = new ArrayList<AdsListPojo>();
-    List<AdsListPojo> tempListAds = new ArrayList<AdsListPojo>();
 
     public static ViewAllActiveAdsFragment newInstance() {
         ViewAllActiveAdsFragment fragment = new ViewAllActiveAdsFragment();
@@ -447,12 +447,20 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
             getActiveAds(true);
             _areLecturesLoaded = true;
         } else {
-            if (allAdsList != null) {
-                allAdsList.clear();
-                allAdsList.addAll(tempAdDataList);
-            }
-            if (mAdsListAdapter != null) {
+//            if (allAdsList != null) {
+//                allAdsList.clear();
+//                allAdsList.addAll(tempAdDataList);
+//            }
+//            if (mAdsListAdapter != null) {
+//                mAdsListAdapter.notifyDataSetChanged();
+//            }
+
+            if (tempAdDataList.size()>0) {
+                mAdsListAdapter = new AdsListAdapter(getActivity(), tempAdDataList, true);
+                mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
+                mTvNoAdsFound.setVisibility(View.GONE);
+                mRvAds.setVisibility(View.VISIBLE);
             }
         }
     }

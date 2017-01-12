@@ -55,6 +55,7 @@ import java.util.Locale;
 public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<AdsListPojo> mListAds;
+    List<AdsListPojo> mTempListAds;
     Context mContext;
     String mAdsType;
     int cancelAdPosition;
@@ -115,10 +116,11 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public MyAdsListAdapter(Context context, List<AdsListPojo> listAds, String ads_type) {
+    public MyAdsListAdapter(Context context, List<AdsListPojo> listAds, String ads_type, List<AdsListPojo> templistAds) {
         this.mListAds = listAds;
         this.mContext = context;
         this.mAdsType = ads_type;
+        this.mTempListAds = templistAds;
     }
 
 
@@ -339,10 +341,15 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 met_review.setText("");
                 mListAds.get(pos).setIs_rating(true);
                 mListAds.get(pos).setRating_value(rating + "");
-
-                new CompleteAdsFragment().searchResultAdsList.get(pos).setIs_rating(true);
-                new CompleteAdsFragment().searchResultAdsList.get(pos).setRating_value(rating + "");
                 notifyDataSetChanged();
+
+                if(mTempListAds!=null) {
+                    if(mTempListAds.size()>0) {
+                        mTempListAds.get(pos).setIs_rating(true);
+                        mTempListAds.get(pos).setRating_value(rating + "");
+                    }
+                }
+
 
             } else {
                 //                Error

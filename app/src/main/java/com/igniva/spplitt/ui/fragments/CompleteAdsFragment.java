@@ -384,7 +384,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
                     public void onClick(View v) {
                         isSearch = true;
                         mEtSearchView.setText("");
-                        if (allAdsList.size() > 0) {
+                        if (searchResultAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
                             mUserAdapter = new MyAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.complete_ads),searchResultAdsList);
@@ -397,7 +397,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
                 MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
-                        if (allAdsList.size() > 0) {
+                        if (searchResultAdsList.size() > 0) {
                             mRvAds.setVisibility(View.VISIBLE);
                             mTvNoAdsFound.setVisibility(View.GONE);
                             mUserAdapter = new MyAdsListAdapter(getActivity(), searchResultAdsList, getResources().getString(R.string.complete_ads),searchResultAdsList);

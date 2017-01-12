@@ -1,6 +1,9 @@
 package com.igniva.spplitt.ui.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
@@ -33,6 +37,11 @@ import com.igniva.spplitt.utils.Utility;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +62,17 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
     boolean isLoadMore;
     ProgressBar mProgressBar;
     public static boolean isDataLoaded;
+
+    private enum HttpMethod {
+        HTTP_GET, HTTP_POST, HTTP_PUT
+    }
+    private static ProgressDialog progressDialog;
+    private static final String HTTP_GET_NOTIFICATIONS =  WebServiceClient.HTTP_PROTOCOL + WebServiceClient.HTTP_HOST_IP + "/notifications/getUserNotification";
+    private static String url;
+    private static HttpMethod method;
+    private static int urlNo;
+    private static ResponseHandlerListener responseHandlerListener;
+    public static CallWebserviceTask ca;
 
     public static NotificationsFragment newInstance() {
         NotificationsFragment fragment = new NotificationsFragment();
@@ -80,7 +100,7 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
 //         Step 1, Register Callback Interface
             WebNotificationManager.registerResponseListener(responseHandlerListenerViewAD);
 //         Step 2, Call Webservice Method
-            WebServiceClient.getNotificationsList(getContext(), getNotificationsPayload(), showProgress, 1, responseHandlerListenerViewAD);
+            getNotificationsList(getContext(), getNotificationsPayload(), showProgress, 1, responseHandlerListenerViewAD);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -277,7 +297,157 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
     }
 
 
+    public static void getNotificationsList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+        url = HTTP_GET_NOTIFICATIONS;
+        method = HttpMethod.HTTP_POST;
+        checkNetworkState(url, payload, method, context, showprogress);
+        urlNo = urlno;
+        responseHandlerListener=responseHandlerListenerLogin;
+
+    }
+
+    /**
+     * Check Available Network connection and make http call only if network is
+     * available else show no network available
+     *
+     * @param url      , the url to be called
+     * @param _payload ,the data to be send while making http call
+     * @param method   , the requested method
+     * @param context  , the context of calling class
+     */
+    private static void checkNetworkState(String url, String _payload,
+                                          HttpMethod method, Context context, boolean showProgress) {
+        if (Utility.isInternetConnection(context)) {
+            ca=  new CallWebserviceTask(url, _payload, method, context, showProgress);
+
+            ca.execute();
+        } else {
+            // open dialog here
+            new Utility().showNoInternetDialog((Activity) context);
+
+        }
+    }
+    private static class CallWebserviceTask extends
+            AsyncTask<Void, Void, Object[]> {
+        private final String mUrl;
+        private final String mPayload;
+        private final HttpMethod mMethod;
+        private Context mContext;
+        private boolean mShowProgress;
+
+        public CallWebserviceTask(String url, String _payload,
+                                  HttpMethod method, final Context context, boolean showProgress) {
+            Log.e(LOG_TAG,url);
+            mContext = context;
+            mUrl = url;
+            mPayload = _payload;
+            mMethod = method;
+            mContext = context;
+            mShowProgress = showProgress;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (mShowProgress) {
+                progressDialog = ProgressDialog.show(mContext, "", mContext
+                                .getResources().getString(R.string.please_wait), true,
+                        false);
+            }
+            // progressDialog.setCancelable(true);
+        }
+
+        @Override
+        protected Object[] doInBackground(Void... vParams) {
+//            CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+            ResponsePojo responsePojo = null;
+            WebServiceClient.WebError error = null;
+            String method = "";
+
+            URL url = null;
+            try {
+                url = new URL(mUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setReadTimeout(50000);
+                connection.setConnectTimeout(50000);
+                if (mMethod.equals(HttpMethod.HTTP_GET)) {
+                    connection.setRequestMethod("GET");
+                } else if (mMethod.equals(HttpMethod.HTTP_POST)) {
+                    connection.setRequestMethod("POST");
+                    connection.setDoOutput(true);
+                }
+
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(mPayload); //Writes out the string to the underlying output stream as a sequence of bytes
+                dStream.flush(); // Flushes the data output stream.
+                dStream.close(); // Closing the output stream.
 
 
+                int successCode = connection.getResponseCode();
 
+                if (successCode == 200) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String line = "";
+                    StringBuilder responseOutput = new StringBuilder();
+                    while ((line = br.readLine()) != null) {
+                        responseOutput.append(line);
+                    }
+                    br.close();
+                    Log.d(LOG_TAG, responseOutput.toString());
+
+                    Gson gson = new Gson();
+                    responsePojo = gson.fromJson(responseOutput.toString(), ResponsePojo.class);
+                    Log.e("====="+responsePojo);
+                    // output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                } else {
+                    Log.d(LOG_TAG, "Success code is " + successCode);
+                    error = WebServiceClient.WebError.UNKNOWN;
+                }
+            } catch (Exception e) {
+                error = WebServiceClient.WebError.UNKNOWN;
+                e.printStackTrace();
+            }
+
+            return new Object[]{responsePojo, error};
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void onPostExecute(Object[] result) {
+            try {
+//                if (isResponseHandled) {
+                // TODO handle Authtoken Expiration
+                try {
+                    if (((ResponsePojo) result[0]).getStatus_code() == 1000) {
+                        // Show Logout Dialog when user has logged in from another device
+                        WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
+                        progressDialog.dismiss();
+                        new Utility().showInvalidSessionDialogLogout(mContext, (ResponsePojo) result[0]);
+                    } else {
+                        WebNotificationManager.onResponseCallReturned(
+                                (ResponsePojo) result[0], (WebServiceClient.WebError) result[1],
+                                progressDialog, urlNo);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    WebNotificationManager.onResponseCallReturned(
+                            (ResponsePojo) result[0], (WebServiceClient.WebError) result[1],
+                            progressDialog, urlNo);
+                }
+//                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public static void cancelAsyncTask(){
+        if(ca.getStatus()==AsyncTask.Status.PENDING){
+            ca.cancel(true);
+        }else  if(ca.getStatus()==AsyncTask.Status.RUNNING){
+            ca.cancel(true);
+        }
+    }
 }

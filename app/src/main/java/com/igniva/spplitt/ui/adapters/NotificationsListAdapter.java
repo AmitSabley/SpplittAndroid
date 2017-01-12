@@ -56,6 +56,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static com.igniva.spplitt.ui.fragments.NotificationsFragment.ca;
+
 
 /**
  * Created by igniva-php-08 on 17/6/16.
@@ -71,7 +73,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private OnLoadMoreListener mOnLoadMoreListener;
     private boolean isLoading;
-    private int visibleThreshold = 10;
+    private int visibleThreshold = 8;
     private int lastVisibleItem, totalItemCount;
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
@@ -165,6 +167,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<RecyclerView.
                 userViewHolder.mLlMain.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        NotificationsFragment.cancelAsyncTask();
                         Intent in = new Intent(mContext, ViewAdsDetailsActivity.class);
                         in.putExtra("ad_id", mListAds.get(position).getNotification_ad_id());
                         in.putExtra("ad_position", position);
@@ -174,6 +177,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<RecyclerView.
                 userViewHolder.mTvUserName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        NotificationsFragment.cancelAsyncTask();
                         Intent in = new Intent(mContext, OtherProfileActivity.class);
                         in.putExtra("other_user_id", mListAds.get(position).getNotification_user_id());
                         mContext.startActivity(in);
@@ -182,6 +186,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<RecyclerView.
                 userViewHolder.mRivUserImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        NotificationsFragment.cancelAsyncTask();
                         Intent in = new Intent(mContext, OtherProfileActivity.class);
                         in.putExtra("other_user_id", mListAds.get(position).getNotification_user_id());
                         mContext.startActivity(in);

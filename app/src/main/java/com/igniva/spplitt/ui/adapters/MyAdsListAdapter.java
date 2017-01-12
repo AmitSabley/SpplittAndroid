@@ -64,7 +64,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     List<ReviewListPojo> mReviewList = new ArrayList<>();
-
+    String LOG_TAG = "MyAdsListAdapter";
 
     private OnLoadMoreListener mOnLoadMoreListener;
     private boolean isLoading;
@@ -135,9 +135,11 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                            totalItemCount = linearLayoutManager.getItemCount();
                                            lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
 
-                                           if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                                           if (!isLoading && (totalItemCount <= (lastVisibleItem + visibleThreshold))) {
                                                if (mOnLoadMoreListener != null) {
                                                    mOnLoadMoreListener.onLoadMore();
+                                               } else {
+                                                   Log.d(LOG_TAG, "addOnScrollListener Loadmore is null");
                                                }
                                                isLoading = true;
                                            }
@@ -149,6 +151,10 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
         this.mOnLoadMoreListener = mOnLoadMoreListener;
+    }
+
+    public OnLoadMoreListener getOnLoadMoreListener() {
+        return mOnLoadMoreListener;
     }
 
 
@@ -329,14 +335,16 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 dataPojo = result.getData();
 
 
-//                if(mReviewList.size()>0) {
-                ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(mContext, mReviewList, dataPojo);
-                mRvAds.setAdapter(mAdsListAdapter);
-                mAdsListAdapter.notifyDataSetChanged();
-                mRvAds.setHasFixedSize(true);
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-                mRvAds.setLayoutManager(mLayoutManager);
-//                }
+                if (mReviewList.size() > 0) {
+                    ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(mContext, mReviewList, dataPojo);
+                    mRvAds.setAdapter(mAdsListAdapter);
+                    mAdsListAdapter.notifyDataSetChanged();
+                    mRvAds.setHasFixedSize(true);
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+                    mRvAds.setLayoutManager(mLayoutManager);
+                } else {
+                    new Utility().showErrorDialogRequestFailed(mContext);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

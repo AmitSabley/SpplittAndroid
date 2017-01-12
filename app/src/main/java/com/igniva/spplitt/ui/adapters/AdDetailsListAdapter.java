@@ -52,6 +52,7 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     int clickPos;
+    int list_count;
     ViewHolder mViewHolder;
     int connectPosition;
 
@@ -334,8 +335,16 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
 
     @Override
     public int getItemCount() {
-        return mListRequestAds.size() + 1;
+        try {
+            list_count = mListRequestAds.size() + 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return list_count;
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -473,7 +482,7 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                     .findViewById(R.id.et_report_abuse_message);
             builder.setCancelable(true);
 
-            builder.setPositiveButton("OK", new AlertDialog.OnClickListener(){
+            builder.setPositiveButton("OK", new AlertDialog.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -496,16 +505,14 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 public void onClick(View v) {
                     Boolean val = (mEtReportAbuseMsg.getText().toString().trim().isEmpty());
                     // if EditText is empty disable closing on possitive button
-                    if (!val)
-                    {
+                    if (!val) {
                         // Webservice Call
                         // Step 1, Register Callback Interface
                         WebNotificationManager.registerResponseListener(responseHandlerListenerViewAdDetail);
                         // Step 2, Call Webservice Method
                         WebServiceClient.flagAnAd(mContext, flagAnAdPayload(mAdId, mEtReportAbuseMsg.getText().toString(), mCategoryId), true, 2, responseHandlerListenerViewAdDetail);
                         alertDialog.dismiss();
-                    }
-                    else{
+                    } else {
                         Log.e("Enter your text", "Enter your text");
                         Utility.showToastMessageLong(mContext, "Enter your Text");
                     }

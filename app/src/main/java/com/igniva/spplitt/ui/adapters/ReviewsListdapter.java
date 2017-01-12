@@ -1,8 +1,6 @@
 package com.igniva.spplitt.ui.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +15,6 @@ import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ReviewListPojo;
-import com.igniva.spplitt.ui.activties.AdsAppliedListActivity;
 import com.igniva.spplitt.ui.views.RoundedImageView;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +31,7 @@ public class ReviewsListdapter extends RecyclerView.Adapter<ReviewsListdapter.Vi
     DataPojo dataPojo;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
+    private int list_count;
 
     public ReviewsListdapter(Context context, List<ReviewListPojo> listAds, DataPojo dataPojo) {
         this.mListAds = listAds;
@@ -196,7 +194,15 @@ public class ReviewsListdapter extends RecyclerView.Adapter<ReviewsListdapter.Vi
 
     @Override
     public int getItemCount() {//return array.size
-        return mListAds.size() + 1;
+        try {
+            list_count = mListAds.size() + 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return list_count;
+
     }
 
     @Override

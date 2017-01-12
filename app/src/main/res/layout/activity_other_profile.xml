@@ -115,16 +115,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_ads_applied"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/rv_outer_margin"
-        android:layout_marginTop="40dp"
-        android:clipToPadding="false"
-        android:scrollbars="none"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
     <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -169,4 +159,14 @@
         app:layout_anchor="@id/fab"
         app:layout_anchorGravity="top"
         app:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_ads_applied"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/rv_outer_margin"
+        android:layout_marginTop="40dp"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </android.support.design.widget.CoordinatorLayout>

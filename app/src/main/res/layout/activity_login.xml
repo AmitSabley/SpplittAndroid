@@ -5,7 +5,7 @@
     android:background="@mipmap/ic_login_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_header_main"/>
+    <include layout="@layout/layout_header_main" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,79 +15,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/outer_margin_bw_views"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:src="@mipmap/ic_logo"
-                />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:orientation="vertical">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
                         android:src="@mipmap/ic_envelope" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
-
-                    <com.igniva.spplitt.ui.views.EditTextNonRegular
-                        android:id="@+id/et_email"
-                        style="@style/EditTextTheme"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_email_edit"
-                        android:inputType="textEmailAddress" />
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
                     android:background="@color/colorPrimaryDark" />
+
+                <com.igniva.spplitt.ui.views.EditTextNonRegular
+                    android:id="@+id/et_email"
+                    style="@style/EditTextTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_email_edit"
+                    android:inputType="textEmailAddress" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/inner_margin_bw_views"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/inner_margin_bw_views"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
                         android:src="@mipmap/ic_pswd" />
+
+
+                </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@color/colorPrimaryDark" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
@@ -114,7 +127,6 @@
                 android:layout_marginTop="@dimen/inner_margin_bw_views"
                 android:background="@color/colorPrimaryDark"
                 android:text="@string/login"
-                android:onClick="onClick"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/btn_textSize"
                 android:textStyle="bold" />
@@ -148,8 +160,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
-                    android:text="@string/register_here"
                     android:onClick="onClick"
+                    android:text="@string/register_here"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/tv_textSize"
                     android:textStyle="bold" />

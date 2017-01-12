@@ -44,7 +44,7 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
     String mCatId;
     boolean _areLecturesLoaded = false;
     TextView mTvNoAdsFound;
-    List<NotificationListPojo> listAds = new ArrayList<NotificationListPojo>();
+    List<NotificationListPojo> mListAds = new ArrayList<NotificationListPojo>();
     LinearLayout mLlLoading;
     int mPageNo = 1;
     int mPosition;
@@ -200,15 +200,20 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
                     new Utility().showErrorDialog(getActivity(), result);
                 }
             } else {//Success
-                if (listAds.size() > 0) {
-                    listAds.remove(listAds.size() - 1);
-                    mUserAdapter.notifyItemRemoved(listAds.size());
+                if (mListAds.size() > 0) {
+                    mListAds.remove(mListAds.size() - 1);
+
+                    mUserAdapter.notifyItemRemoved(mListAds.size());
                 }
                 DataPojo dataPojo = result.getData();
                 mPosition=dataPojo.getTotal_page();
-                listAds.addAll(dataPojo.getNotification());
+                mListAds.addAll(dataPojo.getNotification());
 
-                if (listAds.size() > 0) {
+//                // Use Set to remove duplicacy
+//                Set set = new HashSet(mListAds);
+//                mListAds = new ArrayList(set);
+
+                if (mListAds.size() > 0) {
                     if (!isLoadMore) {
                         setDataToList();
                         isLoadMore = true;
@@ -235,7 +240,7 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
     private void setDataToList() {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRvAds.setLayoutManager(mLayoutManager);
-        mUserAdapter = new NotificationsListAdapter(getActivity(), listAds, mRvAds);
+        mUserAdapter = new NotificationsListAdapter(getActivity(), mListAds, mRvAds);
 
 //        final MyAdsListAdapter mAdsListAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.active_ads),mRvAds);
         mRvAds.setAdapter(mUserAdapter);
@@ -250,8 +255,8 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
             public void onLoadMore() {
                 isDataLoaded = false;
 
-                listAds.add(null);
-                mUserAdapter.notifyItemInserted(listAds.size() - 1);
+                mListAds.add(null);
+                mUserAdapter.notifyItemInserted(mListAds.size() - 1);
                 if(mPageNo<mPosition) {
                     mPageNo++;
                     getActiveAds(false);

@@ -267,10 +267,18 @@ public class ViewAdsDetailsActivity extends BaseActivity {
                 new Utility().showErrorDialog(ViewAdsDetailsActivity.this, result);
             } else {//Success
                 dataPojo = result.getData();
-                if (dataPojo != null) {
-                    AdDetailsListAdapter mAdsListAdapter = new AdDetailsListAdapter(ViewAdsDetailsActivity.this, dataPojo.getRequest(), dataPojo, mAdId, connectPosition);
-                    mRvAdDetails.setAdapter(mAdsListAdapter);
-                    mAdsListAdapter.notifyDataSetChanged();
+                try {
+                    if (dataPojo != null && dataPojo.getRequest()!= null && !dataPojo.getRequest().equals("")) {
+                        AdDetailsListAdapter mAdsListAdapter = new AdDetailsListAdapter(ViewAdsDetailsActivity.this, dataPojo.getRequest(), dataPojo, mAdId, connectPosition);
+                        mRvAdDetails.setAdapter(mAdsListAdapter);
+                        mAdsListAdapter.notifyDataSetChanged();
+                    }
+                    else
+                    {
+                        new Utility().showErrorDialogRequestFailed(ViewAdsDetailsActivity.this);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 mRvAdDetails.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(ViewAdsDetailsActivity.this);

@@ -312,7 +312,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
                 }
             } else {//Success
                 DataPojo dataPojo = result.getData();
-
+                mPosition = dataPojo.getTotal_page();
                 if (mCallType == 1) {
                     allAdsList = dataPojo.getAdsList();
                     if (allAdsList.size() > 0) {
@@ -332,7 +332,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
                             mUserAdapter.notifyDataSetChanged();
                             mUserAdapter.setLoaded();
                         }
-
+                        Log.d(LOG_TAG, "ListSize " + allAdsList.size() + "");
 
                         mUserAdapter = new MyAdsListAdapter(getActivity(), allAdsList, getResources().getString(R.string.complete_ads), mRvAds);
 
@@ -361,7 +361,7 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
 //
                 mRvAds.setAdapter(mUserAdapter);
                 mUserAdapter.notifyDataSetChanged();
-                mRvAds.setHasFixedSize(true);
+                mRvAds.setHasFixedSize(false);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 mRvAds.setLayoutManager(mLayoutManager);
 

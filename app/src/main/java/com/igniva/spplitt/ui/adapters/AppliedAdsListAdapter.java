@@ -86,7 +86,7 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
-    public AppliedAdsListAdapter(Context context, List<AppliedlistPojo> listAds, String ads_type,RecyclerView mRvAds) {
+    public AppliedAdsListAdapter(Context context, List<AppliedlistPojo> listAds, String ads_type, RecyclerView mRvAds) {
         this.mListAds = listAds;
         this.mContext = context;
         this.mRvAds = mRvAds;
@@ -197,15 +197,20 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             } else {
                 //Success
                 dataPojo = result.getData();
+                try {
+                    if (dataPojo!=null && mReviewList != null && mReviewList.equals("")) {
+                        ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(mContext, mReviewList, dataPojo);
+                        mRvAds.setAdapter(mAdsListAdapter);
+                        mAdsListAdapter.notifyDataSetChanged();
+                        mRvAds.setHasFixedSize(true);
+                        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+                        mRvAds.setLayoutManager(mLayoutManager);
+                    } else {
+                        new Utility().showErrorDialogRequestFailed(mContext);
 
-
-                if(mReviewList.size()>0) {
-                ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(mContext, mReviewList, dataPojo);
-                mRvAds.setAdapter(mAdsListAdapter);
-                mAdsListAdapter.notifyDataSetChanged();
-                mRvAds.setHasFixedSize(true);
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-                mRvAds.setLayoutManager(mLayoutManager);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         } catch (Exception e) {

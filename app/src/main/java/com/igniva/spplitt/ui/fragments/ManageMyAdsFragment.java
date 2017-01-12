@@ -7,7 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,7 +95,7 @@ public class ManageMyAdsFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-    class MyAdapter extends FragmentPagerAdapter {
+    class MyAdapter extends FragmentStatePagerAdapter {
         int int_items;
 
         public MyAdapter(FragmentManager fm, int int_items) {

@@ -181,14 +181,19 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setDataInViewLayouts() {
         try {
-            Glide.with(this)
-                    .load(WebServiceClient.BASE_URL + dataPojo.getOther_picture()).asBitmap()
-                    .into(mIvProfilePic);
+            if (dataPojo != null && !dataPojo.equals("")) {
+                Glide.with(this)
+                        .load(WebServiceClient.BASE_URL + dataPojo.getOther_picture()).asBitmap()
+                        .into(mIvProfilePic);
 
-            collapsingToolbarLayout.setTitle(dataPojo.getOther_username());
-            dataPojo.getOther_review();
-            setPalette();
+                collapsingToolbarLayout.setTitle(dataPojo.getOther_username());
+                dataPojo.getOther_review();
+                setPalette();
+            } else {
+                new Utility().showErrorDialogRequestFailed(this);
+            }
         } catch (Exception e) {
+
         }
     }
 
@@ -524,17 +529,25 @@ public class OtherProfileActivity extends BaseActivity implements View.OnClickLi
             } else {
                 //Success
                 dataPojo = result.getData();
-
-                setDataInViewLayouts();
                 mReviewList = dataPojo.getOther_review();
-//                if(mReviewList.size()>0) {
-                ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(OtherProfileActivity.this, mReviewList, dataPojo);
-                mRvAds.setAdapter(mAdsListAdapter);
-                mAdsListAdapter.notifyDataSetChanged();
-                mRvAds.setHasFixedSize(true);
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(OtherProfileActivity.this);
-                mRvAds.setLayoutManager(mLayoutManager);
-//                }
+
+                try {
+                    if (dataPojo != null && mReviewList != null && !mReviewList.equals("")) {
+                        setDataInViewLayouts();
+                        ReviewsListdapter mAdsListAdapter = new ReviewsListdapter(OtherProfileActivity.this, mReviewList, dataPojo);
+                        mRvAds.setAdapter(mAdsListAdapter);
+                        mAdsListAdapter.notifyDataSetChanged();
+                        mRvAds.setHasFixedSize(true);
+                        LinearLayoutManager mLayoutManager = new LinearLayoutManager(OtherProfileActivity.this);
+                        mRvAds.setLayoutManager(mLayoutManager);
+                    } else {
+                        new Utility().showErrorDialogRequestFailed(this);
+
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

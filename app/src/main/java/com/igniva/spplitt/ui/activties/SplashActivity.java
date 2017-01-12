@@ -208,16 +208,25 @@ public class SplashActivity extends AppCompatActivity {
                                callToNextActivity();
                             break;
                         case 2://to get countries list
+                            try{
                             getCountriesData(result);
                             if (!PreferenceHandler.readString(SplashActivity.this, PreferenceHandler.USER_ID, "").trim().equals("")) {
+
+                                Log.d(LOG_TAG,"REG TOKEN IS "+RegistrationIntentService.GCM_TOKEN);
                                 if (!RegistrationIntentService.GCM_TOKEN.equals("")) {
                                     if (!(PreferenceHandler.readString(SplashActivity.this, PreferenceHandler.GCM_REG_ID, "").equals(RegistrationIntentService.GCM_TOKEN))) {
                                         updateGcmToServerInBackground();
                                     } else {
                                         callToNextActivity();
                                     }
+                                }else{
+                                    callToNextActivity();
                                 }
                             }else {
+                                callToNextActivity();
+                            }}
+                            catch (Exception e){
+                                e.printStackTrace();
                                 callToNextActivity();
                             }
                             break;

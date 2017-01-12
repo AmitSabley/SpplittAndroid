@@ -402,7 +402,7 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
 
                 allAdsList.add(null);
                 mUserAdapter.notifyItemInserted(allAdsList.size() - 1);
-                if (mPageNo < mPosition) {
+                if (mPageNo < mPosition-1) {
                     mPageNo++;
                     getActiveAds(false);
                 } else {

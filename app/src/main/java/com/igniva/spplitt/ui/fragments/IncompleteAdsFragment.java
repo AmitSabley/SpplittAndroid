@@ -43,11 +43,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class IncompleteAdsFragment extends BaseFragment implements View.OnClickListener {
+
+
+public class IncompleteAdsFragment extends BaseFragment implements View.OnClickListener , OnLoadMoreListener{
     private static final String LOG_TAG = "IncompleteAdsFragment";
     View mView;
     RecyclerView mRvAdsIncomplete;
     String mCatId;
+    private boolean isLoading;
     boolean _areLecturesLoaded = false;
     List<AdsListPojo> listAds = new ArrayList<AdsListPojo>();
     List<AdsListPojo> beforeFilterListAds = new ArrayList<AdsListPojo>();
@@ -55,11 +58,14 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
     TextView mTvNoAdsFound;
     LinearLayout mLlLoading;
     int mPageNo=1;
+    private int lastVisibleItem, totalItemCount;
+    private int visibleThreshold = 5;
     int mPosition;
     MyAdsListAdapter  mUserAdapter;
     boolean isLoadMore;
     ProgressBar mProgressBar;
     SearchView searchView;
+    private OnLoadMoreListener mOnLoadMoreListener;
     public static boolean isDataLoaded;
     boolean isSearch;
     public static  IncompleteAdsFragment mViewIncompleteAds;
@@ -77,7 +83,7 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
             setUpLayouts();
             setDataInViewLayouts();
             setHasOptionsMenu(true);
-
+            setRetainInstance(true);
             Bundle mBundle = this.getArguments();
             if (mBundle != null) {
                 //Call from categories to view ads
@@ -209,16 +215,16 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
                     new Utility().showErrorDialog(getActivity(), result);
                 }
             } else {//Success
-                if(listAds.size()>0){
-                    listAds.clear();
+                if(tempListAds.size()>0){
+                    tempListAds.clear();
                 }
                 DataPojo dataPojo = result.getData();
-                listAds.addAll(dataPojo.getAdsList());
+                tempListAds.addAll(dataPojo.getAdsList());
 
-                if (listAds.size() > 0) {
+                if (tempListAds.size() > 0) {
                     mTvNoAdsFound.setVisibility(View.GONE);
                     mRvAdsIncomplete.setVisibility(View.VISIBLE);
-                    mUserAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.incomplete_ads),mRvAdsIncomplete);
+                    mUserAdapter = new MyAdsListAdapter(getActivity(), tempListAds, getResources().getString(R.string.incomplete_ads),mRvAdsIncomplete);
                     mRvAdsIncomplete.setAdapter(mUserAdapter);
                     mUserAdapter.notifyDataSetChanged();
                 }
@@ -233,12 +239,14 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
         try {
             if (result.getStatus_code() == 400) {
                 isDataLoaded=true;
+                mUserAdapter.notifyDataSetChanged();
                 if(mProgressBar!=null) {
                     if (mProgressBar.getVisibility() == View.VISIBLE) {
                         mProgressBar.setVisibility(View.INVISIBLE);
                     }
                 }
                 //Error
+
                 ErrorPojo errorPojo=result.getError();
                 if(errorPojo.getError_code().equals("533")){
 
@@ -249,6 +257,7 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
 
                         }
                     }else {
+
                         mRvAdsIncomplete.setAdapter(null);
                         mTvNoAdsFound.setVisibility(View.VISIBLE);
                         mRvAdsIncomplete.setVisibility(View.GONE);
@@ -264,8 +273,8 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
                 DataPojo dataPojo = result.getData();
                 mPosition=dataPojo.getTotal_page();
                 listAds.addAll(dataPojo.getAdsList());
-                beforeFilterListAds.addAll(listAds);
-                tempListAds=beforeFilterListAds;//searchResultAdsList;
+                beforeFilterListAds=listAds;
+               //searchResultAdsList;
                 if (listAds.size() > 0) {
 //                    if(!isSearch) {
                         if (!isLoadMore) {
@@ -299,15 +308,70 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
     private void setDataToList() {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRvAdsIncomplete.setLayoutManager(mLayoutManager);
-        mUserAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.incomplete_ads),mRvAdsIncomplete);
+        mUserAdapter = new MyAdsListAdapter(getActivity(), listAds, getResources().getString(R.string.incomplete_ads), mRvAdsIncomplete);
         mRvAdsIncomplete.setAdapter(mUserAdapter);
         mRvAdsIncomplete.setHasFixedSize(true);
-        if(mLlLoading.getVisibility()==View.VISIBLE){
+        if (mLlLoading.getVisibility() == View.VISIBLE) {
             mUserAdapter.notifyDataSetChanged();
             mUserAdapter.setLoaded();
             mLlLoading.setVisibility(View.GONE);
         }
+
         mUserAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                    isDataLoaded = false;
+                    listAds.add(null);
+                    mUserAdapter.notifyItemInserted(listAds.size() - 1);
+                    if (mPageNo < mPosition) {
+                        mPageNo++;
+                        getActiveAds(false);
+                    } else {
+                        isDataLoaded = true;
+                    }
+
+            }
+        });
+
+
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRvAdsIncomplete.getLayoutManager();
+
+        mRvAdsIncomplete.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+                if (!isLoading && (totalItemCount <= (lastVisibleItem + visibleThreshold))) {
+                    if (mOnLoadMoreListener != null) {
+                        mOnLoadMoreListener.onLoadMore();
+                    } else {
+                        android.util.Log.d(LOG_TAG, "addOnScrollListener Loadmore is null");
+                    }
+                    isLoading = true;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+
+
+        });
+    }
+
+
+
+
+        public OnLoadMoreListener getOnLoadMoreListener() {
+            return mOnLoadMoreListener;
+        }
+
+
+       /* mUserAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 isDataLoaded=false;
@@ -320,9 +384,12 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
                     isDataLoaded = true;
                 }
             }
-        });
+        });*/
 
-    }
+
+
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_my_ads, menu);
@@ -468,12 +535,19 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
             getActiveAds(true);
             _areLecturesLoaded = true;
         }else {
-            if (listAds != null) {
-                listAds.clear();
-                listAds.addAll(beforeFilterListAds);
-            }
-            if (mUserAdapter != null) {
+
+//            if (listAds != null) {
+//                listAds.clear();
+//                listAds.addAll(beforeFilterListAds);
+//            }
+            if (beforeFilterListAds.size()>0) {
+//                mUserAdapter.notifyDataSetChanged();
+
+                mUserAdapter = new MyAdsListAdapter(getActivity(), beforeFilterListAds, getResources().getString(R.string.incomplete_ads), mRvAdsIncomplete);
+                mRvAdsIncomplete.setAdapter(mUserAdapter);
                 mUserAdapter.notifyDataSetChanged();
+                mTvNoAdsFound.setVisibility(View.GONE);
+                mRvAdsIncomplete.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -481,5 +555,11 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
     {
         listAds.remove(pos);
         mUserAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onLoadMore() {
+
     }
 }

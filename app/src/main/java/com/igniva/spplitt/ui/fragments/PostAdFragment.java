@@ -1,7 +1,7 @@
 package com.igniva.spplitt.ui.fragments;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -457,7 +458,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             implements DatePickerDialog.OnDateSetListener {
 
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        public AlertDialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
@@ -511,14 +512,19 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             implements TimePickerDialog.OnTimeSetListener {
 
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        public AlertDialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current time as the default values for the picker
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
             // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
+            LinearLayout linearLayout = new LinearLayout(getActivity());
+            timePickerDialog.setCustomTitle(linearLayout);
+
+//            timePickerDialog.setCustomTitle(null);
+            return timePickerDialog;
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -528,6 +534,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             } else {
                 mEtSelectTime.setText(hourOfDay + ":" + minute + ":00");
             }
+
             mEtSelectTime.setTextColor(Color.BLACK);
             mEtSelectTime.setError(null);
             mEtSelectTime.clearFocus();

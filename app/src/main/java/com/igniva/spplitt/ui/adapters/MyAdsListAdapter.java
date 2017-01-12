@@ -36,7 +36,6 @@ import com.igniva.spplitt.ui.activties.ViewAdsDetailsActivity;
 import com.igniva.spplitt.ui.fragments.ActiveAdFragment;
 import com.igniva.spplitt.ui.fragments.CompleteAdsFragment;
 import com.igniva.spplitt.ui.fragments.IncompleteAdsFragment;
-import com.igniva.spplitt.ui.fragments.OnLoadMoreListener;
 import com.igniva.spplitt.ui.views.EditTextNonRegular;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
@@ -64,12 +63,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     List<ReviewListPojo> mReviewList = new ArrayList<>();
-    String LOG_TAG = "MyAdsListAdapter";
 
-    private OnLoadMoreListener mOnLoadMoreListener;
-    private boolean isLoading;
-    private int visibleThreshold = 5;
-    private int lastVisibleItem, totalItemCount;
     private Button mbtnRating;
     private RatingBar mratingBar_popup;
     private EditTextNonRegular met_review;
@@ -121,41 +115,12 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public MyAdsListAdapter(Context context, List<AdsListPojo> listAds, String ads_type, RecyclerView mRvAds) {
+    public MyAdsListAdapter(Context context, List<AdsListPojo> listAds, String ads_type) {
         this.mListAds = listAds;
         this.mContext = context;
         this.mAdsType = ads_type;
-        this.mRvAds = mRvAds;
-
-        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRvAds.getLayoutManager();
-        mRvAds.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                                       @Override
-                                       public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                                           super.onScrolled(recyclerView, dx, dy);
-                                           totalItemCount = linearLayoutManager.getItemCount();
-                                           lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-
-                                           if (!isLoading && (totalItemCount <= (lastVisibleItem + visibleThreshold))) {
-                                               if (mOnLoadMoreListener != null) {
-                                                   mOnLoadMoreListener.onLoadMore();
-                                               } else {
-                                                   Log.d(LOG_TAG, "addOnScrollListener Loadmore is null");
-                                               }
-                                               isLoading = true;
-                                           }
-                                       }
-                                   }
-
-        );
     }
 
-    public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
-        this.mOnLoadMoreListener = mOnLoadMoreListener;
-    }
-
-    public OnLoadMoreListener getOnLoadMoreListener() {
-        return mOnLoadMoreListener;
-    }
 
 
     @Override
@@ -353,10 +318,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private void getReviewsData(ResponsePojo result) {
         try {
-            if (result.getStatus_code() == 400) {
-//                Error
-                new Utility().showErrorDialog(mContext, result);
-            } else {
+            if (result.getStatus_code() == 200) {
                 //Success
                 dataPojo = result.getData();
                 alertDialog.dismiss();
@@ -375,13 +337,16 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 //dataPojo.notifyDataSetChanged();
                 mratingBar_popup.setRating(0);
                 met_review.setText("");
-
                 mListAds.get(pos).setIs_rating(true);
-                Log.e("rating ", rating + "");
                 mListAds.get(pos).setRating_value(rating + "");
 
+                new CompleteAdsFragment().searchResultAdsList.get(pos).setIs_rating(true);
+                new CompleteAdsFragment().searchResultAdsList.get(pos).setRating_value(rating + "");
                 notifyDataSetChanged();
 
+            } else {
+                //                Error
+                new Utility().showErrorDialog(mContext, result);
 
             }
         } catch (Exception e) {
@@ -418,9 +383,6 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return mListAds == null ? 0 : mListAds.size();
     }
 
-    public void setLoaded() {
-        isLoading = false;
-    }
 
     @Override
     public int getItemViewType(int position) {

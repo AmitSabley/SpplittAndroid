@@ -22,7 +22,7 @@ public class MultiSpinner extends Spinner implements OnMultiChoiceClickListener,
 
     private List<String> items;
     private boolean[] selected;
-    private String defaultText = "Select Categories";
+    private String defaultText = "Select Category";
     private MultiSpinnerListener listener;
 
     public MultiSpinner(Context context) {

@@ -191,7 +191,11 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 //to check ads are mine or other
                 if (PreferenceHandler.readString(mContext, PreferenceHandler.USER_ID, "").equals(dataPojo.getPosted_by_id())) {
                     holder.mTvNoOfRequest.setVisibility(View.VISIBLE);
-                    holder.mTvNoOfRequest.setText(mListRequestAds.size() + " Requests");
+                    if(mListRequestAds.size()<=1) {
+                        holder.mTvNoOfRequest.setText(mListRequestAds.size() + " Request");
+                    }else{
+                        holder.mTvNoOfRequest.setText(mListRequestAds.size() + " Requests");
+                    }
                 } else {//other
                     holder.mTvNoOfRequest.setVisibility(View.GONE);
                 }

@@ -292,14 +292,14 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_change_email_edit:
                 App.getInstance().trackEvent(LOG_TAG, "Edit Profile Change Email", "Change Email Edit Profile");
-                mBtnChangeEmail.setClickable(false);//enabled in on resume
-                mBtnChangeMobileNo.setClickable(false);
+//                mBtnChangeEmail.setClickable(false);//enabled in on resume
+//                mBtnChangeMobileNo.setClickable(false);
                 startActivity(new Intent(getContext(), UpdateEmailActivity.class));
                 break;
             case R.id.btn_edit_mobileno://enabled in on resume
                 App.getInstance().trackEvent(LOG_TAG, "Edit Profile Update Mobile", "Update Mobile Edit Profile");
-                mBtnChangeEmail.setClickable(false);
-                mBtnChangeMobileNo.setClickable(false);
+//                mBtnChangeEmail.setClickable(false);
+//                mBtnChangeMobileNo.setClickable(false);
                 startActivity(new Intent(getContext(), UpdateMobileActivity.class));
                 break;
             case R.id.btn_submit_profile_edit:

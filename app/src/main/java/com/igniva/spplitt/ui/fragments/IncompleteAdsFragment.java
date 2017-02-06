@@ -82,7 +82,7 @@ public class IncompleteAdsFragment extends BaseFragment implements View.OnClickL
             setUpLayouts();
             setDataInViewLayouts();
             setHasOptionsMenu(true);
-            setRetainInstance(true);
+
             Bundle mBundle = this.getArguments();
             if (mBundle != null) {
                 //Call from categories to view ads

@@ -436,6 +436,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:textSize="@dimen/tv_textSize"
+                        android:visibility="gone"
                         android:textStyle="bold" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
@@ -443,6 +444,7 @@
                         style="@style/EditTextTheme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLength="12"
                         android:hint="@string/hint_splitt_cost"
                         android:inputType="number" />
 

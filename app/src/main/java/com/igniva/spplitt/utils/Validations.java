@@ -649,7 +649,7 @@ public class Validations {
             Utility.showToastMessageLong(applicationContext, applicationContext.getResources().getString(R.string.err_msg_adCost));
             requestFocus(applicationContext, mEtSplittCost);
             return false;
-        } else if (Integer.parseInt(mEtSplittCost.getText().toString().trim()) <= 0) {
+        } else if (Long.parseLong(mEtSplittCost.getText().toString().trim()) <= 0) {
             Utility.showToastMessageLong(applicationContext, applicationContext.getResources().getString(R.string.err_msg_adCost_lesser));
             requestFocus(applicationContext, mEtSplittCost);
             return false;

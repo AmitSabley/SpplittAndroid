@@ -110,7 +110,12 @@ public class AppliedAdsListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             UserViewHolder userViewHolder = (UserViewHolder) holder;
             userViewHolder.mTvAdTitle.setText(mListAds.get(position).getAd_title());
             userViewHolder.mTvSplittAmount.setText(mContext.getResources().getString(R.string.spplitt_amount) + mListAds.get(position).getAd_cost());
-            userViewHolder.mTvAdTotalRequests.setText(mListAds.get(position).getAd_total_request() + " Requests");
+            if(Integer.parseInt(mListAds.get(position).getAd_total_request())<=1){
+                userViewHolder.mTvAdTotalRequests.setText(mListAds.get(position).getAd_total_request() + " Request");
+            }else{
+                userViewHolder.mTvAdTotalRequests.setText(mListAds.get(position).getAd_total_request() + " Requests");
+            }
+
             userViewHolder.mTvAdLocation.setText(mListAds.get(position).getAd_city_name());
 //            userViewHolder.mTvAdLocation.setText(mListAds.get(position).getAd_city_name() + "," + mListAds.get(position).getAd_country_name());
             java.text.DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");

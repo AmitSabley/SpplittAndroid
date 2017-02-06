@@ -447,6 +447,7 @@ public class WebServiceClient {
             mMethod = method;
             mContext = context;
             mShowProgress = showProgress;
+            Log.e("payload",mPayload);
         }
 
         @Override

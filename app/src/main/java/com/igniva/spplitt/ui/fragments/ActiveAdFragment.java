@@ -137,7 +137,6 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        setDataToList();
         MainActivity.currentFragmentId = Constants.FRAG_ID_MY_ADS_ACTIVE;
         try {
             App.getInstance().trackScreenView(LOG_TAG);
@@ -267,6 +266,11 @@ public class ActiveAdFragment extends BaseFragment implements View.OnClickListen
                 mPosition=dataPojo.getTotal_page();
                 allAdsList.addAll(dataPojo.getAdsList());
                 searchResultAdsList=allAdsList;
+                if(mPosition==1){
+                    isDataLoaded = true;
+
+                }
+
                 if (allAdsList.size() > 0) {
                     if (!isLoadMore) {
                         setDataToList();

@@ -46,7 +46,7 @@
     <!--navigation drawer-->
     <string name="nav_home">Home</string>
     <string name="nav_profile">Edit Profile</string>
-    <string name="nav_change_password">Change Password</string>
+    <string name="nav_change_password">Reset Password</string>
     <string name="nav_notifications">Notifications</string>
     <string name="nav_post_ad">Post Ad</string>
     <string name="nav_view_ad">Categories</string>
@@ -168,7 +168,7 @@
     <string name="closed_ads">Connected Ads</string>
     <string name="expired_ads">Connected</string>
     <string name="posted_by">Posted By:</string>
-    <string name="delete_popup_msg">Are you sure you want to delete?</string>
+    <string name="delete_popup_msg">Are you sure you want to delete ad?</string>
     <string name="invite_friends_header">Join me on spplitt and start saving money.</string>
     <string name="invite_friends_main">Do you want to save money on a product or service? Do you want to find other people near you to split the cost of something? Join me on spplitt and start saving today. Sign up now and find other members to split the cost with. Since it\'s a user generated community you can split the cost of almost anything you can think of. The possibilities are endless. Go to spplitt.com and start saving today!</string>
     <string name="err_msg_adDate_greater">Enter end date greater than or equal to start date</string>

@@ -199,17 +199,8 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
     private void getAdsData(ResponsePojo result) {
         try {
             isSearch = false;
-            if (result.getStatus_code() == 400) {
-                ErrorPojo errorPojo = result.getError();
-                if (errorPojo.getError_code().equals("533")) {
-                    mRvAds.setAdapter(null);
-                    mTvNoAdsFound.setVisibility(View.VISIBLE);
-                    mRvAds.setVisibility(View.GONE);
-
-                } else {
-                    new Utility().showErrorDialog(getActivity(), result);
-                }
-            } else {//Success
+            if (result.getStatus_code() == 200) {
+                //Success
                 DataPojo dataPojo = result.getData();
 
                 if (mCallType == 1) {
@@ -240,24 +231,22 @@ public class ViewAllActiveAdsFragment extends BaseFragment  {
 
                     }
                 }
-//                searchResultAdsList.addAll(allAdsList);
-
-//                tempListAds=searchResultAdsList;//searchResultAdsList;
-//                if (allAdsList.size() > 0) {
-//                    mRvAds.setVisibility(View.VISIBLE);
-//                    mTvNoAdsFound.setVisibility(View.GONE);
-//                    if (mAdType.equals("completed")) {
-//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false);
-//                    } else {
-//                        mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true);
-//                    }
-//
                 mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
                 mRvAds.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 mRvAds.setLayoutManager(mLayoutManager);
 
+            } else {
+                ErrorPojo errorPojo = result.getError();
+                if (errorPojo.getError_code().equals("533")) {
+                    mRvAds.setAdapter(null);
+                    mTvNoAdsFound.setVisibility(View.VISIBLE);
+                    mRvAds.setVisibility(View.GONE);
+
+                } else {
+                    new Utility().showErrorDialog(getActivity(), result);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

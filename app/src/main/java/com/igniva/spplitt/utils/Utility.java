@@ -373,4 +373,30 @@ public class Utility {
 		InputMethodManager imm = (InputMethodManager) applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 	}
+
+	public void showSetLocationDialog(final Context mContext, ResponsePojo result) {
+		try {
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
+					R.style.CustomPopUpTheme);
+			builder.setCancelable(false);
+			ErrorPojo errorPojo=result.getError();
+			builder.setMessage(errorPojo.getError_msg()+"");
+			builder.setPositiveButton("OK", new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					PreferenceHandler.writeInteger(mContext, PreferenceHandler.SHOW_EDIT_PROFILE, 0);
+					mContext.startActivity(new Intent(mContext, MainActivity.class));
+					dialog.dismiss();
+				}
+			});
+
+			builder.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			showToastMessageLong(mContext,
+					mContext.getResources().getString(R.string.invalid_session));
+		}
+	}
 }

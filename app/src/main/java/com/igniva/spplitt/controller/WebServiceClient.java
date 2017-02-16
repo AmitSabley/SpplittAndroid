@@ -50,8 +50,13 @@ public class WebServiceClient {
      */
 
     public static final String HTTP_PROTOCOL = "http://";
-    public static final String HTTP_HOST_IP = "api.spplitt.com";
-    public final static String BASE_URL="http://api.spplitt.com/";
+//    public static final String HTTP_HOST_IP = "api.spplitt.com";
+//    public final static String BASE_URL="http://api.spplitt.com/";
+
+    public static final String HTTP_HOST_IP = "spplitt.ignivastaging.com";
+    public final static String BASE_URL = "http://spplitt.ignivastaging.com/";
+
+
     public static final String HTTP_LOGIN = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/login?";
     public static final String HTTP_REGISTR = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/register";
     public static final String HTTP_FORGOT_PASSWORD = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/forgotPassword";
@@ -60,33 +65,34 @@ public class WebServiceClient {
     public static final String HTTP_UPDATE_EMAIL = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/getProfile";
     public static final String HTTP_GET_CATEGORIES = HTTP_PROTOCOL + HTTP_HOST_IP + "/categories/getCategories";
     public static final String HTTP_POST_AD = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/postAd";
-    public static final String HTTP_OTP_POST_ACTIVATION= HTTP_PROTOCOL + HTTP_HOST_IP + "/users/postactivation";
-    public static final String HTTP_OTP_FORGOT_PASSWORD= HTTP_PROTOCOL + HTTP_HOST_IP + "/users/otp";
+    public static final String HTTP_OTP_POST_ACTIVATION = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/postactivation";
+    public static final String HTTP_OTP_FORGOT_PASSWORD = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/otp";
     private static final String HTTP_CHANGE_PASSWORD_RESET = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/mresetPassword";
     private static final String HTTP_RESEND_OTP = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/resendOTP";
     private static final String HTTP_GET_ADS_LIST = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getAds";
     private static final String HTTP_FLAG_AD = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/flagAd";
     private static final String HTTP_GET_ADS_DESC = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/adDetails";
     private static final String HTTP_SEARCH_ADS = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getAds";
-    public static final  String MULTIPART_URL="http://api.spplitt.com/upload.php";
+    public static final String MULTIPART_URL = "http://api.spplitt.com/upload.php";
     public static String API_BASE = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
     private static final String HTTP_CITY_LIST = HTTP_PROTOCOL + HTTP_HOST_IP + "/countries/getCity";
     private static final String HTTP_OTHER_PROFILE = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/getProfile";
     private static final String HTTP_MY_ADS = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getMyAds";
     private static final String HTTP_CANCEL_MY_ADS = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/AdsActions";
     private static final String HTTP_UPDATE_GCM_ID = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/getProfile";
-    private static final String HTTP_CONNECT_AD =  HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/AdConnection";
+    private static final String HTTP_CONNECT_AD = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/AdConnection";
     private static final String HTTP_SET_PREFERENCES = HTTP_PROTOCOL + HTTP_HOST_IP + "/notifications/saveNotification";
     private static final String HTTP_SEARCH_MY_ADS = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getMyAds";
-    private static final String HTTP_CHANGE_PASSWORD =  HTTP_PROTOCOL + HTTP_HOST_IP + "/users/changePassword";
-    private static final String HTTP_GET_NOTIFICATIONS =  HTTP_PROTOCOL + HTTP_HOST_IP + "/notifications/getUserNotification";
+    private static final String HTTP_CHANGE_PASSWORD = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/changePassword";
+    private static final String HTTP_GET_NOTIFICATIONS = HTTP_PROTOCOL + HTTP_HOST_IP + "/notifications/getUserNotification";
     private static final String HTTP_ACCEPT_AD = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/AdConnection";
-    private static final String HTTP_APPLIED_AD =  HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getBuyerAppliedAds";
+    private static final String HTTP_APPLIED_AD = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getBuyerAppliedAds";
     private static final String HTTP_CONTACT_US = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/ContactUs";
     private static final String HTTP_RATING = HTTP_PROTOCOL + HTTP_HOST_IP + "/ratings/saveRatings";
     private static final String HTTP_STATES = HTTP_PROTOCOL + HTTP_HOST_IP + "/countries/getStates";
     private static final String HTTP_RESET_PREF = HTTP_PROTOCOL + HTTP_HOST_IP + "/Notifications/resetNotification";
     private static final String HTTP_SAVE_LOCATION = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/savePreferredLocation";
+
     public WebServiceClient(Context context) {
         mContext = context;
     }
@@ -96,7 +102,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
 
@@ -105,7 +111,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void forgotPassword(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -113,7 +119,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void validateOtp(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -121,7 +127,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void getCountriesList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -129,7 +135,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url + payload, "", method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
 
@@ -138,7 +144,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void updateMobileNo(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -146,7 +152,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void editProfileUser(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -154,7 +160,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void getCategoriesList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -162,7 +168,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void postAd(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -170,112 +176,119 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
-    public static void validateOtpPostActivation(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+
+    public static void validateOtpPostActivation(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_OTP_POST_ACTIVATION;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
-    public static void validateOtpForgotPassword(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+
+    public static void validateOtpForgotPassword(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_OTP_FORGOT_PASSWORD;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
-    public static void changePasswordWhenForgot(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+
+    public static void changePasswordWhenForgot(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_CHANGE_PASSWORD_RESET;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
-    public static void validateResendOtp(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+
+    public static void validateResendOtp(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_RESEND_OTP;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
-    public static void getAdsList(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+    public static void getAdsList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_GET_ADS_LIST;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
-    public static void flagAnAd(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+
+    public static void flagAnAd(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_FLAG_AD;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
-    public static void getAdsDescription(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+
+    public static void getAdsDescription(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_GET_ADS_DESC;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
-    public static void getSearchAdsList(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+    public static void getSearchAdsList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_SEARCH_ADS;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
-    public static void getCitiesList(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+    public static void getCitiesList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_CITY_LIST;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
-    public static void getOthersProfile(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+
+    public static void getOthersProfile(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_OTHER_PROFILE;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
-    public static void getMyAdsList(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+    public static void getMyAdsList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_MY_ADS;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
-    public static void cancelAnAd(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+    public static void cancelAnAd(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_CANCEL_MY_ADS;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
-    public static void editAd(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+    public static void editAd(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_CANCEL_MY_ADS;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
-    public static void repostAd(final Context context,  String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
+    public static void repostAd(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_CANCEL_MY_ADS;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
     }
 
     public static void updateGcmId(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
@@ -283,15 +296,16 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void connectAnAd(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_CONNECT_AD;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
 
@@ -300,7 +314,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
 
@@ -310,7 +324,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
 
@@ -319,7 +333,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
 
@@ -328,7 +342,7 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
 
@@ -337,39 +351,43 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void getMyAppliedAdsList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_APPLIED_AD;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void getSearchAppliedAdsList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_APPLIED_AD;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void contactUs(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_CONTACT_US;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void addRating(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_RATING;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
 
@@ -379,33 +397,37 @@ public class WebServiceClient {
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void getStatesList(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_STATES;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void resetPref(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_RESET_PREF;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     public static void saveLocationPayload(final Context context, String payload, boolean showprogress, int urlno, ResponseHandlerListener responseHandlerListenerLogin) {
         url = HTTP_SAVE_LOCATION;
         method = HttpMethod.HTTP_POST;
         checkNetworkState(url, payload, method, context, showprogress);
         urlNo = urlno;
-        responseHandlerListener=responseHandlerListenerLogin;
+        responseHandlerListener = responseHandlerListenerLogin;
 
     }
+
     /**
      * Check Available Network connection and make http call only if network is
      * available else show no network available
@@ -418,7 +440,7 @@ public class WebServiceClient {
     private static void checkNetworkState(String url, String _payload,
                                           HttpMethod method, Context context, boolean showProgress) {
         if (Utility.isInternetConnection(context)) {
-            CallWebserviceTask ca=  new CallWebserviceTask(url, _payload, method, context, showProgress);
+            CallWebserviceTask ca = new CallWebserviceTask(url, _payload, method, context, showProgress);
             ca.execute();
         } else {
             // open dialog here
@@ -440,14 +462,14 @@ public class WebServiceClient {
 
         public CallWebserviceTask(String url, String _payload,
                                   HttpMethod method, final Context context, boolean showProgress) {
-            Log.e(LOG_TAG,url);
+            Log.e(LOG_TAG, url);
             mContext = context;
             mUrl = url;
             mPayload = _payload;
             mMethod = method;
             mContext = context;
             mShowProgress = showProgress;
-            Log.e("payload",mPayload);
+            Log.e("payload", mPayload);
         }
 
         @Override
@@ -502,7 +524,7 @@ public class WebServiceClient {
 
                     Gson gson = new Gson();
                     responsePojo = gson.fromJson(responseOutput.toString(), ResponsePojo.class);
-                    Log.e("====="+responsePojo);
+                    Log.e("=====" + responsePojo);
                     // output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
                 } else {
                     Log.d(LOG_TAG, "Success code is " + successCode);
@@ -521,26 +543,31 @@ public class WebServiceClient {
         protected void onPostExecute(Object[] result) {
             try {
 //                if (isResponseHandled) {
-                    // TODO handle Authtoken Expiration
-                    try {
-                        if (((ResponsePojo) result[0]).getStatus_code() == 1000) {
-                            // Show Logout Dialog when user has logged in from another device
-                            WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
-                            progressDialog.dismiss();
-                            new Utility().showInvalidSessionDialogLogout(mContext, (ResponsePojo) result[0]);
-                        } else {
-                            WebNotificationManager.onResponseCallReturned(
-                                    (ResponsePojo) result[0], (WebError) result[1],
-                                    progressDialog, urlNo);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                // TODO handle Authtoken Expiration
+                try {
+                    if (((ResponsePojo) result[0]).getStatus_code() == 1000) {
+                        // Show Logout Dialog when user has logged in from another device
+                        WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
+                        progressDialog.dismiss();
+                        new Utility().showInvalidSessionDialogLogout(mContext, (ResponsePojo) result[0]);
+                    } else if (((ResponsePojo) result[0]).getStatus_code() == 600) {
+                        // Show Logout Dialog when user has logged in from another device
+                        WebNotificationManager.unRegisterResponseListener(responseHandlerListener);
+                        progressDialog.dismiss();
+                        new Utility().showSetLocationDialog(mContext, (ResponsePojo) result[0]);
+                    } else {
                         WebNotificationManager.onResponseCallReturned(
                                 (ResponsePojo) result[0], (WebError) result[1],
                                 progressDialog, urlNo);
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    WebNotificationManager.onResponseCallReturned(
+                            (ResponsePojo) result[0], (WebError) result[1],
+                            progressDialog, urlNo);
+                }
 //                }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

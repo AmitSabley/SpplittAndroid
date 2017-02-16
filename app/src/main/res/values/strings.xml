@@ -215,6 +215,7 @@
     <string name="about_url">http://api.spplitt.com/pages/about</string>
     <string name="select_all">Select All</string>
     <string name="rate_this_user">Rate this User</string>
+    <string name="set_location">Set Your Location</string>
 
 
 </resources>

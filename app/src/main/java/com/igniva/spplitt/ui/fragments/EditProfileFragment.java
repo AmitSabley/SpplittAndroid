@@ -213,9 +213,23 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             mEtMobileNo.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.MOBILE_NO, ""));
             mEtUsername.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.USER_NAME, ""));
             mEtAge.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.AGE, ""));
-            mTvCountries.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.COUNTRY_NAME, ""));
-            mTvStates.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.STATE_NAME, ""));
-            mTvCities.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.CITY_NAME, ""));
+            if(PreferenceHandler.readString(getActivity(), PreferenceHandler.COUNTRY_NAME, "").equals("")) {
+                mTvCountries.setText(getResources().getString(R.string.select_your_country));
+            }else{
+                mTvCountries.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.COUNTRY_NAME, ""));
+            }
+            if(PreferenceHandler.readString(getActivity(), PreferenceHandler.STATE_NAME, "").equals("")) {
+                mTvStates.setText(getResources().getString(R.string.select_your_state));
+            }else{
+                mTvStates.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.STATE_NAME, ""));
+            }
+            if(PreferenceHandler.readString(getActivity(), PreferenceHandler.CITY_NAME, "").equals("")) {
+                mTvCities.setText(getResources().getString(R.string.select_your_city));
+            }else{
+                mTvCities.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.CITY_NAME, ""));
+            }
+
+
             if (PreferenceHandler.readString(getActivity(), PreferenceHandler.IS_AGE_PUBLIC, "").equals("1")) {
                 isAge=true;
                 mTbAge.setChecked(true);

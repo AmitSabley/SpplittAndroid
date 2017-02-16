@@ -68,7 +68,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_view_categories_one, container, false);
         in = getActivity().getIntent();
-        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6) {
+        if (PreferenceHandler.readInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0) == 6) {
             if (in != null) {
                 if (in.hasExtra("countryId")) {
                     countryId = in.getStringExtra("countryId");
@@ -113,14 +113,19 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
 
     @Override
     public void setDataInViewLayouts() {
-        if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6 && cityId!=null && cityName!=null) {
+        if (PreferenceHandler.readInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0) == 6 && cityId != null && cityName != null) {
 //            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.tick, 0);
             mTvLocation.setText(cityName + ", " + countryName);
         } else {
-            mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
-            mTvLocation.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "") + ", " + PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, ""));
+            if (PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "").equals("")) {
+                mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
+                mTvLocation.setText(getResources().getString(R.string.set_location));
+            } else {
+                mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
+                mTvLocation.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "") + ", " + PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, ""));
 //            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
+            }
         }
     }
 
@@ -164,18 +169,18 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
                         //to save user location
                         mBtnChangeLocation.setClickable(true);
                         if (error == null) {
-                            Log.e("====result",result+"");
+                            Log.e("====result", result + "");
 
                             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, countryName);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_STATE_NAME, stateName);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_CITY_NAME, cityName);
-                            countryId="";
-                            countryName="";
-                            stateId="";
-                            stateName="";
-                            cityId="";
-                            cityName="";
+                            countryId = "";
+                            countryName = "";
+                            stateId = "";
+                            stateName = "";
+                            cityId = "";
+                            cityName = "";
                             new Utility().showSuccessDialog(getActivity(), result);
                         } else {
                             mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.tick, 0);
@@ -226,7 +231,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
                 mBtnChangeLocation.setClickable(false);
                 App.getInstance().trackEvent(LOG_TAG, "Change Location and Go to My Profile", "My Profile Call to Change Location");
 //                if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6) {
-                if (cityId!=null && !cityId.equals("") ) {
+                if (cityId != null && !cityId.equals("")) {
                     saveLocation();
                 } else {
 

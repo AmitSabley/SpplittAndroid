@@ -47,15 +47,15 @@ public class Validations {
         if (!validateEmailOnly(applicationContext, mEtEmail)) {
             return false;
         }
-        if (!validateCountryId(applicationContext, mCountryId)) {
-            return false;
-        }
-        if (!validateStateId(applicationContext, mStateId)) {
-            return false;
-        }
-        if (!validateCityId(applicationContext, mCityId)) {
-            return false;
-        }
+//        if (!validateCountryId(applicationContext, mCountryId)) {
+//            return false;
+//        }
+//        if (!validateStateId(applicationContext, mStateId)) {
+//            return false;
+//        }
+//        if (!validateCityId(applicationContext, mCityId)) {
+//            return false;
+//        }
         if (!validateImage(applicationContext, mRivUserImage, myBitmap, mSvMmain)) {
             return false;
         }

@@ -83,30 +83,29 @@
                 android:background="@drawable/square_edittext"
                 android:gravity="top"
                 android:hint="@string/hint_ad_desc"
-                android:maxLength="250"
-                android:paddingTop="5dp"
                 android:imeOptions="actionDone"
                 android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
-                />
+                android:maxLength="250"
+                android:paddingTop="5dp" />
             <!--<RelativeLayout
                 android:id="@+id/rl_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                >-->
 
-          <!--  <com.igniva.spplitt.ui.views.EditTextNonRegular
-                android:id="@+id/et_ad_desc1"
-                style="@style/EditTextTheme"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/et_ad_desc"
-                android:layout_marginTop="@dimen/inner_margin_bw_views"
-                android:background="@drawable/square_edittext"
-                android:gravity="top"
-                android:hint="@string/hint_ad_desc"
-                android:imeOptions="actionDone"
-                android:maxLength="50"
-                android:paddingTop="5dp" />-->
+            <!--  <com.igniva.spplitt.ui.views.EditTextNonRegular
+                  android:id="@+id/et_ad_desc1"
+                  style="@style/EditTextTheme"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_below="@+id/et_ad_desc"
+                  android:layout_marginTop="@dimen/inner_margin_bw_views"
+                  android:background="@drawable/square_edittext"
+                  android:gravity="top"
+                  android:hint="@string/hint_ad_desc"
+                  android:imeOptions="actionDone"
+                  android:maxLength="50"
+                  android:paddingTop="5dp" />-->
             <!-- </RelativeLayout>-->
 
             <LinearLayout
@@ -422,7 +421,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_split_cost" />
+                        android:paddingTop="8dp"
+                        android:paddingBottom="4dp"
+                        android:src="@mipmap/ic_splitcost" />
 
                     <View
                         android:layout_width="1dp"
@@ -436,17 +437,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:textSize="@dimen/tv_textSize"
-                        android:visibility="gone"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
                         android:id="@+id/et_splitt_cost"
                         style="@style/EditTextTheme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="12"
                         android:hint="@string/hint_splitt_cost"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="12" />
 
                 </LinearLayout>
 

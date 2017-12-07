@@ -172,7 +172,7 @@
     <string name="invite_friends_header">Join me on spplitt and start saving money.</string>
     <string name="invite_friends_main">Do you want to save money on a product or service? Do you want to find other people near you to split the cost of something? Join me on spplitt and start saving today. Sign up now and find other members to split the cost with. Since it\'s a user generated community you can split the cost of almost anything you can think of. The possibilities are endless. Go to spplitt.com and start saving today!</string>
     <string name="err_msg_adDate_greater">Enter end date greater than or equal to start date</string>
-    <string name="spplitt_amount">spplitt amount $</string>
+    <string name="spplitt_amount">spplitt amount £</string>
     <string name="nav_requested_ad">Applied Ads</string>
     <string name="no_notifications_found">No notifications found</string>
     <string name="accept_msg">Are you sure you want to accept the request?</string>

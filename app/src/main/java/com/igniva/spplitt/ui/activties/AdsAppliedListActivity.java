@@ -2,6 +2,7 @@ package com.igniva.spplitt.ui.activties;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,7 +55,6 @@ public class AdsAppliedListActivity extends BaseActivity{
         setContentView(R.layout.activity_ads_applied);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         Intent in=getIntent();
         mOtherUserId=in.getStringExtra("other_user_id");

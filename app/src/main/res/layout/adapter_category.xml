@@ -3,14 +3,15 @@
     android:id="@+id/cv_category_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/rv_outer_margin"
     android:layout_gravity="center"
+    android:layout_margin="@dimen/rv_outer_margin"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_gravity="center"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -18,16 +19,17 @@
             android:id="@+id/iv_category_img1"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_gravity="center"
-           />
+            android:layout_gravity="center" />
 
         <com.igniva.spplitt.ui.views.TextViewNonRegular
             android:id="@+id/tv_category_name1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/outer_margin_bw_views"
             android:gravity="center"
-            android:text="@string/ad_details"
-            android:textColor="@color/colorBlack"
+            android:hint="@string/ad_details"
+            android:textColor="@color/colorBackground"
+            android:textColorHint="@color/yellow"
             android:textSize="@dimen/btn_textSize" />
     </LinearLayout>
 
@@ -41,10 +43,10 @@
         <ImageView
             android:id="@+id/iv_category_img"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
-            android:background="@mipmap/ic_launcher" />
+            android:background="@mipmap/logo_icon" />
 
         <com.igniva.spplitt.ui.views.TextViewNonRegular
             android:id="@+id/tv_category_name"
@@ -54,7 +56,7 @@
             android:gravity="center"
             android:text="@string/ad_details"
 
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorBackground"
             android:textSize="@dimen/btn_textSize" />
     </LinearLayout>
 

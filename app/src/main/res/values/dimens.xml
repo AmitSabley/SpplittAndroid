@@ -15,6 +15,8 @@
     <dimen name="drawable_padding_bw_views">10dp</dimen>
     <dimen name="editTextSize">16sp</dimen>
     <dimen name="mdLineSpacingExtra_subhead1">8sp</dimen>
+    <dimen name="_50dp">50dp</dimen>
+    <dimen name="_22dp">22sp</dimen>
     <dimen name="mdFontSize_subhead1">16sp</dimen>
     <dimen name="mdDividerSize">0.6dp</dimen>
     <dimen name="cv_inner_margin">2dp</dimen>

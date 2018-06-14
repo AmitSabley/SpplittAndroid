@@ -186,6 +186,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                     if (mAdCategoryId != null) {
 //                        Log.e("========",""+mArrayListCategoryId.indexOf(mAdCategoryId)+"===="+mAdCategoryId);
                         mSpCategories.setSelection(mArrayListCategoryId.indexOf(mAdCategoryId));
+
                     }
                     if (mAdTitle != null) {
                         mEtAdTitle.setText(mAdTitle);
@@ -411,7 +412,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        Log.e("Response", "" + userData);
+            Log.e("Response", "" + userData);
             payload = userData.toString();
         } catch (Exception e) {
             payload = null;
@@ -475,7 +476,6 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             // Do something with the date chosen by the user
             int mon = month + 1;
             mEtSelectDate.setText(day + "/" + mon + "/" + year);
-            mEtSelectDate.setTextColor(Color.BLACK);
             mEtSelectDate.setError(null);
             mEtSelectDate.clearFocus();
             mEtSelectDate.invalidate();
@@ -668,13 +668,13 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 DataPojo dataPojo = result.getData();
                 List<CategoriesListPojo> listCategories = new ArrayList<CategoriesListPojo>();
                 listCategories = dataPojo.getCategories();
-                if (listCategories   != null) {
+                if (listCategories != null) {
                     for (CategoriesListPojo categoriesListPojo : listCategories) {
                         mArrayListCategories.add(categoriesListPojo.getCategory_title());
                         mArrayListCategoryId.add(categoriesListPojo.getCategory_id());
                     }
                 }
-                ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, mArrayListCategories);
+                ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.sppiner, mArrayListCategories);
                 mSpCategories.setAdapter(adapter);
                 setDataInViewLayouts();
             }
@@ -720,7 +720,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void postAdData(ResponsePojo result) {
-         if (result.getStatus_code() == 400) {
+        if (result.getStatus_code() == 400) {
             //Error
             new Utility().showErrorDialog(getActivity(), result);
         } else {

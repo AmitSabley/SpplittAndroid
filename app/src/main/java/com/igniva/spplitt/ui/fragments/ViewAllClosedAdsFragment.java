@@ -3,6 +3,7 @@ package com.igniva.spplitt.ui.fragments;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
@@ -197,9 +198,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
                         if (mAdType.equals("completed")) {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false, allAdsList);
                         } else {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true,allAdsList);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true, allAdsList);
                         }
                     }
                 } else {
@@ -209,9 +210,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
                         mRvAds.setVisibility(View.VISIBLE);
                         mTvNoAdsFound.setVisibility(View.GONE);
                         if (mAdType.equals("completed")) {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, false,allAdsList);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, false, allAdsList);
                         } else {
-                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, true,allAdsList);
+                            mAdsListAdapter = new AdsListAdapter(getActivity(), searchResultAdsList, true, allAdsList);
                         }
                     }
                 }
@@ -242,6 +243,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
+        MenuItem item = menu.getItem(0);
+        Drawable icon = item.getIcon();
+        Utility.applyTint(icon);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -304,9 +308,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
 //                            allAdsList=tempListAds;
 
                             if (mAdType.equals("completed")) {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false, allAdsList);
                             } else {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true,allAdsList);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true, allAdsList);
                             }
 
                             mRvAds.setAdapter(mAdsListAdapter);
@@ -326,9 +330,9 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
                             mTvNoAdsFound.setVisibility(View.GONE);
 //                            allAdsList=tempListAds;
                             if (mAdType.equals("completed")) {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false, allAdsList);
                             } else {
-                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true,allAdsList);
+                                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, true, allAdsList);
                             }
 
                             mRvAds.setAdapter(mAdsListAdapter);
@@ -377,8 +381,8 @@ public class ViewAllClosedAdsFragment extends BaseFragment {
             getClosedAds(true);
             _areLecturesLoaded = true;
         } else {
-            if (allAdsList.size()>0) {
-                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false,allAdsList);
+            if (allAdsList.size() > 0) {
+                mAdsListAdapter = new AdsListAdapter(getActivity(), allAdsList, false, allAdsList);
                 mRvAds.setAdapter(mAdsListAdapter);
                 mAdsListAdapter.notifyDataSetChanged();
                 mTvNoAdsFound.setVisibility(View.GONE);

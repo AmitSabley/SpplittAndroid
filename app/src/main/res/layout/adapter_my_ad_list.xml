@@ -3,6 +3,7 @@
     android:id="@+id/cv_category_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
@@ -26,7 +27,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@string/ad_details"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/yellow"
                 android:textSize="@dimen/btn_textSize"
                 android:textStyle="bold" />
 
@@ -39,7 +40,7 @@
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:text="@string/ad_details"
-                android:textColor="@color/colorSkyBlue"
+                android:textColor="@color/yellow"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -75,6 +76,8 @@
                             android:drawableLeft="@mipmap/location"
                             android:drawablePadding="5dp"
                             android:gravity="center"
+                            android:textColor="@color/yellow"
+                            android:drawableTint="@color/yellow"
                             android:text="@string/ad_details"
                             android:textSize="12sp" />
 
@@ -83,7 +86,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:background="@color/colorGrey" />
+                            android:background="@color/yellow" />
 
                         <com.igniva.spplitt.ui.views.TextViewNonRegular
                             android:id="@+id/tv_ad_time"
@@ -92,6 +95,8 @@
                             android:layout_alignParentRight="true"
                             android:drawableLeft="@mipmap/time"
                             android:drawablePadding="5dp"
+                            android:textColor="@color/yellow"
+                            android:drawableTint="@color/yellow"
                             android:gravity="center"
                             android:text="@string/ad_details"
                             android:textSize="12sp" />
@@ -120,6 +125,7 @@
                         android:layout_gravity="end"
                         android:padding="4dp"
                         android:visibility="gone"
+                        android:tint="@color/yellow"
                         android:src="@drawable/ic_rate_user"/>
 
 
@@ -137,9 +143,10 @@
                         android:layout_marginTop="@dimen/cv_inner_margin"
                         android:drawableLeft="@mipmap/split"
                         android:drawablePadding="@dimen/drawable_padding_bw_views"
+                        android:textColor="@color/yellow"
+                        android:drawableTint="@color/yellow"
                         android:gravity="center"
                         android:text="@string/ad_details"
-                        android:textColor="@color/colorBlack"
                         android:textSize="@dimen/tv_textSize"
                         android:textStyle="bold" />
 
@@ -155,6 +162,8 @@
                             android:id="@+id/btn_details_ad"
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/yellow"
+                            android:drawableTint="@color/yellow"
                             android:layout_alignParentRight="true"
                             android:background="@android:color/transparent"
                             android:drawableLeft="@mipmap/user_info" />
@@ -163,6 +172,8 @@
                             android:id="@+id/btn_edit_ad"
                             android:layout_width="35dp"
                             android:layout_height="match_parent"
+                            android:textColor="@color/yellow"
+                            android:drawableTint="@color/yellow"
                             android:background="@android:color/transparent"
                             android:drawableLeft="@mipmap/edit" />
 
@@ -192,7 +203,8 @@
                     android:drawableLeft="@mipmap/ic_abc_user"
                     android:drawablePadding="@dimen/drawable_padding_bw_views"
                     android:text="@string/ad_details"
-                    android:textColor="@color/colorBlue"
+                    android:textColor="@color/yellow"
+                    android:drawableTint="@color/yellow"
                     android:textSize="@dimen/tv_textSize"
                     android:visibility="gone" />
 

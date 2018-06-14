@@ -8,64 +8,90 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/rv_outer_margin"
         android:layout_marginRight="@dimen/rv_outer_margin"
-        android:layout_marginTop="@dimen/rv_outer_margin"
-        android:layout_height="wrap_content">
-        <RelativeLayout
+        android:layout_marginTop="@dimen/rv_outer_margin">
+
+
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="25dp"
+            android:layout_marginBottom="@dimen/rv_outer_margin"
             android:layout_marginLeft="@dimen/outer_margin_bw_views"
             android:layout_marginTop="@dimen/rv_outer_margin"
-            android:layout_marginBottom="@dimen/rv_outer_margin"
-            android:orientation="horizontal">
-            <com.igniva.spplitt.ui.views.TextViewNonRegular
-                android:id="@+id/tv_my_location"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/iv_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:drawableLeft="@mipmap/location"
-                android:drawablePadding="10dp"
-                android:text="@string/my_location"
-                android:textColor="@color/nav_text_color"
-                android:textSize="@dimen/tv_textSize" />
-            <Button
-                android:id="@+id/btn_change_adlocation"
-                android:layout_width="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:background="@android:color/transparent"
-                android:drawableRight="@mipmap/ic_edit"/>
-        </RelativeLayout>
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/location"
+                android:tint="@color/yellow" />
 
+            <com.igniva.spplitt.ui.views.TextViewNonRegular
+                android:id="@+id/tv_my_location"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="@string/my_location"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/tv_textSize" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_edit"
+                    android:tint="@color/yellow" />
+
+                <Button
+                    android:id="@+id/btn_change_adlocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="20dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
 
 
     </android.support.v7.widget.CardView>
 
 
     <LinearLayout
-        android:layout_margin="@dimen/outer_margin_bw_views"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/outer_margin_bw_views"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
         <Button
             android:id="@+id/btn_active_ad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onClick"
             android:background="@mipmap/ic_active_ads_hover"
-            />
+            android:onClick="onClick" />
+
         <Button
             android:id="@+id/btn_close_ad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@mipmap/ic_closed_ads"
-            android:onClick="onClick"
-            android:layout_weight="1"/>
+            android:onClick="onClick" />
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_ads"
         android:layout_width="match_parent"
@@ -73,5 +99,5 @@
         android:layout_marginLeft="@dimen/rv_outer_margin"
         android:layout_marginRight="@dimen/rv_outer_margin"
         android:overScrollMode="never"
-        android:scrollbars="none"/>
+        android:scrollbars="none" />
 </LinearLayout>

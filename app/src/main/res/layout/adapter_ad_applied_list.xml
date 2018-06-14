@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -24,11 +25,10 @@
                 android:layout_alignParentLeft="true"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textStyle="bold"
-                android:textColor="@color/colorBlack"
                 android:text="@string/ad_details"
-                android:textSize="@dimen/btn_textSize" />
-
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/btn_textSize"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
@@ -37,8 +37,7 @@
             android:id="@+id/rl_center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/rv_outer_margin"
-            >
+            android:layout_marginLeft="@dimen/rv_outer_margin">
 
             <LinearLayout
                 android:id="@+id/ll_center"
@@ -60,8 +59,10 @@
                         android:layout_alignParentRight="true"
                         android:drawableLeft="@mipmap/location"
                         android:drawablePadding="5dp"
+                        android:drawableTint="@color/yellow"
                         android:gravity="center"
                         android:text="@string/ad_details"
+                        android:textColor="@color/yellow"
                         android:textSize="12sp" />
 
                     <View
@@ -69,19 +70,22 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/colorGrey" />
+                        android:background="@color/yellow" />
 
                     <com.igniva.spplitt.ui.views.TextViewNonRegular
                         android:id="@+id/tv_ad_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:gravity="center"
                         android:drawableLeft="@mipmap/time"
                         android:drawablePadding="5dp"
+                        android:drawableTint="@color/yellow"
+                        android:gravity="center"
                         android:text="@string/ad_details"
+                        android:textColor="@color/yellow"
                         android:textSize="12sp" />
                 </LinearLayout>
+
                 <com.igniva.spplitt.ui.views.TextViewNonRegular
                     android:id="@+id/tv_spplitt_amount"
                     android:layout_width="wrap_content"
@@ -89,32 +93,35 @@
                     android:layout_marginTop="@dimen/cv_inner_margin"
                     android:drawableLeft="@mipmap/split"
                     android:drawablePadding="@dimen/drawable_padding_bw_views"
+                    android:drawableTint="@color/yellow"
                     android:text="@string/ad_details"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/tv_textSize" />
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/tv_textSize"
+                    android:textStyle="bold" />
+
                 <com.igniva.spplitt.ui.views.TextViewNonRegular
                     android:id="@+id/tv_ad_owner_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/ic_abc_user"
                     android:drawablePadding="@dimen/drawable_padding_bw_views"
+                    android:drawableTint="@color/yellow"
                     android:text="@string/ad_details"
-                    android:visibility="gone"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/tv_textSize" />
+                    android:textSize="@dimen/tv_textSize"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
 
 
-
         </RelativeLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/outer_margin_bw_views"
-            android:background="@color/colorGreyTransparent"/>
+            android:background="@color/colorGreyTransparent" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

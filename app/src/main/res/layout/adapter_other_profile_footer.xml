@@ -4,12 +4,14 @@
     android:id="@+id/cv_category_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <LinearLayout
@@ -29,8 +31,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rating_reviews"
-                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/tv_textSize"
+                    android:textColor="@color/yellow"
+                    android:drawableTint="@color/yellow"
                     android:layout_toLeftOf="@+id/tv_rating"
                     android:layout_alignParentLeft="true"
                     android:textStyle="bold" />
@@ -40,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:text="4.7"
                     android:layout_alignParentRight="true"
-                    android:textColor="@color/colorGrey"
+                    android:textColor="@color/yellow"
+                    android:drawableTint="@color/yellow"
                     android:textSize="@dimen/tv_textSize"
                     android:textStyle="bold" />
                 <!--<LinearLayout
@@ -105,7 +109,8 @@
                             android:text="@string/ad_details"
                             android:layout_alignParentLeft="true"
                             android:layout_toLeftOf="@+id/arb_user_rating"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/yellow"
+                            android:drawableTint="@color/yellow"
                             android:textSize="@dimen/tv_textSize"
                             android:textStyle="bold" />
 
@@ -130,8 +135,9 @@
                         android:layout_marginTop="@dimen/cv_inner_margin"
                         android:ellipsize="end"
                         android:maxLines="3"
-                        android:text="@string/ad_details"
-                        android:textColor="@color/colorGrey" />
+                        android:textColor="@color/yellow"
+                        android:drawableTint="@color/yellow"
+                        android:text="@string/ad_details" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

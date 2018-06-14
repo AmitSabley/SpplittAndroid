@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <LinearLayout
+
+        android:padding="@dimen/inner_margin_bw_views"
+        android:layout_margin="@dimen/outer_margin_bw_views"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.igniva.spplitt.ui.views.TextViewRegular
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:text="@string/sharingcontent"
+            android:textColor="@color/colorBackground" />
+
+        <com.igniva.spplitt.ui.views.TextViewRegular
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:text="SHARE"
+            android:textColor="@color/colorBackground" />
+
+
+        <com.igniva.spplitt.ui.views.TextViewRegular
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="18dp"
+            android:text="@string/share_content"
+            android:textColor="@color/colorBackground" />
+    </LinearLayout>
+</RelativeLayout>

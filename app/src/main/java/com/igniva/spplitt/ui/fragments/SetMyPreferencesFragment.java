@@ -2,6 +2,7 @@ package com.igniva.spplitt.ui.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -499,7 +500,9 @@ public class SetMyPreferencesFragment extends BaseFragment implements View.OnCli
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_pref, menu);
-
+        MenuItem item = menu.getItem(0);
+        Drawable icon = item.getIcon();
+        Utility.applyTint(icon);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

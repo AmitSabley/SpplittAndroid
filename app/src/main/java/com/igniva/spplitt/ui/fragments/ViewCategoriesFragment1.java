@@ -2,10 +2,12 @@ package com.igniva.spplitt.ui.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,6 +50,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     RecyclerView mRvCategories;
     TextView mTvLocation;
     Button mBtnChangeLocation;
+    CardView card_change_location;
     FloatingActionButton mBtnPostAd;
     Button mBtnViewAllAd;
     Intent in;
@@ -104,7 +107,9 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
         mRvCategories = (RecyclerView) mView.findViewById(R.id.rv_categories);
         mTvLocation = (TextView) mView.findViewById(R.id.tv_my_location);
         mBtnChangeLocation = (Button) mView.findViewById(R.id.btn_change_location);
+        card_change_location = (CardView) mView.findViewById(R.id.card_change_location);
         mBtnChangeLocation.setOnClickListener(this);
+        card_change_location.setOnClickListener(this);
         mBtnPostAd = (FloatingActionButton) mView.findViewById(R.id.btn_post_ad);
         mBtnPostAd.setOnClickListener(this);
 //        mBtnViewAllAd = (Button) mView.findViewById(R.id.btn_view_al_ad);
@@ -119,10 +124,10 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
             mTvLocation.setText(cityName + ", " + countryName);
         } else {
             if (PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "").equals("")) {
-                mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
+                mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.location, 0);
                 mTvLocation.setText(getResources().getString(R.string.set_location));
             } else {
-                mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
+                mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.location, 0);
                 mTvLocation.setText(PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_CITY_NAME, "") + ", " + PreferenceHandler.readString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, ""));
 //            PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 0);
             }
@@ -171,7 +176,7 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
                         if (error == null) {
                             Log.e("====result", result + "");
 
-                            mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_edit, 0);
+                            mBtnChangeLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.location, 0);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_COUNTRY_NAME, countryName);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_STATE_NAME, stateName);
                             PreferenceHandler.writeString(getActivity(), PreferenceHandler.AD_CITY_NAME, cityName);
@@ -207,10 +212,16 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
                 //Success
                 DataPojo dataPojo = result.getData();
                 List<CategoriesListPojo> listCategories = new ArrayList<CategoriesListPojo>();
+                List<CategoriesListPojo> templistCategories = new ArrayList<CategoriesListPojo>();
+                CategoriesListPojo temp = new CategoriesListPojo();
                 listCategories = dataPojo.getCategories();
                 if (listCategories != null) {
+                    temp = listCategories.get(0);
+                    listCategories.remove(0);
+                    templistCategories = listCategories;
+                    templistCategories.add(temp);
                     if (listCategories.size() > 0) {
-                        mRvCategories.setAdapter(new CategoryListAdapter(getActivity(), listCategories));
+                        mRvCategories.setAdapter(new CategoryListAdapter(getActivity(), templistCategories));
                         mRvCategories.setHasFixedSize(true);
                         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
                         mRvCategories.setLayoutManager(mLayoutManager);
@@ -227,6 +238,20 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     public void onClick(View view) {
         NavigationView navigationView = (NavigationView) MainActivity.main.findViewById(R.id.nav_view);
         switch (view.getId()) {
+            case R.id.card_change_location://to go at my profile
+                mBtnChangeLocation.setClickable(false);
+                App.getInstance().trackEvent(LOG_TAG, "Change Location and Go to My Profile", "My Profile Call to Change Location");
+//                if(PreferenceHandler.readInteger(getActivity(), PreferenceHandler. SHOW_EDIT_PROFILE, 0) == 6) {
+                if (cityId != null && !cityId.equals("")) {
+                    saveLocation();
+                } else {
+                    Intent in1 = new Intent(getActivity(), CountryActivity.class);
+                    in1.putExtra("from", "5");
+                    startActivity(in1);
+
+                }
+// ((MainActivity) getActivity()).onNavigationItemSelected(navigationView.getMenu().getItem(1));
+                break;
             case R.id.btn_change_location://to go at my profile
                 mBtnChangeLocation.setClickable(false);
                 App.getInstance().trackEvent(LOG_TAG, "Change Location and Go to My Profile", "My Profile Call to Change Location");
@@ -261,7 +286,9 @@ public class ViewCategoriesFragment1 extends BaseFragment implements View.OnClic
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu, menu);
-
+        MenuItem item = menu.getItem(0);
+        Drawable icon = item.getIcon();
+        Utility.applyTint(icon);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

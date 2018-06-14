@@ -6,6 +6,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_ads_applied"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
         android:layout_height="match_parent"
         android:layout_below="@+id/btn_view_al_ad"
         android:scrollbars="none" />

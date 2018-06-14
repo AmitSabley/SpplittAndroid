@@ -2,6 +2,7 @@ package com.igniva.spplitt.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -25,13 +26,13 @@ import java.util.List;
 /**
  * Created by igniva-php-08 on 20/5/16.
  */
-public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
 
     List<CategoriesListPojo> mListCategories;
     Context mContext;
 
     public CategoryListAdapter(Context context, List<CategoriesListPojo> listCategories) {
-        this.mListCategories=listCategories;
+        this.mListCategories = listCategories;
         this.mContext = context;
     }
 
@@ -42,16 +43,16 @@ public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapt
         ImageView mIvCategoryImage1;
         CardView mCvMain;
         TextView mTvCategoryName1;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            mTvCategoryName=(TextView)itemView.findViewById(R.id.tv_category_name);
-            mIvCategoryImage=(ImageView)itemView.findViewById(R.id.iv_category_img);
-            mCvMain=(CardView)itemView.findViewById(R.id.cv_category_main);
-            mTvCategoryName1=(TextView)itemView.findViewById(R.id.tv_category_name1);
-            mIvCategoryImage1=(ImageView)itemView.findViewById(R.id.iv_category_img1);
+            mTvCategoryName = (TextView) itemView.findViewById(R.id.tv_category_name);
+            mIvCategoryImage = (ImageView) itemView.findViewById(R.id.iv_category_img);
+            mCvMain = (CardView) itemView.findViewById(R.id.cv_category_main);
+            mTvCategoryName1 = (TextView) itemView.findViewById(R.id.tv_category_name1);
+            mIvCategoryImage1 = (ImageView) itemView.findViewById(R.id.iv_category_img1);
         }
     }
-
 
 
     @Override
@@ -67,18 +68,19 @@ public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapt
             holder.mTvCategoryName.setText(mListCategories.get(position).getCategory_title());
             holder.mTvCategoryName1.setText(mListCategories.get(position).getCategory_title());
             Glide.with(mContext)
-                    .load(WebServiceClient.BASE_URL+mListCategories.get(position).getCategory_icon()).asBitmap()
+                    .load(WebServiceClient.BASE_URL + mListCategories.get(position).getCategory_icon()).asBitmap()
                     .into(holder.mIvCategoryImage1);
+            holder.mIvCategoryImage1.setColorFilter(mContext.getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
 
             holder.mCvMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent in=new Intent(mContext,ViewAdsActivity.class);
-                    in.putExtra("cat_id",mListCategories.get(position).getCategory_id());
+                    Intent in = new Intent(mContext, ViewAdsActivity.class);
+                    in.putExtra("cat_id", mListCategories.get(position).getCategory_id());
                     mContext.startActivity(in);
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
         }

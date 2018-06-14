@@ -17,7 +17,8 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/report_an_abuse"
+            android:textColorHint="@color/yellow"
+            android:hint="@string/report_an_abuse"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <com.igniva.spplitt.ui.views.EditTextNonRegular
@@ -25,6 +26,7 @@
             style="@style/EditTextTheme"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:textColorHint="@color/yellow"
             android:layout_marginTop="@dimen/inner_margin_bw_views"
             android:background="@drawable/square_edittext"
             android:gravity="top"

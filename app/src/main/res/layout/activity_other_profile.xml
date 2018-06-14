@@ -57,7 +57,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/rate_this_user"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/yellow"
                             android:textStyle="bold"
                             android:gravity="center_horizontal"
                             android:textSize="@dimen/btn_textSize"/>
@@ -69,9 +69,9 @@
                             android:layout_alignParentTop="true"
                             android:layout_marginTop="@dimen/outer_margin_bw_views"
                             android:layout_centerHorizontal="true"
-                            android:progressBackgroundTint="@color/colorGreyDark"
-                            android:progressTint="@color/colorYellow"
-                            android:secondaryProgressTint="@color/colorYellow"
+                            android:progressBackgroundTint="@color/yellow"
+                            android:progressTint="@color/yellow"
+                            android:secondaryProgressTint="@color/colorBackground"
                             android:stepSize="1.0" />
 
                         <com.igniva.spplitt.ui.views.EditTextNonRegular
@@ -87,8 +87,8 @@
                             android:maxLength="250"
                             android:paddingTop="5dp"
                             android:singleLine="false"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textColorHint="@color/colorGreyDark" />
+                            android:textColor="@color/colorBackground"
+                            android:textColorHint="@color/yellow" />
 
                     </LinearLayout>
 
@@ -152,7 +152,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end|left"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTint="@color/yellow"
         android:onClick="onClick"
         android:src="@mipmap/ic_close"
         android:visibility="gone"

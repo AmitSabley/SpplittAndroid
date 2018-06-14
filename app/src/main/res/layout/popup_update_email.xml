@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <ScrollView
@@ -19,9 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:text="@string/update_email"
-                android:textSize="@dimen/toolbar_textSize" />
+                android:hint="@string/update_email"
+                android:textColorHint="@color/yellow"
+                android:textSize="@dimen/toolbar_textSize"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,13 +41,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_envelope" />
+                        android:src="@mipmap/ic_envelope"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
                         android:id="@+id/et_update_email"
@@ -53,14 +56,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_email_update"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/yellow" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,13 +83,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_pswd" />
+                        android:src="@mipmap/ic_pswd"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
                         android:id="@+id/et_update_password"
@@ -93,14 +98,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_update_password"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/yellow" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
 
@@ -109,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/inner_margin_bw_views"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/yellow"
                 android:onClick="onClick"
                 android:text="@string/submit"
                 android:textColor="@color/colorPrimary"

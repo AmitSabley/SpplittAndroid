@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -328,6 +329,9 @@ public class ViewAdsDetailsActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         if (showoptions) {
             getMenuInflater().inflate(R.menu.menu_view_details, menu);
+            MenuItem item = menu.getItem(0);
+            Drawable icon = item.getIcon();
+            Utility.applyTint(icon);
         } else {
             for (int i = 0; i < menu.size(); i++) {
                 menu.getItem(i).setVisible(false);

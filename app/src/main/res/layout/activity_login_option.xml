@@ -2,19 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@mipmap/splash_new">
+    android:background="@mipmap/splash_new"
+
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/ic_bg" />
+        android:background="@mipmap/ic_bg"
+        android:backgroundTint="@color/colorPrimary" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:src="@mipmap/spplit01" />
+        android:src="@mipmap/logo_icon"
+        android:tint="@color/yellow" />
+
+    <com.igniva.spplitt.ui.views.TextViewRegular
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/outer_margin_bw_views"
+        android:gravity="center"
+        android:padding="@dimen/inner_margin_bw_views"
+        android:text="@string/Login_option_content"
+        android:textColor="@color/colorBackground"
+        android:textSize="@dimen/_22dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,8 +46,10 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:onClick="onClick"
-            android:background="@mipmap/ic_login_btn" />
+
+            android:background="@mipmap/ic_login_btn"
+            android:backgroundTint="@color/yellow"
+            android:onClick="onClick" />
 
         <Button
             android:id="@+id/btn_register"
@@ -41,8 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:onClick="onClick"
-            android:background="@mipmap/ic_reg_btn" />
+            android:background="@mipmap/ic_reg_btn"
+            android:backgroundTint="@color/yellow"
+            android:onClick="onClick" />
 
     </LinearLayout>
 </RelativeLayout>

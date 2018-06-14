@@ -3,6 +3,9 @@ package com.igniva.spplitt.ui.activties;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -44,6 +47,7 @@ import com.igniva.spplitt.utils.Utility;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String LOG_TAG = "MainActivity";
+    Drawable drawable;
 
     @Override
     protected void onResume() {
@@ -78,6 +82,7 @@ public class MainActivity extends BaseActivity
 //        toolbar.setTitle();
         mToolbarTvText = (TextView) findViewById(R.id.toolbar_tv_text);
 
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -109,10 +114,20 @@ public class MainActivity extends BaseActivity
         navigationView.setItemIconTintList(null);
         //set Navigation drawer text Color
         int positionOfMenuItem = navigationView.getMenu().size() - 1;
+        for (int i = 0; i < positionOfMenuItem; i++) {
+            MenuItem items = navigationView.getMenu().getItem(i);
+            Drawable icon = items.getIcon();
+            if (icon != null) {
+                Utility.applyTint(icon);
+            }
+        }
         MenuItem item = navigationView.getMenu().getItem(positionOfMenuItem);
+
         SpannableString s = new SpannableString(getResources().getString(R.string.nav_logout));
-        s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark)), 0, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getApplicationContext(), R.color.yellow)), 0, s.length(), 0);
         item.setTitle(s);
+        drawable = item.getIcon();
+        Utility.applyTint(drawable);
         currentFragmentId = Constants.CURRENT_FRAG_ID;
 
         if (PreferenceHandler.readInteger(this, PreferenceHandler.SHOW_EDIT_PROFILE, 0) == 0) {
@@ -133,7 +148,12 @@ public class MainActivity extends BaseActivity
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-
+//   if (drawable != null) {
+//        // If we don't mutate the drawable, then all drawable's with this id will have a color
+//        // filter applied to it.
+//        drawable.setColorFilter(getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
+////                    drawable.setAlpha(alpha);
+//    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         try {
@@ -143,13 +163,18 @@ public class MainActivity extends BaseActivity
 //            mToolbarOptions=false;
             if (id == R.id.nav_view_ad) {
                 if (currentFragmentId != Constants.FRAG_ID_CATEGORIES) {
+
                     App.getInstance().trackEvent(LOG_TAG, "Categories Fragment Called", "Categories Fragment");
                     mToolbarTvText.setText(getResources().getString(R.string.nav_view_ad));
 //                    mToolbarOptions = true;
+
                     fragmentTransaction.replace(R.id.fl_main_content, ViewCategoriesFragment1.newInstance());
                 }
             } else if (id == R.id.nav_profile) {
+
+
                 if (currentFragmentId != Constants.FRAG_ID_MY_PROFILE) {
+
                     if (drawer == null)
                         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                     drawer.closeDrawer(GravityCompat.START);
@@ -161,6 +186,7 @@ public class MainActivity extends BaseActivity
                     return true;
                 }
             } else if (id == R.id.nav_change_password) {
+
                 if (currentFragmentId != Constants.FRAG_ID_CHANGE_PASSWORD) {
                     App.getInstance().trackEvent(LOG_TAG, "Change Password Fragment Called", "Change Password Fragment");
 
@@ -176,6 +202,7 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.fl_main_content, NotificationsFragment.newInstance());
                 }
             } else if (id == R.id.nav_post_ad) {
+
                 if (currentFragmentId != Constants.FRAG_ID_POST_ADS) {
                     App.getInstance().trackEvent(LOG_TAG, "Post Ad Fragment Called", "Post Ads Fragment");
 
@@ -187,6 +214,7 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.fl_main_content, mFragment);
                 }
             } else if (id == R.id.nav_manage_my_ad) {
+
                 if (currentFragmentId != Constants.FRAG_ID_MANAGE_MY_ADS) {
                     App.getInstance().trackEvent(LOG_TAG, "My Ads Fragment Called", "My Ads Fragment");
 
@@ -194,6 +222,7 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.fl_main_content, ManageMyAdsFragment.newInstance());
                 }
             } else if (id == R.id.nav_event_ad) {
+
                 if (currentFragmentId != Constants.FRAG_ID_VIEW_EVENT) {
                     App.getInstance().trackEvent(LOG_TAG, "View Event Ads Fragment Called", "View Event Ads Fragment");
 
@@ -202,6 +231,7 @@ public class MainActivity extends BaseActivity
 //                    fragmentTransaction.replace(R.id.fl_main_content, ViewEventAdsFragment.newInstance());
                 }
             } else if (id == R.id.nav_requested_ad) {
+
                 if (currentFragmentId != Constants.FRAG_ID_APPLIED_ADS) {
                     App.getInstance().trackEvent(LOG_TAG, "Applied Ads Fragment Called", "Applied Ads Fragment");
 
@@ -209,6 +239,7 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.fl_main_content, AppliedAdsFragment.newInstance());
                 }
             } else if (id == R.id.nav_set_preferences) {
+
                 if (currentFragmentId != Constants.FRAG_ID_SET_PREFERENCES) {
                     App.getInstance().trackEvent(LOG_TAG, "Set Preferences Fragment Called", "Set Preferences Fragment");
 
@@ -216,6 +247,7 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.fl_main_content, SetMyPreferencesFragment.newInstance());
                 }
             } else if (id == R.id.nav_invite_friends) {
+
                 if (currentFragmentId != Constants.FRAG_ID_INVITE_FRIENDS) {
                     App.getInstance().trackEvent(LOG_TAG, "Invite Friends Fragment Called", "Invite Friends Fragment");
 
@@ -228,12 +260,14 @@ public class MainActivity extends BaseActivity
                     startActivity(sendIntent);
                 }
             } else if (id == R.id.nav_about_split) {
+
                 if (currentFragmentId != Constants.FRAG_ID_ABOUT_US) {
                     App.getInstance().trackEvent(LOG_TAG, "About Fragment Called", "About Fragment");
                     mToolbarTvText.setText(getResources().getString(R.string.nav_about_split));
                     fragmentTransaction.replace(R.id.fl_main_content, AboutSpplittFragment.newInstance());
                 }
             } else if (id == R.id.nav_contact_us) {
+
                 if (currentFragmentId != Constants.FRAG_ID_CONTACT_US) {
                     App.getInstance().trackEvent(LOG_TAG, "Contact Us Fragment Called", "Contact Us Fragment");
 
@@ -241,6 +275,7 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.fl_main_content, ContactUsFragment.newInstance());
                 }
             } else if (id == R.id.nav_privacy_policy) {
+
                 if (currentFragmentId != Constants.FRAG_ID_PRIVACY_POLICY) {
                     App.getInstance().trackEvent(LOG_TAG, "Privacy Policy Fragment Called", "Privacy Policy Fragment");
 
@@ -248,8 +283,9 @@ public class MainActivity extends BaseActivity
                     fragmentTransaction.replace(R.id.fl_main_content, PrivacyPolicy.newInstance());
                 }
             } else if (id == R.id.nav_logout) {
-                App.getInstance().trackEvent(LOG_TAG, "LogOut Called", "LogOut");
 
+                App.getInstance().trackEvent(LOG_TAG, "LogOut Called", "LogOut");
+                mToolbarTvText.setTextColor(getResources().getColor(R.color.yellow));
                 currentFragmentId = Constants.FRAG_ID_LOGOUT;
                 showLogoutDialog();
             }
@@ -329,6 +365,13 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void setUpLayouts() {
+
+    }
+
+    public void applyTint(Drawable icon) {
+        icon.setColorFilter(
+                new PorterDuffColorFilter(getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN)
+        );
 
     }
 

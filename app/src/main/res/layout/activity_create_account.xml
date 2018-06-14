@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:backgroundTint="@color/colorPrimary"
     android:background="@mipmap/ic_login_bg">
 
     <include layout="@layout/layout_header_main" />
@@ -11,6 +12,7 @@
     <ScrollView
         android:id="@+id/sv_main"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -18,8 +20,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="180dp">
 
                 <com.igniva.spplitt.ui.views.RoundedImageView
@@ -28,11 +31,11 @@
                     android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:onClick="onClick"
-                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_color="@color/yellow"
                     app:civ_border_width="2dp"
                     android:src="@mipmap/ic_default_user"
                     />
-            </android.support.v7.widget.CardView>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,6 +57,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:tint="@color/yellow"
                             android:layout_marginLeft="10dp"
                             android:src="@mipmap/ic_user" />
 
@@ -61,7 +65,7 @@
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
 
                         <com.igniva.spplitt.ui.views.EditTextNonRegular
                             android:id="@+id/et_username"
@@ -69,6 +73,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_username"
+                            android:textColorHint="@color/yellow"
+                            android:textColor="@color/colorBackground"
                             android:inputType="text" />
                     </LinearLayout>
 
@@ -76,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -95,13 +101,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
+                            android:tint="@color/yellow"
                             android:src="@mipmap/ic_pswd" />
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
 
                         <com.igniva.spplitt.ui.views.EditTextNonRegular
                             android:id="@+id/et_password"
@@ -109,6 +116,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_password"
+                            android:textColorHint="@color/yellow"
+                            android:textColor="@color/colorBackground"
                             android:inputType="textPassword" />
                     </LinearLayout>
 
@@ -116,7 +125,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -135,19 +144,22 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
+                            android:tint="@color/yellow"
                             android:src="@mipmap/ic_envelope" />
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
 
                         <com.igniva.spplitt.ui.views.EditTextNonRegular
                             android:id="@+id/et_email"
                             style="@style/EditTextTheme"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColorHint="@color/yellow"
+                            android:textColor="@color/colorBackground"
                             android:hint="@string/hint_email_edit"
                             android:inputType="textEmailAddress" />
                     </LinearLayout>
@@ -156,7 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,6 +183,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="@string/gender"
+                        android:textColor="@color/yellow"
                         android:textSize="@dimen/btn_textSize"
                          />
 
@@ -184,27 +197,30 @@
                             android:id="@+id/rb_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="Male"
                             android:layout_marginLeft="20dp"
+                            android:baselineAligned="false"
                             android:button="@null"
-                            android:textSize="@dimen/btn_textSize"
-                            android:drawablePadding="5dp"
+                            android:checked="true"
                             android:drawableLeft="@drawable/radio_button"
-                             />
+                            android:drawablePadding="5dp"
+                            android:text="Male"
+                            android:textColor="@color/yellow"
+                            android:textSize="@dimen/btn_textSize"
+                            android:tint="@color/yellow" />
 
                         <com.igniva.spplitt.ui.views.RadioButtonNonRegular
                             android:id="@+id/rb_female"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:text="Female"
-                            android:button="@null"
-                            android:textSize="@dimen/btn_textSize"
                             android:layout_marginLeft="20dp"
-                            android:drawablePadding="5dp"
+                            android:button="@null"
+                            android:checked="false"
                             android:drawableLeft="@drawable/radio_button"
-                             />
+                            android:drawablePadding="5dp"
+                            android:text="Female"
+                            android:textColor="@color/yellow"
+                            android:textSize="@dimen/btn_textSize"
+                            android:tint="@color/yellow" />
                     </RadioGroup>
                 </LinearLayout>
                 <LinearLayout
@@ -222,6 +238,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:tint="@color/yellow"
                             android:layout_marginLeft="10dp"
                             android:src="@mipmap/ic_location" />
 
@@ -229,7 +246,7 @@
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
 
                         <!--<AutoCompleteTextView
                             android:id="@+id/actv_countries"
@@ -249,6 +266,9 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
                             android:focusable="true"
+                            android:tint="@color/yellow"
+                            android:textColorHint="@color/yellow"
+                            android:textColor="@color/yellow"
                             android:onClick="onClick"
                             android:text="@string/select_your_country"
                             android:layout_gravity="center_horizontal"
@@ -261,7 +281,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -278,6 +298,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:tint="@color/yellow"
                             android:layout_marginLeft="10dp"
                             android:src="@mipmap/ic_location" />
 
@@ -285,7 +306,7 @@
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
 
                         <!--<AutoCompleteTextView
                             android:id="@+id/actv_countries"
@@ -305,8 +326,11 @@
                             android:layout_centerVertical="true"
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
+                            android:tint="@color/yellow"
+                            android:textColorHint="@color/yellow"
+                            android:textColor="@color/colorBackground"
                             android:drawableRight="@mipmap/ic_dpd_arrow"
-                            android:text="@string/select_your_state"
+                            android:hint="@string/select_your_state"
                             android:layout_gravity="center_horizontal"
                             android:textSize="@dimen/tv_textSize" />
 
@@ -316,7 +340,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -333,6 +357,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:tint="@color/yellow"
                             android:layout_marginLeft="10dp"
                             android:src="@mipmap/ic_location" />
 
@@ -340,7 +365,7 @@
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
 
                         <!--<AutoCompleteTextView
                             android:id="@+id/actv_cities"
@@ -360,8 +385,11 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
                             android:onClick="onClick"
+                            android:tint="@color/yellow"
+                            android:textColorHint="@color/yellow"
+                            android:textColor="@color/colorBackground"
                             android:drawableRight="@mipmap/ic_dpd_arrow"
-                            android:text="@string/select_your_city"
+                            android:hint="@string/select_your_city"
                             android:layout_gravity="center_horizontal"
                             android:textSize="@dimen/tv_textSize" />
                     </LinearLayout>
@@ -370,7 +398,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -388,7 +416,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:buttonTint="@color/colorPrimaryDark"
+                            android:buttonTint="@color/yellow"
                             android:layout_gravity="center"
                             />
 
@@ -396,7 +424,7 @@
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
 
                         <!--<AutoCompleteTextView
                             android:id="@+id/actv_cities"
@@ -415,8 +443,11 @@
                             android:layout_centerVertical="true"
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
-                            android:text="@string/check_terms"
+                            android:hint="@string/check_terms"
                             android:onClick="onClick"
+                            android:tint="@color/yellow"
+                            android:textColorHint="@color/yellow"
+                            android:textColor="@color/colorBackground"
                             android:layout_gravity="center_horizontal"
                             android:textSize="@dimen/tv_textSize" />
                     </LinearLayout>
@@ -425,7 +456,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
 
                 </LinearLayout>
 
@@ -451,7 +482,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/inner_margin_bw_views"
-                    android:background="@color/colorPrimaryDark"
+                    android:background="@color/yellow"
                     android:text="@string/register"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/btn_textSize"
@@ -470,6 +501,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/already_have_acnt"
                         android:layout_gravity="top|left"
+                        android:textColor="@color/yellow"
                         android:textSize="@dimen/tv_textSize" />
 
                     <com.igniva.spplitt.ui.views.TextViewRegular
@@ -479,7 +511,8 @@
                         android:layout_marginLeft="6dp"
                         android:text="@string/login_here"
                         android:onClick="onClick"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorGreyDark"
+                        android:textColor="@color/colorBackground"
                         android:textSize="@dimen/tv_textSize"
                         android:textStyle="bold" />
                 </LinearLayout>

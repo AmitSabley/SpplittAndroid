@@ -5,7 +5,6 @@
     android:layout_alignParentBottom="true">
 
 
-
     <GridView
         android:id="@+id/recylarViewDays"
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
         android:horizontalSpacing="2dp"
         android:listSelector="@color/colorTransparent"
         android:numColumns="7"
-        android:verticalSpacing="2dp"/>
+        android:verticalSpacing="2dp" />
 
     <GridView
         android:id="@+id/gridview"
@@ -36,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_above="@+id/bottomLayout"
-        android:background="@android:color/white"></View>
+        android:background="@color/yellow"></View>
 
     <RelativeLayout
         android:id="@+id/bottomLayout"
@@ -53,7 +52,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="2dp"
             android:text="30 Days"
-            android:textColor="@android:color/white"
+            android:textColor="@color/yellow"
             android:textSize="13sp"
             android:textStyle="bold" />
 
@@ -63,7 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_category" />
+            android:src="@mipmap/ic_category"
+            android:tint="@color/yellow" />
 
         <TextView
             android:id="@+id/totalRupees"
@@ -72,7 +72,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/rupeeIconImage"
             android:text="30"
-            android:textColor="@android:color/white"
+            android:textColor="@color/yellow"
             android:textSize="13sp"
             android:textStyle="bold" />
 
@@ -85,7 +85,7 @@
             android:background="@color/colorTransparent"
             android:gravity="right|center_vertical"
             android:text="Book Now"
-            android:textColor="@android:color/white"
+            android:textColor="@color/yellow"
             android:textSize="13sp"
             android:textStyle="bold" />
 

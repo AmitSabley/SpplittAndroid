@@ -3,6 +3,7 @@ package com.igniva.spplitt.ui.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -293,6 +295,9 @@ public class NotificationsFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_my_ads, menu);
+        MenuItem item = menu.getItem(0);
+        Drawable icon = item.getIcon();
+        Utility.applyTint(icon);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

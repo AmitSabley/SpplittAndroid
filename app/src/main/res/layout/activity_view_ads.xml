@@ -5,94 +5,96 @@
     android:orientation="vertical">
 
     <include layout="@layout/layout_header_main" />
+
     <FrameLayout
         android:id="@+id/fl_main_content_view_ads"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
-
-
-   <!-- <android.support.v7.widget.CardView
-        android:id="@+id/cv_ads_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/outer_margin_bw_views"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:orientation="vertical"
-                android:weightSum="2">
-
-                <com.igniva.spplitt.ui.views.TextViewRegular
-                    android:id="@+id/tv_location_head"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/my_location"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/btn_textSize" />
-
-                <com.igniva.spplitt.ui.views.TextViewNonRegular
-                    android:id="@+id/tv_my_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/my_location"
-                    android:textColor="@color/nav_text_color"
-                    android:textSize="@dimen/tv_textSize" />
-            </LinearLayout>
-
-
-            <com.igniva.spplitt.ui.views.ButtonRegular
-                android:id="@+id/btn_change_adlocation"
-                style="@style/BtnTheme"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/change"
-                android:textColor="@color/colorPrimaryDark" />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/outer_margin_bw_views"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/btn_active_ad"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@mipmap/ic_active_ads_hover"
-            android:onClick="onClick" />
-
-        <Button
-            android:id="@+id/btn_close_ad"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@mipmap/ic_closed_ads"
-            android:onClick="onClick" />
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_ads"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/rv_outer_margin"
-        android:layout_marginRight="@dimen/rv_outer_margin"
-        android:overScrollMode="never"
-        android:scrollbars="none" />-->
+        android:background="@color/colorPrimary"></FrameLayout>
+
+
+    <!-- <android.support.v7.widget.CardView
+         android:id="@+id/cv_ads_main"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+ 
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="@dimen/outer_margin_bw_views"
+             android:orientation="horizontal">
+ 
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:orientation="vertical"
+                 android:weightSum="2">
+ 
+                 <com.igniva.spplitt.ui.views.TextViewRegular
+                     android:id="@+id/tv_location_head"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:text="@string/my_location"
+                     android:textColor="@color/colorPrimaryDark"
+                     android:textSize="@dimen/btn_textSize" />
+ 
+                 <com.igniva.spplitt.ui.views.TextViewNonRegular
+                     android:id="@+id/tv_my_location"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:gravity="center_vertical"
+                     android:text="@string/my_location"
+                     android:textColor="@color/nav_text_color"
+                     android:textSize="@dimen/tv_textSize" />
+             </LinearLayout>
+ 
+ 
+             <com.igniva.spplitt.ui.views.ButtonRegular
+                 android:id="@+id/btn_change_adlocation"
+                 style="@style/BtnTheme"
+                 android:layout_width="100dp"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentRight="true"
+                 android:text="@string/change"
+                 android:textColor="@color/colorPrimaryDark" />
+ 
+         </RelativeLayout>
+ 
+     </android.support.v7.widget.CardView>
+ 
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="@dimen/outer_margin_bw_views"
+         android:orientation="horizontal"
+         android:weightSum="2">
+ 
+         <Button
+             android:id="@+id/btn_active_ad"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:background="@mipmap/ic_active_ads_hover"
+             android:onClick="onClick" />
+ 
+         <Button
+             android:id="@+id/btn_close_ad"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:background="@mipmap/ic_closed_ads"
+             android:onClick="onClick" />
+     </LinearLayout>
+ 
+     <android.support.v7.widget.RecyclerView
+         android:id="@+id/rv_ads"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_marginLeft="@dimen/rv_outer_margin"
+         android:layout_marginRight="@dimen/rv_outer_margin"
+         android:overScrollMode="never"
+         android:scrollbars="none" />-->
 </LinearLayout>

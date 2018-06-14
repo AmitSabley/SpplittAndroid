@@ -174,11 +174,13 @@ public class LoginActivity extends BaseActivity {
                 PreferenceHandler.writeString(this, PreferenceHandler.AD_COUNTRY_NAME, dataPojo.getPreferred_country_name());
                 PreferenceHandler.writeString(this, PreferenceHandler.AD_STATE_NAME, dataPojo.getPreferred_state_name());
                 PreferenceHandler.writeString(this, PreferenceHandler.AD_CITY_NAME, dataPojo.getPreferred_city_name());
+                           
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
+           
             }
         } catch (Exception e) {
             e.printStackTrace();

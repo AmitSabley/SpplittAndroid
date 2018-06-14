@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/my_location"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/yellow"
                     android:textSize="@dimen/btn_textSize" />
 
                 <com.igniva.spplitt.ui.views.TextViewNonRegular
@@ -36,7 +36,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/my_location"
-                    android:textColor="@color/nav_text_color"
+                    android:textColor="@color/yellow"
                     android:textSize="@dimen/tv_textSize" />
             </LinearLayout>
 
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/change"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/yellow" />
 
         </RelativeLayout>
 

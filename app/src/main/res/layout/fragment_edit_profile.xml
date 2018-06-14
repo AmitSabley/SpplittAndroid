@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/ic_login_bg"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
 
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -24,18 +25,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
                     android:orientation="vertical">
 
-                    <com.igniva.spplitt.ui.views.RoundedImageView
-                        android:id="@+id/riv_userImage_edit"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/ic_default_user"
-                        android:scaleType="centerCrop"
-                        app:civ_border_color="@color/colorPrimary"
-                        app:civ_border_width="2dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:gravity="center">
+
+                        <com.igniva.spplitt.ui.views.RoundedImageView
+                            android:id="@+id/riv_userImage_edit"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:onClick="onClick"
+                            android:src="@mipmap/ic_default_user"
+                            app:civ_border_color="@color/yellow"
+                            app:civ_border_width="2dp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -43,10 +50,6 @@
                         android:layout_margin="@dimen/outer_margin_bw_views"
                         android:orientation="vertical">
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorPrimaryDark" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -70,7 +73,7 @@
                                     android:layout_width="1dp"
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="10dp"
-                                    android:background="@color/colorPrimaryDark" />
+                                    android:background="@color/colorBackground" />
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -80,15 +83,17 @@
                                         android:id="@+id/et_email_edit"
                                         style="@style/EditTextTheme"
                                         android:layout_width="match_parent"
-                                        android:editable="false"
-                                        android:cursorVisible="false"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:clickable="false"
                                         android:layout_height="wrap_content"
                                         android:layout_toLeftOf="@+id/btn_change_email_edit"
+                                        android:clickable="false"
+                                        android:cursorVisible="false"
+                                        android:editable="false"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
                                         android:hint="@string/hint_email_edit"
                                         android:inputType="textEmailAddress"
+                                        android:textColor="@color/colorBackground"
+                                        android:textColorHint="@color/yellow"
 
                                         />
 
@@ -96,11 +101,13 @@
                                         android:id="@+id/btn_change_email_edit"
                                         android:layout_width="wrap_content"
                                         android:layout_height="25dp"
-                                        android:src="@mipmap/ic_edit"
-
-                                        android:padding="10dp" android:background="@android:color/transparent"
                                         android:layout_alignParentRight="true"
-                                        android:text="@string/change" />
+                                        android:background="@android:color/transparent"
+                                        android:backgroundTint="@color/yellow"
+                                        android:padding="10dp"
+                                        android:src="@mipmap/ic_edit"
+                                        android:text="@string/change"
+                                        android:tint="@color/yellow" />
                                 </RelativeLayout>
                             </LinearLayout>
 
@@ -108,7 +115,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@color/colorPrimaryDark" />
+                                android:background="@color/yellow" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -133,7 +140,7 @@
                                     android:layout_width="1dp"
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="10dp"
-                                    android:background="@color/colorPrimaryDark" />
+                                    android:background="@color/colorBackground" />
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -143,25 +150,28 @@
                                         android:id="@+id/et_mobile_no_edit"
                                         style="@style/EditTextTheme"
                                         android:layout_width="match_parent"
-                                        android:editable="false"
-                                        android:cursorVisible="false"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:clickable="false"
                                         android:layout_height="wrap_content"
                                         android:layout_toLeftOf="@+id/btn_change_password"
+                                        android:clickable="false"
+                                        android:cursorVisible="false"
+                                        android:editable="false"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
                                         android:hint="@string/hint_mobile_edit"
-                                        android:inputType="number" />
+                                        android:inputType="number"
+                                        android:textColor="@color/colorBackground"
+                                        android:textColorHint="@color/yellow" />
 
                                     <ImageButton
                                         android:id="@+id/btn_edit_mobileno"
                                         android:layout_width="wrap_content"
                                         android:layout_height="25dp"
-                                        android:src="@mipmap/ic_edit"
-                                        android:padding="10dp"
-                                        android:background="@android:color/transparent"
                                         android:layout_alignParentRight="true"
-                                        android:text="@string/change" />
+                                        android:background="@android:color/transparent"
+                                        android:padding="10dp"
+                                        android:src="@mipmap/ic_edit"
+                                        android:text="@string/change"
+                                        android:tint="@color/yellow" />
                                 </RelativeLayout>
                             </LinearLayout>
 
@@ -169,7 +179,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@color/colorPrimaryDark" />
+                                android:background="@color/yellow" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -196,13 +206,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@mipmap/ic_user" />
+                            android:src="@mipmap/ic_user"
+                            android:tint="@color/yellow" />
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/colorBackground" />
 
                         <com.igniva.spplitt.ui.views.EditTextNonRegular
                             android:id="@+id/et_username_edit"
@@ -210,14 +221,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_username"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:textColorHint="@color/yellow" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -242,13 +255,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
-                                android:src="@mipmap/ic_age" />
+                                android:src="@mipmap/ic_age"
+                                android:tint="@color/yellow" />
 
                             <View
                                 android:layout_width="1dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
-                                android:background="@color/colorPrimaryDark" />
+                                android:background="@color/colorBackground" />
 
                             <com.igniva.spplitt.ui.views.EditTextNonRegular
                                 android:id="@+id/et_age_edit"
@@ -256,14 +270,16 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/hint_age"
-                                android:inputType="number" />
+                                android:inputType="number"
+                                android:textColor="@color/colorBackground"
+                                android:textColorHint="@color/yellow" />
                         </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginTop="5dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/yellow" />
                     </LinearLayout>
 
                     <ToggleButton
@@ -299,13 +315,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@mipmap/ic_location" />
+                            android:src="@mipmap/ic_location"
+                            android:tint="@color/yellow" />
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/colorBackground" />
 
                         <!--<AutoCompleteTextView
                             android:id="@+id/actv_countries"
@@ -322,13 +339,15 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"
-                            android:focusable="true"
-                            android:onClick="onClick"
-                            android:text="@string/select_your_country"
                             android:layout_gravity="center_horizontal"
                             android:drawableRight="@mipmap/ic_dpd_arrow"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:hint="@string/select_your_country"
+                            android:onClick="onClick"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/colorBackground"
+                            android:textColorHint="@color/yellow"
                             android:textSize="@dimen/tv_textSize" />
 
                     </LinearLayout>
@@ -337,8 +356,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -355,13 +375,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@mipmap/ic_location" />
+                            android:src="@mipmap/ic_location"
+                            android:tint="@color/yellow" />
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/colorBackground" />
 
                         <!--<AutoCompleteTextView
                             android:id="@+id/actv_countries"
@@ -377,13 +398,15 @@
                             android:layout_height="30dp"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:onClick="onClick"
                             android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"
-                            android:drawableRight="@mipmap/ic_dpd_arrow"
-                            android:text="@string/select_your_state"
                             android:layout_gravity="center_horizontal"
+                            android:drawableRight="@mipmap/ic_dpd_arrow"
+                            android:gravity="center_vertical"
+                            android:hint="@string/select_your_state"
+                            android:onClick="onClick"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/colorBackground"
+                            android:textColorHint="@color/yellow"
                             android:textSize="@dimen/tv_textSize" />
 
                     </LinearLayout>
@@ -392,8 +415,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -410,13 +434,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
-                            android:src="@mipmap/ic_location" />
+                            android:src="@mipmap/ic_location"
+                            android:tint="@color/yellow" />
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/colorPrimaryDark" />
+                            android:background="@color/colorBackground" />
 
                         <!--<AutoCompleteTextView
                             android:id="@+id/actv_cities"
@@ -433,12 +458,14 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"
-                            android:onClick="onClick"
-                            android:drawableRight="@mipmap/ic_dpd_arrow"
-                            android:text="@string/select_your_city"
                             android:layout_gravity="center_horizontal"
+                            android:drawableRight="@mipmap/ic_dpd_arrow"
+                            android:gravity="center_vertical"
+                            android:hint="@string/select_your_city"
+                            android:onClick="onClick"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/colorBackground"
+                            android:textColorHint="@color/yellow"
                             android:textSize="@dimen/tv_textSize" />
                     </LinearLayout>
 
@@ -446,7 +473,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/yellow" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -459,11 +486,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/outer_margin_bw_views"
                         android:gravity="right"
-                        android:visibility="gone"
+                        android:hint="@string/track_ur_location"
                         android:onClick="onClick"
-                        android:text="@string/track_ur_location"
-                        android:textColor="@color/colorGrey"
-                        android:textSize="@dimen/btn_textSize" />
+                        android:textColorHint="@color/yellow"
+                        android:textSize="@dimen/btn_textSize"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -472,7 +499,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/inner_margin_bw_views"
-                    android:background="@color/colorPrimaryDark"
+                    android:background="@color/yellow"
                     android:text="@string/submit"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/btn_textSize"

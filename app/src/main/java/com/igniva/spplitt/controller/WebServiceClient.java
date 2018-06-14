@@ -73,7 +73,7 @@ public class WebServiceClient {
     private static final String HTTP_FLAG_AD = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/flagAd";
     private static final String HTTP_GET_ADS_DESC = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/adDetails";
     private static final String HTTP_SEARCH_ADS = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/getAds";
-    public static final String MULTIPART_URL = "http://api.spplitt.com/upload.php";
+    public static final String MULTIPART_URL = "https://api.spplitt.com/upload.php";
     public static String API_BASE = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
     private static final String HTTP_CITY_LIST = HTTP_PROTOCOL + HTTP_HOST_IP + "/countries/getCity";
     private static final String HTTP_OTHER_PROFILE = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/getProfile";

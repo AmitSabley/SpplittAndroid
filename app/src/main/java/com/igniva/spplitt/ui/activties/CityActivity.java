@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +34,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Created by igniva-php-08 on 4/7/16.
  */
 public class CityActivity extends BaseActivity {
-    private static final String LOG_TAG = "CityActivity" ;
+    private static final String LOG_TAG = "CityActivity";
     TextView mToolbarTvText;
     RecyclerView recyclerView;
     RecyclerViewFastScroller fastScroller;
@@ -65,32 +65,33 @@ public class CityActivity extends BaseActivity {
     String userEmail;
     int userGender;
     String from;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_recycler_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent in=getIntent();
-        mCountryId=in.getStringExtra("countryId");
-        mCountryName=in.getStringExtra("countryName");
-        stateId=in.getStringExtra("stateId");
-        stateName=in.getStringExtra("stateName");
+        Intent in = getIntent();
+        mCountryId = in.getStringExtra("countryId");
+        mCountryName = in.getStringExtra("countryName");
+        stateId = in.getStringExtra("stateId");
+        stateName = in.getStringExtra("stateName");
 
-        if(in.hasExtra("userName")) {
-            userName=in.getStringExtra("userName");
+        if (in.hasExtra("userName")) {
+            userName = in.getStringExtra("userName");
         }
-        if(in.hasExtra("userPassword")) {
-            userPassword=in.getStringExtra("userPassword");
+        if (in.hasExtra("userPassword")) {
+            userPassword = in.getStringExtra("userPassword");
         }
-        if(in.hasExtra("userEmail")) {
-            userEmail=in.getStringExtra("userEmail");
+        if (in.hasExtra("userEmail")) {
+            userEmail = in.getStringExtra("userEmail");
         }
-        if(in.hasExtra("userGender")) {
-            userGender=in.getIntExtra("userGender",0);
+        if (in.hasExtra("userGender")) {
+            userGender = in.getIntExtra("userGender", 0);
         }
-        if(in.hasExtra("from")) {
-            from=in.getStringExtra("from");
+        if (in.hasExtra("from")) {
+            from = in.getStringExtra("from");
         }
         setUpLayouts();
     }
@@ -109,7 +110,7 @@ public class CityActivity extends BaseActivity {
     @Override
     public void setDataInViewLayouts() {
 
-        adapter = new CityAdapter(this, listCities,mCountryId,mCountryName,stateId,stateName,userName,userPassword,userEmail,userGender,from);
+        adapter = new CityAdapter(this, listCities, mCountryId, mCountryName, stateId, stateName, userName, userPassword, userEmail, userGender, from);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
@@ -121,7 +122,7 @@ public class CityActivity extends BaseActivity {
                 if (firstVisibleItemPosition != 0) {
                     // this avoids trying to handle un-needed calls
                     if (firstVisibleItemPosition == -1)
-                    //not initialized, or no items shown, so hide fast-scroller
+                        //not initialized, or no items shown, so hide fast-scroller
                         fastScroller.setVisibility(View.GONE);
                     return;
                 }
@@ -137,7 +138,7 @@ public class CityActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.toolbar_btn_back:
                 App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
@@ -158,7 +159,7 @@ public class CityActivity extends BaseActivity {
         }
     }
 
-//     Cities data
+    //     Cities data
 //     Saving data to json...
     private String createCityListPayload(String countryId) {
         String payload = null;
@@ -173,6 +174,7 @@ public class CityActivity extends BaseActivity {
         }
         return payload;
     }
+
     ResponseHandlerListener responseHandlerListener = new ResponseHandlerListener() {
         @Override
         public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
@@ -202,7 +204,7 @@ public class CityActivity extends BaseActivity {
             } else {
                 //Success
                 DataPojo dataPojo = result.getData();
-                listCities =     dataPojo.getCityList();
+                listCities = dataPojo.getCityList();
                 setDataInViewLayouts();
 //                mArrayListCityName.clear();
 //                mArrayListCityId.clear();
@@ -224,6 +226,9 @@ public class CityActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem item = menu.getItem(0);
+        Drawable icon = item.getIcon();
+        Utility.applyTint(icon);
         return true;
     }
 
@@ -246,7 +251,7 @@ public class CityActivity extends BaseActivity {
                         if (!newText.toString().trim().equals("")) {
                             adapter.getFilter().filter(newText);
                         } else {
-                            adapter = new CityAdapter(CityActivity.this, listCities,mCountryId,mCountryName,stateId,stateName,  userName, userPassword, userEmail, userGender, from);
+                            adapter = new CityAdapter(CityActivity.this, listCities, mCountryId, mCountryName, stateId, stateName, userName, userPassword, userEmail, userGender, from);
                             recyclerView.setAdapter(adapter);
                         }
                         return false;
@@ -257,7 +262,7 @@ public class CityActivity extends BaseActivity {
         return false;
     }
 
-    
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

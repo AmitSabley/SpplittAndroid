@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
 
->
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_notifications"
@@ -14,39 +15,43 @@
         android:layout_marginRight="@dimen/rv_outer_margin"
         android:layout_marginTop="@dimen/rv_outer_margin"
         android:scrollbars="none" />
+
     <com.igniva.spplitt.ui.views.TextViewRegular
-        android:layout_centerInParent="true"
         android:id="@+id/tv_no_notifications_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:gravity="center"
-        android:textSize="@dimen/btn_textSize"
-        android:text="@string/no_notifications_found" />
+        android:text="@string/no_notifications_found"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/btn_textSize" />
 
     <LinearLayout
 
-        android:visibility="gone"
         android:id="@+id/ll_loading_more"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ProgressBar
             style="@style/Base.Widget.AppCompat.ProgressBar"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:backgroundTint="@color/yellow"
             android:indeterminate="true"
             android:visibility="visible" />
 
         <TextView
-            android:textColor="@android:color/tab_indicator_text"
-            android:textSize="17sp"
-            android:layout_marginLeft="20dp"
-            android:text="Loading..."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Loading..."
+            android:textColor="@color/yellow"
+            android:textColorHint="@color/yellow"
+            android:textSize="17sp"
             android:visibility="visible" />
 
 

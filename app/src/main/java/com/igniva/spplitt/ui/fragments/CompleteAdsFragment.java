@@ -3,6 +3,7 @@ package com.igniva.spplitt.ui.fragments;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
@@ -335,6 +336,9 @@ public class CompleteAdsFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_my_ads, menu);
+        MenuItem item = menu.getItem(0);
+        Drawable icon = item.getIcon();
+        Utility.applyTint(icon);
         super.onCreateOptionsMenu(menu, inflater);
 
     }

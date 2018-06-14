@@ -6,20 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
@@ -60,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
 //    SharedPreferences.Editor editor;
     public static List<CountriesListPojo> listCountries;
     ConnectionDetector mConnectionDetector;
-    LinearLayout ll_main;
+//    RelativeLayout ll_main;
     boolean val;
 
 
@@ -79,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
 
-        ll_main = (LinearLayout) findViewById(R.id.ll_main);
+//        ll_main = (RelativeLayout)findViewById(R.id.ll_main);
         val = checkInternetConnection();
 
 
@@ -125,6 +120,9 @@ public class SplashActivity extends AppCompatActivity {
 
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
+                        // Start IntentService to register this application with GCM.
+           
+//         
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
 
@@ -136,23 +134,23 @@ public class SplashActivity extends AppCompatActivity {
     private boolean checkInternetConnection() {
         mConnectionDetector = new ConnectionDetector(SplashActivity.this);
         if (!mConnectionDetector.isConnectingToInternet()) {
-            Snackbar snackbar = Snackbar
-                    .make(ll_main, "No internet connection!", Snackbar.LENGTH_SHORT)
-                    .setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            checkInternetConnection();
-                        }
-                    });
-
-            // Changing message text color
-            snackbar.setActionTextColor(Color.RED);
-
-            // Changing action button text color
-            View sbView = snackbar.getView();
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.YELLOW);
-            snackbar.show();
+//            Snackbar snackbar = Snackbar
+//                    .make(ll_main, "No internet connection!", Snackbar.LENGTH_SHORT)
+//                    .setAction("RETRY", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            checkInternetConnection();
+//                        }
+//                    });
+//
+//            // Changing message text color
+//            snackbar.setActionTextColor(Color.RED);
+//
+//            // Changing action button text color
+//            View sbView = snackbar.getView();
+//            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+//            textView.setTextColor(Color.YELLOW);
+//            snackbar.show();
             return false;
         }
         return true;
@@ -257,7 +255,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         } else {
-            startActivity(new Intent(getApplicationContext(), LoginOptionActivity.class));
+            startActivity(new Intent(getApplicationContext(), WalkthroughActivity.class));
             finish();
         }
     }

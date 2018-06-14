@@ -28,7 +28,7 @@ public class WebServiceClientUploadImage extends
     MultipartEntity mReqEntity;
     Context mContext;
     ProgressDialog progressDialog;
-    StringBuilder builder;
+    StringBuilder builder = new StringBuilder();
     AsyncResult mCallBack;
     int urlNo;
     public WebServiceClientUploadImage(Context mContext,AsyncResult callBack,String urlString, MultipartEntity reqEntity,int urlNo) {

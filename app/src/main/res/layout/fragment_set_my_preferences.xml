@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <ScrollView
@@ -14,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/outer_margin_bw_views"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,13 +32,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_category" />
+                        android:src="@mipmap/ic_category"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
+
                     <com.igniva.spplitt.ui.views.MultiSpinner
                         android:id="@+id/sp_categories_pref"
                         android:layout_width="match_parent"
@@ -45,24 +49,27 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="@dimen/tv_textSize"/>
-                   <!-- <Spinner
-                        android:id="@+id/sp_categories_pref"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="@dimen/tv_textSize" />-->
+                        android:backgroundTint="@color/yellow"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="@dimen/tv_textSize" />
+                    <!-- <Spinner
+                         android:id="@+id/sp_categories_pref"
+                         android:layout_width="match_parent"
+                         android:layout_height="30dp"
+                         android:layout_alignParentEnd="true"
+                         android:layout_alignParentRight="true"
+                         android:layout_centerVertical="true"
+                         android:layout_gravity="center_horizontal"
+                         android:textSize="@dimen/tv_textSize" />-->
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,13 +86,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_location" />
+                        android:src="@mipmap/ic_location"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <!--<AutoCompleteTextView
                         android:id="@+id/actv_countries"
@@ -102,13 +110,15 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
-                        android:focusable="true"
-                        android:onClick="onClick"
-                        android:text="@string/select_your_country"
                         android:layout_gravity="center_horizontal"
                         android:drawableRight="@mipmap/ic_dpd_arrow"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/select_your_country"
+                        android:onClick="onClick"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textSize="@dimen/tv_textSize" />
 
                 </LinearLayout>
@@ -117,8 +127,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,13 +146,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_location" />
+                        android:src="@mipmap/ic_location"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <!--<AutoCompleteTextView
                         android:id="@+id/actv_countries"
@@ -157,13 +169,15 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:onClick="onClick"
                         android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
-                        android:drawableRight="@mipmap/ic_dpd_arrow"
-                        android:text="@string/select_your_state"
                         android:layout_gravity="center_horizontal"
+                        android:drawableRight="@mipmap/ic_dpd_arrow"
+                        android:gravity="center_vertical"
+                        android:hint="@string/select_your_state"
+                        android:onClick="onClick"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textSize="@dimen/tv_textSize" />
 
                 </LinearLayout>
@@ -172,8 +186,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -190,13 +205,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_location" />
+                        android:src="@mipmap/ic_location"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <!--<AutoCompleteTextView
                         android:id="@+id/actv_cities"
@@ -213,12 +229,14 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
-                        android:onClick="onClick"
-                        android:drawableRight="@mipmap/ic_dpd_arrow"
-                        android:text="@string/select_your_city"
                         android:layout_gravity="center_horizontal"
+                        android:drawableRight="@mipmap/ic_dpd_arrow"
+                        android:gravity="center_vertical"
+                        android:hint="@string/select_your_city"
+                        android:onClick="onClick"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textSize="@dimen/tv_textSize" />
                 </LinearLayout>
 
@@ -226,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <LinearLayout
@@ -245,28 +263,31 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_calendar" />
+                        android:src="@mipmap/ic_calendar"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
                         android:id="@+id/tv_select_date_range"
                         style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
                         android:background="@android:color/transparent"
-                        android:gravity="left|center"
-                        android:textStyle="normal"
                         android:clickable="true"
                         android:editable="false"
                         android:focusable="false"
-                        android:paddingLeft="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:gravity="left|center"
                         android:hint="@string/date_range"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
+                        android:textStyle="normal" />
 
                 </LinearLayout>
 
@@ -274,24 +295,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
+
             <com.igniva.spplitt.ui.views.ButtonRegular
                 android:id="@+id/btn_submit_set_pref"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/outer_margin_bw_views"
                 android:layout_marginTop="@dimen/inner_margin_bw_views"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/yellow"
                 android:onClick="onClick"
                 android:text="@string/submit"
-                android:layout_marginBottom="@dimen/outer_margin_bw_views"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/btn_textSize"
                 android:textStyle="bold" />
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/outer_margin_bw_views"
-                />
+                android:layout_height="@dimen/outer_margin_bw_views" />
         </LinearLayout>
     </ScrollView>
 

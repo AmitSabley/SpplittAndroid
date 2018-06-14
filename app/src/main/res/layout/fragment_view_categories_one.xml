@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,38 +11,47 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/card_change_location"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/rv_outer_margin"
             android:layout_marginRight="@dimen/rv_outer_margin"
-            android:layout_marginTop="@dimen/rv_outer_margin"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="@dimen/rv_outer_margin">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
+                android:layout_marginBottom="@dimen/rv_outer_margin"
                 android:layout_marginLeft="@dimen/outer_margin_bw_views"
                 android:layout_marginTop="@dimen/rv_outer_margin"
-                android:layout_marginBottom="@dimen/rv_outer_margin"
                 android:orientation="horizontal">
+
                 <com.igniva.spplitt.ui.views.TextViewNonRegular
                     android:id="@+id/tv_my_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
+
                     android:drawableLeft="@mipmap/location"
                     android:drawablePadding="10dp"
-                    android:text="@string/set_location"
+                    android:drawableTint="@color/yellow"
+                    android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:layout_toLeftOf="@+id/btn_change_location"
-                    android:textColor="@color/nav_text_color"
+                    android:text="@string/set_location"
+                    android:textColor="@color/yellow"
                     android:textSize="@dimen/tv_textSize" />
+
+
                 <Button
                     android:id="@+id/btn_change_location"
                     android:layout_width="40dp"
-                    android:layout_alignParentRight="true"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:background="@android:color/transparent"
-                    android:drawableRight="@mipmap/ic_edit"/>
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/location"
+                    android:drawableTint="@color/yellow"
+                    android:padding="20dp" />
+
+
             </RelativeLayout>
 
             <!--<RelativeLayout
@@ -136,6 +146,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:visibility="gone"
-        android:src="@mipmap/ic_add_white" />
+        android:src="@mipmap/ic_add_white"
+        android:visibility="gone" />
 </android.support.design.widget.CoordinatorLayout>

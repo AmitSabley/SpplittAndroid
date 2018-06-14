@@ -34,13 +34,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_category" />
+                        android:src="@mipmap/ic_category"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <Spinner
                         android:id="@+id/sp_categories"
@@ -50,6 +51,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
+                        android:backgroundTint="@color/yellow"
+
+                        android:textColor="@color/colorBackground"
                         android:textSize="@dimen/tv_textSize" />
 
                 </LinearLayout>
@@ -58,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <com.igniva.spplitt.ui.views.EditTextNonRegular
@@ -71,7 +75,9 @@
                 android:background="@drawable/square_edittext"
                 android:hint="@string/hint_ad_title"
                 android:inputType="text"
-                android:maxLength="50" />
+                android:maxLength="50"
+                android:textColor="@color/colorBackground"
+                android:textColorHint="@color/yellow" />
 
             <com.igniva.spplitt.ui.views.ActionEditText
                 android:id="@+id/et_ad_desc"
@@ -86,7 +92,9 @@
                 android:imeOptions="actionDone"
                 android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
                 android:maxLength="250"
-                android:paddingTop="5dp" />
+                android:paddingTop="5dp"
+                android:textColor="@color/colorBackground"
+                android:textColorHint="@color/yellow" />
             <!--<RelativeLayout
                 android:id="@+id/rl_desc"
                 android:layout_width="match_parent"
@@ -126,20 +134,21 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_calendar" />
+                        android:src="@mipmap/ic_calendar"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
                         android:id="@+id/tv_select_date"
                         style="@style/EditTextTheme"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:background="@android:color/transparent"
+                        android:background="@null"
                         android:clickable="true"
                         android:editable="false"
                         android:focusable="false"
@@ -147,6 +156,8 @@
                         android:hint="@string/hint_date"
                         android:inputType="text"
                         android:paddingLeft="10dp"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textStyle="normal" />
 
                 </LinearLayout>
@@ -155,7 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <LinearLayout
@@ -176,13 +187,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_select_time" />
+                        android:src="@mipmap/ic_select_time"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <com.igniva.spplitt.ui.views.EditTextNonRegular
                         android:id="@+id/btn_time"
@@ -197,6 +209,8 @@
                         android:hint="@string/hint_time"
                         android:inputType="text"
                         android:paddingLeft="10dp"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textStyle="normal" />
 
                 </LinearLayout>
@@ -205,7 +219,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <LinearLayout
@@ -226,13 +240,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_location" />
+                        android:src="@mipmap/ic_location"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <!--<AutoCompleteTextView
                         android:id="@+id/actv_countries"
@@ -250,12 +265,15 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
+                        android:backgroundTint="@color/yellow"
                         android:drawableRight="@mipmap/ic_dpd_arrow"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:hint="@string/select_your_country"
                         android:onClick="onClick"
                         android:paddingLeft="10dp"
-                        android:text="@string/select_your_country"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textSize="@dimen/tv_textSize" />
 
                 </LinearLayout>
@@ -264,7 +282,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <LinearLayout
@@ -285,13 +303,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_location" />
+                        android:src="@mipmap/ic_location"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <!--<AutoCompleteTextView
                         android:id="@+id/actv_countries"
@@ -309,11 +328,14 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
+                        android:backgroundTint="@color/yellow"
                         android:drawableRight="@mipmap/ic_dpd_arrow"
                         android:gravity="center_vertical"
+                        android:hint="@string/select_your_state"
                         android:onClick="onClick"
                         android:paddingLeft="10dp"
-                        android:text="@string/select_your_state"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textSize="@dimen/tv_textSize" />
 
                 </LinearLayout>
@@ -322,7 +344,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <LinearLayout
@@ -343,13 +365,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_location" />
+                        android:src="@mipmap/ic_location"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <!--<AutoCompleteTextView
                         android:id="@+id/actv_cities"
@@ -367,11 +390,14 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
+                        android:backgroundTint="@color/yellow"
                         android:drawableRight="@mipmap/ic_dpd_arrow"
                         android:gravity="center_vertical"
+                        android:hint="@string/select_your_city"
                         android:onClick="onClick"
                         android:paddingLeft="10dp"
-                        android:text="@string/select_your_city"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textSize="@dimen/tv_textSize" />
                 </LinearLayout>
 
@@ -379,7 +405,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <RelativeLayout
@@ -396,7 +422,8 @@
                     android:gravity="right"
                     android:onClick="onClick"
                     android:text="@string/track_ur_location"
-                    android:textColor="@color/colorGrey"
+                    android:textColor="@color/colorBackground"
+                    android:textColorHint="@color/yellow"
                     android:textSize="@dimen/btn_textSize"
                     android:visibility="gone" />
 
@@ -421,21 +448,24 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:paddingTop="8dp"
                         android:paddingBottom="4dp"
-                        android:src="@mipmap/ic_splitcost" />
+                        android:paddingTop="8dp"
+                        android:src="@mipmap/ic_splitcost"
+                        android:tint="@color/yellow" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorBackground" />
 
                     <com.igniva.spplitt.ui.views.TextViewRegular
                         android:id="@+id/tv_splitt_cost_currency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
                         android:textSize="@dimen/tv_textSize"
                         android:textStyle="bold"
                         android:visibility="gone" />
@@ -444,10 +474,12 @@
                         android:id="@+id/et_splitt_cost"
                         style="@style/EditTextTheme"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:hint="@string/hint_splitt_cost"
                         android:inputType="number"
-                        android:maxLength="12" />
+                        android:maxLength="12"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow" />
 
                 </LinearLayout>
 
@@ -455,7 +487,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/yellow" />
             </LinearLayout>
 
             <com.igniva.spplitt.ui.views.ButtonRegular
@@ -465,7 +497,7 @@
                 android:layout_below="@+id/ll_split_amnt"
                 android:layout_marginBottom="@dimen/outer_margin_bw_views"
                 android:layout_marginTop="@dimen/inner_margin_bw_views"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/yellow"
                 android:onClick="onClick"
                 android:text="@string/submit"
                 android:textColor="@color/colorPrimary"

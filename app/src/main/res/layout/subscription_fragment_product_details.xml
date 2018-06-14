@@ -2,72 +2,68 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/colorPrimary">
 
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@color/colorPrimary" />
+
+    <RelativeLayout
+        android:id="@+id/monthContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
 
+        android:layout_below="@+id/tabs"
+        android:background="@color/colorPrimaryDark">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@android:color/white" />
-
-        <RelativeLayout
-            android:id="@+id/monthContainer"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/monthTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@android:color/white" />
 
+        <ImageView
+            android:id="@+id/prevMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:padding="5dp"
+            android:src="@mipmap/logo_icon" />
 
-            android:layout_below="@+id/tabs"
-            android:background="@color/colorPrimaryDark">
-
-            <TextView
-                android:id="@+id/monthTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:padding="10dp"
-                android:textColor="@android:color/white" />
-
-            <ImageView
-                android:id="@+id/prevMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:padding="5dp"
-                android:src="@mipmap/ic_launcher" />
-
-            <ImageView
-                android:id="@+id/nextMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:padding="5dp"
-                android:src="@mipmap/ic_launcher" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/monthPagerLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/monthContainer"
-            android:orientation="vertical">
-
-            <com.igniva.spplitt.ui.activties.NonSwipeableViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/nextMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:padding="5dp"
+            android:src="@mipmap/logo_icon" />
     </RelativeLayout>
-    <!--</ScrollView>-->
+
+
+    <RelativeLayout
+        android:id="@+id/monthPagerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/monthContainer"
+        android:orientation="vertical">
+
+        <com.igniva.spplitt.ui.activties.NonSwipeableViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</RelativeLayout><!--</ScrollView>-->
 

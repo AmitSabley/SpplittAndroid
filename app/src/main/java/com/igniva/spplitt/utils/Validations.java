@@ -209,12 +209,13 @@ public class Validations {
      * @param mSpCategories
      * @param mEtAdTitle
      * @param mEtAdDesc
+     * @param mEtNoOfPeople
      * @param mEtSelectDate
      * @param mEtSelectTime
      * @param mCountryId
      * @param mEtSplittCost
      */
-    public boolean isValidatePostAd(Context applicationContext, Spinner mSpCategories, EditText mEtAdTitle, EditText mEtAdDesc, EditText mEtSelectDate, EditText mEtSelectTime, String mCountryId, String mStateId, String mCityId, EditText mEtSplittCost) {
+    public boolean isValidatePostAd(Context applicationContext, Spinner mSpCategories, EditText mEtAdTitle, EditText mEtAdDesc, EditText mEtNoOfPeople, EditText mEtSelectDate, EditText mEtSelectTime, String mCountryId, String mStateId, String mCityId, EditText mEtSplittCost) {
         if (!validateCategory(applicationContext, mSpCategories)) {
             return false;
         }
@@ -222,6 +223,9 @@ public class Validations {
             return false;
         }
         if (!validateDesc(applicationContext, mEtAdDesc)) {
+            return false;
+        }
+        if (!validateNoOfPeople(applicationContext, mEtNoOfPeople)) {
             return false;
         }
         if (!validateDate(applicationContext, mEtSelectDate)) {
@@ -582,6 +586,15 @@ public class Validations {
 //            mEtAdDesc.setError(applicationContext.getString(R.string.err_msg_adDesc));
             Utility.showToastMessageLong(applicationContext, applicationContext.getResources().getString(R.string.err_msg_adDesc));
             requestFocus(applicationContext, mEtAdDesc);
+            return false;
+        }
+        return true;
+    }
+    private boolean validateNoOfPeople(Context applicationContext, EditText mEtNoOfPeople) {
+        if (mEtNoOfPeople.getText().toString().trim().isEmpty()) {
+//            mEtNoOfPeople.setError(applicationContext.getString(R.string.err_msg_adDesc));
+            Utility.showToastMessageLong(applicationContext, applicationContext.getResources().getString(R.string.err_no_of_people_to_spplitt_with));
+            requestFocus(applicationContext, mEtNoOfPeople);
             return false;
         }
         return true;

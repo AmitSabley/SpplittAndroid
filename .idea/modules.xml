@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SpplittAndroid.iml" filepath="$PROJECT_DIR$/SpplittAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SpplittAndroid.iml" filepath="$PROJECT_DIR$/.idea/SpplittAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

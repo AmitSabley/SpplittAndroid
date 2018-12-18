@@ -68,23 +68,23 @@ public class StateActivity extends BaseActivity {
         setContentView(R.layout.fragment_recycler_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent in=getIntent();
-        countryId=in.getStringExtra("country_id");
-        countryName=in.getStringExtra("country_name");
-        if(in.hasExtra("userName")) {
-            userName=in.getStringExtra("userName");
+        Intent in = getIntent();
+        countryId = in.getStringExtra("country_id");
+        countryName = in.getStringExtra("country_name");
+        if (in.hasExtra("userName")) {
+            userName = in.getStringExtra("userName");
         }
-        if(in.hasExtra("userPassword")) {
-            userPassword=in.getStringExtra("userPassword");
+        if (in.hasExtra("userPassword")) {
+            userPassword = in.getStringExtra("userPassword");
         }
-        if(in.hasExtra("userEmail")) {
-            userEmail=in.getStringExtra("userEmail");
+        if (in.hasExtra("userEmail")) {
+            userEmail = in.getStringExtra("userEmail");
         }
-        if(in.hasExtra("userGender")) {
-            userGender=in.getIntExtra("userGender",0);
+        if (in.hasExtra("userGender")) {
+            userGender = in.getIntExtra("userGender", 0);
         }
-        if(in.hasExtra("from")) {
-            from=in.getStringExtra("from");
+        if (in.hasExtra("from")) {
+            from = in.getStringExtra("from");
         }
         setUpLayouts();
     }
@@ -103,7 +103,7 @@ public class StateActivity extends BaseActivity {
     @Override
     public void setDataInViewLayouts() {
 
-        adapter = new StateAdapter(this, listStates,countryId,countryName,userName,userPassword,userEmail,userGender,from);
+        adapter = new StateAdapter(this, listStates, countryId, countryName, userName, userPassword, userEmail, userGender, from);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
@@ -115,7 +115,7 @@ public class StateActivity extends BaseActivity {
                 if (firstVisibleItemPosition != 0) {
                     // this avoids trying to handle un-needed calls
                     if (firstVisibleItemPosition == -1)
-                    //not initialized, or no items shown, so hide fast-scroller
+                        //not initialized, or no items shown, so hide fast-scroller
                         fastScroller.setVisibility(View.GONE);
                     return;
                 }
@@ -131,7 +131,7 @@ public class StateActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.toolbar_btn_back:
                 App.getInstance().trackEvent(LOG_TAG, "Back Press", "Ad Details Back Pressed");
                 onBackPressed();
@@ -152,7 +152,7 @@ public class StateActivity extends BaseActivity {
         }
     }
 
-//Country data
+    //Country data
 //Saving data to json...
     private String createStateListPayload(String countryId) {
         String payload = null;
@@ -168,6 +168,7 @@ public class StateActivity extends BaseActivity {
         }
         return payload;
     }
+
     ResponseHandlerListener responseHandlerListener = new ResponseHandlerListener() {
         @Override
         public void onComplete(ResponsePojo result, WebServiceClient.WebError error, ProgressDialog mProgressDialog, int mUrlNo) {
@@ -232,7 +233,7 @@ public class StateActivity extends BaseActivity {
                         if (!newText.toString().trim().equals("")) {
                             adapter.getFilter().filter(newText);
                         } else {
-                            adapter = new StateAdapter(StateActivity.this, listStates,countryId,countryName,  userName, userPassword, userEmail, userGender, from);
+                            adapter = new StateAdapter(StateActivity.this, listStates, countryId, countryName, userName, userPassword, userEmail, userGender, from);
                             recyclerView.setAdapter(adapter);
                         }
                         return false;

@@ -5,7 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -19,17 +22,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
+import com.igniva.spplitt.controller.AsyncResult;
 import com.igniva.spplitt.controller.ResponseHandlerListener;
 import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
+import com.igniva.spplitt.controller.WebServiceClientUploadImage;
 import com.igniva.spplitt.model.CategoriesListPojo;
 import com.igniva.spplitt.model.DataPojo;
 import com.igniva.spplitt.model.ResponsePojo;
@@ -38,12 +47,21 @@ import com.igniva.spplitt.ui.activties.CountryActivity;
 import com.igniva.spplitt.ui.activties.MainActivity;
 import com.igniva.spplitt.ui.activties.StateActivity;
 import com.igniva.spplitt.utils.Constants;
+import com.igniva.spplitt.utils.ImagePicker;
+import com.igniva.spplitt.utils.Permissions;
 import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Validations;
 
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,8 +69,9 @@ import java.util.List;
 /**
  * Created by igniva-php-08 on 11/5/16.
  */
-public class PostAdFragment extends BaseFragment implements View.OnClickListener {
+public class PostAdFragment extends BaseFragment implements View.OnClickListener, AsyncResult {
     private static final String LOG_TAG = "PostAdFragment";
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     View view;
     static EditText mEtSelectDate;
     static EditText mEtSelectTime;
@@ -62,8 +81,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     Spinner mSpCategories;
     EditText mEtSplittCost;
     Button mBtnSubmitPostAd;
-    EditText mEtAdTitle;
-    EditText mEtAdDesc;
+    EditText mEtAdTitle, mEtAdDesc, mEtNoOfPeople;
     TextView mTvSplittCurrency;
     TextView mTvCities;
     TextView mTvCountries;
@@ -79,6 +97,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     static String mAdDate;
     static String mAdTime;
     static String mAdCurrency;
+    static String mAdNoOfPeopleToSpplittWith;
     String mAdCity;
     String mAdEdit;
     Intent in;
@@ -88,6 +107,14 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     String stateName;
     String cityId;
     boolean showStaticFields;
+    private LinearLayout mAddPhotoBox;
+    private String mImageName;
+    static Bitmap myBitmap;
+    private ImageView mImgPhoto1, mImgPhoto2, mImgPhoto3, mImgPhoto4, mImgCross1, mImgCross2,
+            mImgCross3, mImgCross4;
+    private ScrollView mScrollView;
+    private RelativeLayout mRLPhoto1, mRLPhoto2, mRLPhoto3, mRLPhoto4;
+    private HorizontalScrollView mHsv;
 
     public static PostAdFragment newInstance() {
         PostAdFragment fragment = new PostAdFragment();
@@ -114,6 +141,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             mAdCategoryId = mBundle.getString("ad_category_id");
             mAdTitle = mBundle.getString("ad_title");
             mAdDesc = mBundle.getString("ad_desc");
+            mAdNoOfPeopleToSpplittWith = mBundle.getString("ad_no_people");
             mAdDate = mBundle.getString("ad_date");
             mAdTime = mBundle.getString("ad_time");
             countryId = mBundle.getString("ad_country");
@@ -140,6 +168,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void setUpLayouts() {
+        mScrollView = (ScrollView) view.findViewById(R.id.sv_main);
         mTvCountries = (TextView) view.findViewById(R.id.tv_countries);
         mTvCountries.setOnClickListener(this);
         mTvStates = (TextView) view.findViewById(R.id.tv_states);
@@ -156,9 +185,33 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         mBtnSubmitPostAd.setOnClickListener(this);
         mEtAdTitle = (EditText) view.findViewById(R.id.et_ad_title);
         mEtAdDesc = (EditText) view.findViewById(R.id.et_ad_desc);
+        mEtNoOfPeople = (EditText) view.findViewById(R.id.et_no_of_people);
         mTvSplittCurrency = (TextView) view.findViewById(R.id.tv_splitt_cost_currency);
         mIvCurrency = (ImageView) view.findViewById(R.id.iv_currency);
-
+        mAddPhotoBox = (LinearLayout) view.findViewById(R.id.ll_add_photo_box);
+        mAddPhotoBox.setOnClickListener(this);
+        mRLPhoto1 = (RelativeLayout) view.findViewById(R.id.rl_photo1);
+        mRLPhoto1.setVisibility(View.GONE);
+        mRLPhoto2 = (RelativeLayout) view.findViewById(R.id.rl_photo2);
+        mRLPhoto2.setVisibility(View.GONE);
+        mRLPhoto3 = (RelativeLayout) view.findViewById(R.id.rl_photo3);
+        mRLPhoto3.setVisibility(View.GONE);
+        mRLPhoto4 = (RelativeLayout) view.findViewById(R.id.rl_photo4);
+        mRLPhoto4.setVisibility(View.GONE);
+        mImgPhoto1 = (ImageView) view.findViewById(R.id.img_photo1);
+        mImgPhoto2 = (ImageView) view.findViewById(R.id.img_photo2);
+        mImgPhoto3 = (ImageView) view.findViewById(R.id.img_photo3);
+        mImgPhoto4 = (ImageView) view.findViewById(R.id.img_photo4);
+        mImgCross1 = (ImageView) view.findViewById(R.id.img_cross1);
+        mImgCross1.setOnClickListener(this);
+        mImgCross2 = (ImageView) view.findViewById(R.id.img_cross2);
+        mImgCross2.setOnClickListener(this);
+        mImgCross3 = (ImageView) view.findViewById(R.id.img_cross3);
+        mImgCross3.setOnClickListener(this);
+        mImgCross4 = (ImageView) view.findViewById(R.id.img_cross4);
+        mImgCross4.setOnClickListener(this);
+        mHsv = (HorizontalScrollView) view.findViewById(R.id.hsv);
+        mHsv.setVisibility(View.GONE);
 
     }
 
@@ -193,6 +246,9 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                     }
                     if (mAdDesc != null) {
                         mEtAdDesc.setText(mAdDesc);
+                    }
+                    if (mAdNoOfPeopleToSpplittWith != null) {
+                        mEtNoOfPeople.setText(mAdNoOfPeopleToSpplittWith);
                     }
                     if (mAdDate != null) {
                         mEtSelectDate.setText(mAdDate);
@@ -238,6 +294,9 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 if (mAdDesc != null) {
                     mEtAdDesc.setText(mAdDesc);
                 }
+                if (mAdNoOfPeopleToSpplittWith != null) {
+                    mEtNoOfPeople.setText(mAdNoOfPeopleToSpplittWith);
+                }
                 if (mAdDate != null) {
                     mEtSelectDate.setText(mAdDate);
                 }
@@ -276,6 +335,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         mSpCategories.setClickable(mBoolean);
         mEtAdTitle.setEnabled(mBoolean);
         mEtAdDesc.setEnabled(mBoolean);
+        mEtNoOfPeople.setEnabled(mBoolean);
         mTvCountries.setEnabled(mBoolean);
         mTvCountries.setClickable(mBoolean);
         mTvStates.setEnabled(mBoolean);
@@ -307,7 +367,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 showTimePickerDialog(v);
                 break;
             case R.id.btn_submit_post_ad:
-                boolean val = new Validations().isValidatePostAd(getActivity(), mSpCategories, mEtAdTitle, mEtAdDesc, mEtSelectDate, mEtSelectTime, countryId, stateId, cityId, mEtSplittCost);
+                boolean val = new Validations().isValidatePostAd(getActivity(), mSpCategories, mEtAdTitle, mEtAdDesc, mEtNoOfPeople, mEtSelectDate, mEtSelectTime, countryId, stateId, cityId, mEtSplittCost);
                 if (val) {
                     mBtnSubmitPostAd.setClickable(false);
 //                  Webservice Call
@@ -324,6 +384,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                             WebServiceClient.postAd(getActivity(), createPostADPayload(), true, 4, responseHandlerListenerPostAD);
                         }
                     } else {
+
                         WebServiceClient.postAd(getActivity(), createPostADPayload(), true, 4, responseHandlerListenerPostAD);
                     }
                 }
@@ -333,6 +394,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                     mAdCategoryId = mArrayListCategoryId.get(mArrayListCategories.indexOf(mSpCategories.getSelectedItem().toString()));
                     mAdTitle = mEtAdTitle.getText().toString();
                     mAdDesc = mEtAdDesc.getText().toString();
+                    mAdNoOfPeopleToSpplittWith = mEtNoOfPeople.getText().toString();
                     mAdDate = mEtSelectDate.getText().toString();
                     mAdTime = mEtSelectTime.getText().toString();
                     mAdCurrency = mEtSplittCost.getText().toString();
@@ -349,6 +411,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                     mAdCategoryId = mArrayListCategoryId.get(mArrayListCategories.indexOf(mSpCategories.getSelectedItem().toString()));
                     mAdTitle = mEtAdTitle.getText().toString();
                     mAdDesc = mEtAdDesc.getText().toString();
+                    mAdNoOfPeopleToSpplittWith = mEtNoOfPeople.getText().toString();
                     mAdDate = mEtSelectDate.getText().toString();
                     mAdTime = mEtSelectTime.getText().toString();
                     mAdCurrency = mEtSplittCost.getText().toString();
@@ -366,6 +429,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                     mAdCategoryId = mArrayListCategoryId.get(mArrayListCategories.indexOf(mSpCategories.getSelectedItem().toString()));
                     mAdTitle = mEtAdTitle.getText().toString();
                     mAdDesc = mEtAdDesc.getText().toString();
+                    mAdNoOfPeopleToSpplittWith = mEtNoOfPeople.getText().toString();
                     mAdDate = mEtSelectDate.getText().toString();
                     mAdTime = mEtSelectTime.getText().toString();
                     mAdCurrency = mEtSplittCost.getText().toString();
@@ -380,7 +444,92 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                     Utility.showToastMessageShort(getActivity(), getResources().getString(R.string.msg_select_country_state));
                 }
                 break;
+            case R.id.ll_add_photo_box:
+                if (Permissions.checkPermissionCamera(getActivity())) {
+                    App.getInstance().trackEvent(LOG_TAG, "Pick Image", "Select Image");
+                    onPickImage();
+                }
+                break;
+            case R.id.img_cross1:
+                mImgPhoto1.setImageDrawable(null);
+                mRLPhoto1.setVisibility(View.GONE);
+                checkIfAllImagesAreRemoved();
+                break;
+            case R.id.img_cross2:
+                mImgPhoto2.setImageDrawable(null);
+                mRLPhoto2.setVisibility(View.GONE);
+                checkIfAllImagesAreRemoved();
+                break;
+            case R.id.img_cross3:
+                mImgPhoto3.setImageDrawable(null);
+                mRLPhoto3.setVisibility(View.GONE);
+                checkIfAllImagesAreRemoved();
+                break;
+            case R.id.img_cross4:
+                mImgPhoto4.setImageDrawable(null);
+                mRLPhoto4.setVisibility(View.GONE);
+                checkIfAllImagesAreRemoved();
+                break;
+        }
+    }
 
+    private void checkIfAllImagesAreRemoved() {
+        if (mImgPhoto1.getDrawable() == null && mImgPhoto2.getDrawable() == null
+                && mImgPhoto3.getDrawable() == null && mImgPhoto4.getDrawable() == null) {
+            mHsv.setVisibility(View.GONE);
+        }
+    }
+
+    //  Image Picker
+    public void onPickImage() {
+        try {
+            Intent chooseImageIntent = ImagePicker.getPickImageIntent(getActivity());
+            startActivityForResult(chooseImageIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (resultCode == 10) {
+//              If(resultCode == Activity.RESULT_OK){
+                Log.v("======", data + "");
+                String result = data.getStringExtra("result");
+                Log.v("======", result);
+                Utility.showToastMessageShort(getActivity(), result);
+//                }
+
+            } else {
+                Uri selectedImageURI = null;
+                if (data != null) {
+                    selectedImageURI = data.getData();
+                }
+                if (selectedImageURI != null) {
+                    mImageName = Utility.getRealPathFromURI(getActivity(), selectedImageURI);
+                    mScrollView.fullScroll(View.FOCUS_DOWN);
+                    // Gallery
+                    if (mImageName.toLowerCase().endsWith(".png") || mImageName.toLowerCase().endsWith(".jpeg") || mImageName.toLowerCase().endsWith(".jpg")) {
+                        Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                        if (bitmap != null) {
+                            setBitmapToImgViews(bitmap);
+                        }
+                    } else {
+                        Utility.showToastMessageShort(getActivity(), getResources().getString(R.string.err_invalid_image));
+                    }
+                } else {
+                    //Camera
+                    mImageName = "photo.jpg";
+                    Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                    if (bitmap != null) {
+                        setBitmapToImgViews(bitmap);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -402,6 +551,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 userData.put("cat_id", categoryId);
                 userData.put("title", mEtAdTitle.getText().toString().trim());
                 userData.put("description", mEtAdDesc.getText().toString().trim());
+                userData.put("no_people", mEtNoOfPeople.getText().toString().trim());
                 userData.put("expiration_date", mEtSelectDate.getText().toString().trim());
                 userData.put("expiration_time", mEtSelectTime.getText().toString().trim());
                 userData.put("country_id", countryId);
@@ -451,6 +601,42 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     public void showDatePickerDialog() {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
+
+    }
+
+    public void setBitmapToImgViews(Bitmap bitmap) {
+        mScrollView.fullScroll(View.FOCUS_DOWN);
+        mHsv.setVisibility(View.VISIBLE);
+        if (mImgPhoto1.getDrawable() == null) {
+            mRLPhoto1.setVisibility(View.VISIBLE);
+            mImgPhoto1.setImageBitmap(bitmap);
+        } else if (mImgPhoto2.getDrawable() == null) {
+            mRLPhoto2.setVisibility(View.VISIBLE);
+            mImgPhoto2.setImageBitmap(bitmap);
+        } else if (mImgPhoto3.getDrawable() == null) {
+            mRLPhoto3.setVisibility(View.VISIBLE);
+            mImgPhoto3.setImageBitmap(bitmap);
+        } else if (mImgPhoto4.getDrawable() == null) {
+            mRLPhoto4.setVisibility(View.VISIBLE);
+            mImgPhoto4.setImageBitmap(bitmap);
+        }
+    }
+
+    @Override
+    public void onTaskResponse(Object result, int urlResponseNo) {
+        switch (urlResponseNo) {
+            case 5:
+                //After uploading image
+                Log.e("sd", "result:" + result.toString());
+                mImgPhoto1.setImageBitmap(null);
+                mImgPhoto2.setImageBitmap(null);
+                mImgPhoto3.setImageBitmap(null);
+                mImgPhoto4.setImageBitmap(null);
+                mHsv.setVisibility(View.GONE);
+                // Toast.makeText(getActivity(), "Image Uploaded", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
 
     }
 
@@ -535,7 +721,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 mEtSelectTime.setText(hourOfDay + ":" + minute + ":00");
             }
 
-            mEtSelectTime.setTextColor(Color.BLACK);
+            mEtSelectTime.setTextColor(getActivity().getResources().getColor(R.color.colorBackground));
             mEtSelectTime.setError(null);
             mEtSelectTime.clearFocus();
         }
@@ -699,6 +885,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 userData.put("cat_id", categoryId);
                 userData.put("title", mEtAdTitle.getText().toString().trim());
                 userData.put("description", mEtAdDesc.getText().toString().trim());
+                userData.put("no_people", mEtNoOfPeople.getText().toString().trim());
                 userData.put("expiration_date", mEtSelectDate.getText().toString().trim());
                 userData.put("expiration_time", mEtSelectTime.getText().toString().trim());
                 userData.put("country_id", countryId);
@@ -735,13 +922,77 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             mAdCity = "";
             mEtAdTitle.setText("");
             mEtAdDesc.setText("");
+            mEtNoOfPeople.setText("");
             mEtSelectDate.setText("");
             mEtSelectTime.setText("");
             mEtSplittCost.setText("");
+            mTvCountries.setTextColor(getResources().getColor(R.color.yellow));
+            mTvStates.setTextColor(getResources().getColor(R.color.yellow));
+            mTvCities.setTextColor(getResources().getColor(R.color.yellow));
             mTvCountries.setText(getResources().getString(R.string.select_your_country));
             mTvStates.setText(getResources().getString(R.string.select_your_state));
             mTvCities.setText(getResources().getString(R.string.select_your_city));
 
+            String ad_id = result.getData().getAd_id();
+            // On success of PostAd, upload images
+            uploadBitmapAsMultipart(ad_id);
+
+        }
+    }
+
+    private void uploadBitmapAsMultipart(String ad_id) {
+        try {
+            App.getInstance().trackEvent(LOG_TAG, "Upload Bitmap", "Bitmap on Post Ad");
+
+            String filename = mImageName.toLowerCase();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            myBitmap = ((BitmapDrawable) mImgPhoto1.getDrawable()).getBitmap();
+            if (filename.endsWith(".png"))
+                myBitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
+            else if (filename.endsWith(".jpeg") || filename.endsWith(".jpg"))
+                myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            else
+                myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+
+            ContentBody contentPart = new ByteArrayBody(bos.toByteArray(), filename);
+
+            MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+            reqEntity.addPart("files", contentPart);
+            reqEntity.addPart("user_id", new StringBody(PreferenceHandler.readString(getActivity(), PreferenceHandler.USER_ID, ""), Charset.forName("UTF-8")));
+            reqEntity.addPart("auth_token", new StringBody(PreferenceHandler.readString(getActivity(), PreferenceHandler.AUTH_TOKEN, ""), Charset.forName("UTF-8")));
+            reqEntity.addPart("ad_id", new StringBody(ad_id, Charset.forName("UTF-8")));
+            reqEntity.addPart("deleted_ids", new StringBody("", Charset.forName("UTF-8")));
+
+            new WebServiceClientUploadImage(getActivity(), this, WebServiceClient.HTTP_POST_AD_IMAGES, reqEntity, 5).execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Permissions
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+
+            case Permissions.MY_PERMISSIONS_REQUEST_CAMERA:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+
+                {
+                    onPickImage();
+                } else
+
+                {
+                    Toast.makeText(getActivity(), "Please consider granting it Camera permission to use camera.", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
 }

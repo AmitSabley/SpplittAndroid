@@ -37,6 +37,7 @@
         <item
             android:id="@+id/nav_event_ad"
             android:icon="@mipmap/in_view_event"
+            android:visible="false"
             android:title="@string/nav_event_ad" />
     </group>
 

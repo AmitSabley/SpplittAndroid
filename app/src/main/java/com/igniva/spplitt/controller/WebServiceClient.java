@@ -49,12 +49,12 @@ public class WebServiceClient {
      * Webservice Urls
      */
 
-    public static final String HTTP_PROTOCOL = "http://";
-//    public static final String HTTP_HOST_IP = "api.spplitt.com";
-//    public final static String BASE_URL="http://api.spplitt.com/";
+    public static final String HTTP_PROTOCOL = "https://";
+    public static final String HTTP_HOST_IP = "api.spplitt.com";
+    public final static String BASE_URL="https://api.spplitt.com/";
 
-    public static final String HTTP_HOST_IP = "spplitt.ignivastaging.com";
-    public final static String BASE_URL = "http://spplitt.ignivastaging.com/";
+//    public static final String HTTP_HOST_IP = "spplitt.ignivastaging.com";
+//    public final static String BASE_URL = "http://spplitt.ignivastaging.com/";
 
 
     public static final String HTTP_LOGIN = HTTP_PROTOCOL + HTTP_HOST_IP + "/users/login?";
@@ -92,6 +92,8 @@ public class WebServiceClient {
     private static final String HTTP_STATES = HTTP_PROTOCOL + HTTP_HOST_IP + "/countries/getStates";
     private static final String HTTP_RESET_PREF = HTTP_PROTOCOL + HTTP_HOST_IP + "/Notifications/resetNotification";
     private static final String HTTP_SAVE_LOCATION = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/savePreferredLocation";
+    public static final String HTTP_POST_AD_IMAGES = HTTP_PROTOCOL + HTTP_HOST_IP + "/ads/saveAdImagesForApp";
+
 
     public WebServiceClient(Context context) {
         mContext = context;

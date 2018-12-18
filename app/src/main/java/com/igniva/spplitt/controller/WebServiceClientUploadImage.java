@@ -4,15 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.util.Log;
 
 import com.igniva.spplitt.R;
+import com.igniva.spplitt.utils.Log;
 
 import org.apache.http.entity.mime.MultipartEntity;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -31,13 +31,15 @@ public class WebServiceClientUploadImage extends
     StringBuilder builder = new StringBuilder();
     AsyncResult mCallBack;
     int urlNo;
-    public WebServiceClientUploadImage(Context mContext,AsyncResult callBack,String urlString, MultipartEntity reqEntity,int urlNo) {
-        this.mUrl=urlString;
-        this.mReqEntity=reqEntity;
-        this.mContext=mContext;
-        this.mCallBack=callBack;
-        this.urlNo=urlNo;
+
+    public WebServiceClientUploadImage(Context mContext, AsyncResult callBack, String urlString, MultipartEntity reqEntity, int urlNo) {
+        this.mUrl = urlString;
+        this.mReqEntity = reqEntity;
+        this.mContext = mContext;
+        this.mCallBack = callBack;
+        this.urlNo = urlNo;
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -45,7 +47,7 @@ public class WebServiceClientUploadImage extends
             progressDialog = ProgressDialog.show(mContext, "", mContext
                             .getResources().getString(R.string.please_wait), true,
                     false);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -99,7 +101,7 @@ public class WebServiceClientUploadImage extends
 
         } catch (SocketException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -110,10 +112,11 @@ public class WebServiceClientUploadImage extends
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        try{
+        try {
             mCallBack.onTaskResponse(result, urlNo);
+            System.out.println(result);
             progressDialog.dismiss();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

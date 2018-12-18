@@ -582,6 +582,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mBundle.putString("ad_category_id", mListAds.get(position).getCategory_id());
         mBundle.putString("ad_title", mListAds.get(position).getAd_title());
         mBundle.putString("ad_desc", mListAds.get(position).getAd_description());
+        mBundle.putString("ad_no_people", mListAds.get(position).getAd_no_people());
         mBundle.putString("ad_date", mListAds.get(position).getAd_expiration_date());
         mBundle.putString("ad_time", mListAds.get(position).getAd_expiration_time());
         mBundle.putString("ad_country", mListAds.get(position).getAd_country_id());

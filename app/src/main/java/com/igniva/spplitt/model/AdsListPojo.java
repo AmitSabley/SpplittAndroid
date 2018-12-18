@@ -15,6 +15,7 @@ public class AdsListPojo implements Serializable {
     String posted_by_last_name;
     String ad_title;
     String ad_description;
+    String no_people;
     String ad_location;
     String ad_city;
     String ad_cost;
@@ -38,6 +39,18 @@ public class AdsListPojo implements Serializable {
     boolean is_flagged;
     boolean is_connect;
     boolean is_rating;
+
+    public void setAd_id(String ad_id) {
+        this.ad_id = ad_id;
+    }
+
+    public String getAd_no_people() {
+        return no_people;
+    }
+
+    public void setAd_no_people(String no_people) {
+        this.no_people = no_people ;
+    }
 
     public String getAd_state() {
         return ad_state;

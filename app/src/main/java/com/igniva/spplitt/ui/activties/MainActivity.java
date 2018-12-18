@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         try {
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager= getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             int id = item.getItemId();
 //            mToolbarOptions=false;

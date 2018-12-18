@@ -69,10 +69,11 @@
     </string-array>
     <string name="hint_ad_title">Ad title (max 50 characters)</string>
     <string name="hint_ad_desc">Enter Description (max 250 \n characters)</string>
+    <string name="hint_no_of_people">Number of people to spplitt with</string>
     <string name="hint_date">Select date</string>
     <string name="hint_time">Select time</string>
     <string name="hint_location">Location</string>
-    <string name="hint_splitt_cost">spplitt Cost per person</string>
+    <string name="hint_splitt_cost">spplitt cost per person</string>
     <string name="hint_mobile_edit">Mobile No</string>
     <!--Update Email-->
     <string name="update_email">Update Email Address</string>
@@ -107,6 +108,7 @@
     <string name="err_msg_category">Enter Ad category</string>
     <string name="err_msg_adTitle">Enter Ad Title</string>
     <string name="err_msg_adDesc">Enter Ad Description</string>
+    <string name="err_no_of_people_to_spplitt_with">Enter number of people to spplitt with</string>
     <string name="err_msg_adDate">Select ad date</string>
     <string name="err_msg_adCost">Please enter spplit cost amount</string>
     <string name="err_msg_adLocation">Enter Ad Location</string>

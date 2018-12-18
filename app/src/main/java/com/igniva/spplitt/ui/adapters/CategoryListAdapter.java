@@ -70,7 +70,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             Glide.with(mContext)
                     .load(WebServiceClient.BASE_URL + mListCategories.get(position).getCategory_icon()).asBitmap()
                     .into(holder.mIvCategoryImage1);
-            holder.mIvCategoryImage1.setColorFilter(mContext.getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
+          //  holder.mIvCategoryImage1.setColorFilter(mContext.getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
 
             holder.mCvMain.setOnClickListener(new View.OnClickListener() {
                 @Override

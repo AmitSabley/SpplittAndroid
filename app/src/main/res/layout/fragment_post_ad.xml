@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/sv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
@@ -115,12 +116,63 @@
                   android:maxLength="50"
                   android:paddingTop="5dp" />-->
             <!-- </RelativeLayout>-->
+            <LinearLayout
+                android:id="@+id/ll_no_of_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_ad_desc"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_calendar"
+                        android:tint="@color/yellow" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/colorBackground" />
+
+                    <com.igniva.spplitt.ui.views.EditTextNonRegular
+                        android:id="@+id/et_no_of_people"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@null"
+                        android:gravity="left|center"
+                        android:hint="@string/hint_no_of_people"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBackground"
+                        android:textColorHint="@color/yellow"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/yellow" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_ad_desc"
+                android:layout_below="@+id/ll_no_of_people"
                 android:layout_marginTop="@dimen/inner_margin_bw_views"
                 android:orientation="vertical">
 
@@ -490,11 +542,176 @@
                     android:background="@color/yellow" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_add_files"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_split_amnt"
+                android:layout_marginTop="@dimen/inner_margin_bw_views"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/ll_add_photo_box"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/add_photos_border"
+                        android:baselineAligned="false"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:textColor="@color/yellow"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Add Photos"
+                            android:textColor="@color/yellow"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="Add up to 4 Photos."
+                        android:textColor="@color/yellow" />
+
+                </LinearLayout>
+
+                <HorizontalScrollView
+                    android:id="@+id/hsv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="@dimen/inner_margin_bw_views"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_photo1"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/add_photos_border">
+
+                            <ImageView
+                                android:id="@+id/img_photo1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2dp"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:id="@+id/img_cross1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@mipmap/ic_cross" />
+
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_photo2"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/add_photos_border">
+
+                            <ImageView
+                                android:id="@+id/img_photo2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2dp"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:id="@+id/img_cross2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@mipmap/ic_cross" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_photo3"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/add_photos_border">
+
+                            <ImageView
+                                android:id="@+id/img_photo3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2dp"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:id="@+id/img_cross3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@mipmap/ic_cross" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_photo4"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/add_photos_border">
+
+                            <ImageView
+                                android:id="@+id/img_photo4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2dp"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:id="@+id/img_cross4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@mipmap/ic_cross" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+            </LinearLayout>
+
             <com.igniva.spplitt.ui.views.ButtonRegular
                 android:id="@+id/btn_submit_post_ad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_split_amnt"
+                android:layout_below="@+id/ll_add_files"
                 android:layout_marginBottom="@dimen/outer_margin_bw_views"
                 android:layout_marginTop="@dimen/inner_margin_bw_views"
                 android:background="@color/yellow"

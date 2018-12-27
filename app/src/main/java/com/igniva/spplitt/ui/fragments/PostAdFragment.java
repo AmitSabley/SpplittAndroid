@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
@@ -32,6 +35,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.igniva.spplitt.App;
 import com.igniva.spplitt.R;
 import com.igniva.spplitt.controller.AsyncResult;
@@ -41,6 +45,7 @@ import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.controller.WebServiceClientUploadImage;
 import com.igniva.spplitt.model.CategoriesListPojo;
 import com.igniva.spplitt.model.DataPojo;
+import com.igniva.spplitt.model.ImagePojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.CityActivity;
 import com.igniva.spplitt.ui.activties.CountryActivity;
@@ -53,15 +58,12 @@ import com.igniva.spplitt.utils.PreferenceHandler;
 import com.igniva.spplitt.utils.Utility;
 import com.igniva.spplitt.utils.Validations;
 
-import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -115,6 +117,12 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
     private ScrollView mScrollView;
     private RelativeLayout mRLPhoto1, mRLPhoto2, mRLPhoto3, mRLPhoto4;
     private HorizontalScrollView mHsv;
+    private ArrayList<String> mImagePathList, mImageNameList;
+    private ArrayList<Bitmap> mImageBitmapsList;
+    private ArrayList<Uri> mImageUriList;
+    private ArrayList<ImagePojo> mAdImages;
+    private ArrayList<String> mIdList, mUrlList, mDeletedIds, mIdList1;
+    private ArrayList<Bitmap> bitmapArrayList;
 
     public static PostAdFragment newInstance() {
         PostAdFragment fragment = new PostAdFragment();
@@ -136,6 +144,11 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         }
         PreferenceHandler.writeInteger(getActivity(), PreferenceHandler.SHOW_EDIT_PROFILE, 1);
         mBundle = getArguments();
+        mAdImages = new ArrayList<>();
+        mIdList = new ArrayList<>();
+        mIdList1 = new ArrayList<>();
+        mUrlList = new ArrayList<>();
+        mDeletedIds = new ArrayList<>();
         if (mBundle != null) {
             mAdId = mBundle.getString("ad_id");
             mAdCategoryId = mBundle.getString("ad_category_id");
@@ -152,6 +165,28 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             mAdCity = mBundle.getString("ad_city_name");
             mAdCurrency = mBundle.getString("ad_currency");
             mAdEdit = mBundle.getString("ad_edit");
+            try {
+                mIdList = mBundle.getStringArrayList("id_list");
+                mUrlList = mBundle.getStringArrayList("url_list");
+
+                mIdList1 = new ArrayList<String>(mIdList);
+                mDeletedIds = new ArrayList<String>(mIdList);
+                ImagePojo imagePojo = new ImagePojo();
+                if (mIdList != null) {
+                    for (int i = 0; i < mIdList.size(); i++) {
+                        imagePojo.setImage_id(mIdList.get(i));
+                        imagePojo.setImage_url(mUrlList.get(i));
+                        mAdImages.add(imagePojo);
+                    }
+                } else {
+                    mHsv.setVisibility(View.GONE);
+                }
+
+            } catch (Exception e) {
+
+            }
+
+
         }
 
 //         Webservice Call
@@ -212,7 +247,10 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         mImgCross4.setOnClickListener(this);
         mHsv = (HorizontalScrollView) view.findViewById(R.id.hsv);
         mHsv.setVisibility(View.GONE);
-
+        mImagePathList = new ArrayList<>();
+        mImageNameList = new ArrayList<>();
+        mImageBitmapsList = new ArrayList<>();
+        mImageUriList = new ArrayList<>();
     }
 
     @Override
@@ -276,6 +314,65 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                             viewsSetClickable(false);
                         } else {
                             viewsSetClickable(true);
+                        }
+                    }
+                    if (mUrlList != null) {
+                        mHsv.setVisibility(View.VISIBLE);
+
+                        if (mUrlList.size() == 4) {
+                            mRLPhoto4.setVisibility(View.VISIBLE);
+                            mRLPhoto3.setVisibility(View.VISIBLE);
+                            mRLPhoto2.setVisibility(View.VISIBLE);
+                            mRLPhoto1.setVisibility(View.VISIBLE);
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(3)).asBitmap()
+                                    .into(mImgPhoto4);
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(2)).asBitmap()
+                                    .into(mImgPhoto3);
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(1)).asBitmap()
+                                    .into(mImgPhoto2);
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(0)).asBitmap()
+                                    .into(mImgPhoto1);
+
+
+                        } else if (mUrlList.size() == 3) {
+                            mRLPhoto3.setVisibility(View.VISIBLE);
+                            mRLPhoto2.setVisibility(View.VISIBLE);
+                            mRLPhoto1.setVisibility(View.VISIBLE);
+
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(2)).asBitmap()
+                                    .into(mImgPhoto3);
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(1)).asBitmap()
+                                    .into(mImgPhoto2);
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(0)).asBitmap()
+                                    .into(mImgPhoto1);
+
+
+                        } else if (mUrlList.size() == 2) {
+                            mRLPhoto2.setVisibility(View.VISIBLE);
+                            mRLPhoto1.setVisibility(View.VISIBLE);
+
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(1)).asBitmap()
+                                    .into(mImgPhoto2);
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(0)).asBitmap()
+                                    .into(mImgPhoto1);
+
+                        } else if (mUrlList.size() == 1) {
+                            mRLPhoto1.setVisibility(View.VISIBLE);
+
+                            Glide.with(getActivity())
+                                    .load(mUrlList.get(0)).asBitmap()
+                                    .into(mImgPhoto1);
+
+
                         }
                     }
                     mBundle.clear();
@@ -445,32 +542,123 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 }
                 break;
             case R.id.ll_add_photo_box:
-                if (Permissions.checkPermissionCamera(getActivity())) {
-                    App.getInstance().trackEvent(LOG_TAG, "Pick Image", "Select Image");
-                    onPickImage();
+                if (mImgPhoto1.getDrawable() != null &&
+                        mImgPhoto2.getDrawable() != null &&
+                        mImgPhoto3.getDrawable() != null &&
+                        mImgPhoto4.getDrawable() != null) {
+                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.you_cannot_add_more_than_four_photos), Toast.LENGTH_SHORT).show();
+                } else {
+                    if (Permissions.checkPermissionCamera(getActivity())) {
+                        App.getInstance().trackEvent(LOG_TAG, "Pick Image", "Select Image");
+                        onPickImage();
+                    }
                 }
+
                 break;
             case R.id.img_cross1:
                 mImgPhoto1.setImageDrawable(null);
                 mRLPhoto1.setVisibility(View.GONE);
+                removeImageFromArrayList(0);
                 checkIfAllImagesAreRemoved();
                 break;
             case R.id.img_cross2:
                 mImgPhoto2.setImageDrawable(null);
                 mRLPhoto2.setVisibility(View.GONE);
+                if (mImgPhoto1.getDrawable() == null) {
+                    removeImageFromArrayList(0);
+
+                } else {
+
+                    removeImageFromArrayList(1);
+
+                }
+
                 checkIfAllImagesAreRemoved();
                 break;
             case R.id.img_cross3:
                 mImgPhoto3.setImageDrawable(null);
                 mRLPhoto3.setVisibility(View.GONE);
+                if (mImgPhoto1.getDrawable() == null &&
+                        mImgPhoto2.getDrawable() != null) {
+                    removeImageFromArrayList(1);
+
+                } else if (mImgPhoto1.getDrawable() != null &&
+                        mImgPhoto2.getDrawable() == null) {
+                    removeImageFromArrayList(1);
+
+                } else if (mImgPhoto1.getDrawable() == null &&
+                        mImgPhoto2.getDrawable() == null) {
+                    removeImageFromArrayList(0);
+
+                } else {
+                    removeImageFromArrayList(2);
+                }
+
                 checkIfAllImagesAreRemoved();
                 break;
             case R.id.img_cross4:
                 mImgPhoto4.setImageDrawable(null);
                 mRLPhoto4.setVisibility(View.GONE);
+                if (mImgPhoto1.getDrawable() == null ||
+                        mImgPhoto2.getDrawable() != null ||
+                        mImgPhoto3.getDrawable() != null) {
+                    removeImageFromArrayList(2);
+
+                } else if (mImgPhoto1.getDrawable() != null ||
+                        mImgPhoto2.getDrawable() == null ||
+                        mImgPhoto3.getDrawable() != null) {
+                    removeImageFromArrayList(2);
+
+                } else if (mImgPhoto1.getDrawable() == null ||
+                        mImgPhoto2.getDrawable() != null ||
+                        mImgPhoto3.getDrawable() != null) {
+                    removeImageFromArrayList(2);
+
+                } else if (mImgPhoto1.getDrawable() == null ||
+                        mImgPhoto2.getDrawable() == null ||
+                        mImgPhoto3.getDrawable() != null) {
+                    removeImageFromArrayList(1);
+
+                } else if (mImgPhoto1.getDrawable() != null ||
+                        mImgPhoto2.getDrawable() == null ||
+                        mImgPhoto3.getDrawable() == null) {
+                    removeImageFromArrayList(1);
+
+                } else if (mImgPhoto1.getDrawable() == null ||
+                        mImgPhoto2.getDrawable() != null ||
+                        mImgPhoto3.getDrawable() == null) {
+                    removeImageFromArrayList(1);
+
+                } else if (mImgPhoto1.getDrawable() == null &&
+                        mImgPhoto2.getDrawable() == null &&
+                        mImgPhoto3.getDrawable() != null) {
+                    removeImageFromArrayList(0);
+
+                } else {
+                    removeImageFromArrayList(3);
+                }
                 checkIfAllImagesAreRemoved();
                 break;
         }
+    }
+
+    private void removeImageFromArrayList(int position) {
+        Log.e("zxcs", "mIdList:" + mIdList);
+        Log.e("sdsa", "mDeletedIds: " + mDeletedIds.toString());
+        Log.e("ssa", "mIdList1: " + mIdList1.toString());
+
+//        if (mImageBitmapsList.size() != 0) {
+//            mImageBitmapsList.remove(position);
+//        }
+        if (mAdImages.size() != 0) {
+            // mDeletedIds.add(mAdImages.get(position).getImage_id());
+            mIdList1.remove(position);
+        }
+        Log.e("zxcs", "1 mIdList:" + mIdList);
+        Log.e("sdsa", "1 mDeletedIds: " + mDeletedIds.toString());
+        Log.e("ssa", "1 mIdList1: " + mIdList1.toString());
+
+
     }
 
     private void checkIfAllImagesAreRemoved() {
@@ -492,6 +680,8 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String picturePath;
+
         try {
             super.onActivityResult(requestCode, resultCode, data);
             if (resultCode == 10) {
@@ -507,6 +697,10 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                 if (data != null) {
                     selectedImageURI = data.getData();
                 }
+                mImageUriList.add(selectedImageURI);
+
+                //   picturePath = getPath(getActivity().getApplicationContext(), selectedImageURI);
+
                 if (selectedImageURI != null) {
                     mImageName = Utility.getRealPathFromURI(getActivity(), selectedImageURI);
                     mScrollView.fullScroll(View.FOCUS_DOWN);
@@ -515,23 +709,46 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
                         Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
                         if (bitmap != null) {
                             setBitmapToImgViews(bitmap);
+                            mImageBitmapsList.add(bitmap);
+
                         }
                     } else {
                         Utility.showToastMessageShort(getActivity(), getResources().getString(R.string.err_invalid_image));
                     }
                 } else {
                     //Camera
-                    mImageName = "photo.jpg";
+                    mImageName = "photo.png";
                     Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
                     if (bitmap != null) {
                         setBitmapToImgViews(bitmap);
+                        mImageBitmapsList.add(bitmap);
+
                     }
                 }
+                // mImagePathList.add(picturePath);
+                mImageNameList.add(mImageName);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public static String getPath(Context context, Uri uri) {
+        String result = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int column_index = cursor.getColumnIndexOrThrow(proj[0]);
+                result = cursor.getString(column_index);
+            }
+            cursor.close();
+        }
+        if (result == null) {
+            result = "Not found";
+        }
+        return result;
     }
 
     private String editPostADPayload() {
@@ -627,13 +844,15 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         switch (urlResponseNo) {
             case 5:
                 //After uploading image
-                Log.e("sd", "result:" + result.toString());
+                Log.e("onTaskResponse", "result:" + result.toString());
                 mImgPhoto1.setImageBitmap(null);
                 mImgPhoto2.setImageBitmap(null);
                 mImgPhoto3.setImageBitmap(null);
                 mImgPhoto4.setImageBitmap(null);
+                mImageBitmapsList.clear();
+                bitmapArrayList.clear();
                 mHsv.setVisibility(View.GONE);
-                // Toast.makeText(getActivity(), "Image Uploaded", Toast.LENGTH_SHORT).show();
+
                 break;
         }
 
@@ -940,29 +1159,85 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
+
     private void uploadBitmapAsMultipart(String ad_id) {
+        if (mIdList1.size() != 0) {
+            for (int j = 0; j < mIdList1.size(); j++) {
+                if (mDeletedIds.contains(mIdList1.get(j))) {
+                    mDeletedIds.remove(mIdList1.get(j));
+                } else {
+                }
+
+            }
+        }
+
+        Log.e("zxcs", "2 mIdList:" + mIdList);
+        Log.e("sdsa", "2 mDeletedIds: " + mDeletedIds.toString());
+        Log.e("ssa", "2 mIdList1: " + mIdList1.toString());
+
         try {
             App.getInstance().trackEvent(LOG_TAG, "Upload Bitmap", "Bitmap on Post Ad");
 
-            String filename = mImageName.toLowerCase();
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            myBitmap = ((BitmapDrawable) mImgPhoto1.getDrawable()).getBitmap();
-            if (filename.endsWith(".png"))
-                myBitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
-            else if (filename.endsWith(".jpeg") || filename.endsWith(".jpg"))
-                myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            else
-                myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            ByteArrayBody bab;
+            ByteArrayOutputStream bos;
+            Bitmap bm;
+            MultipartEntity reqEntity = new MultipartEntity();
+            reqEntity.addPart("user_id", new StringBody(PreferenceHandler.readString(getActivity(), PreferenceHandler.USER_ID, "")));
+            reqEntity.addPart("auth_token", new StringBody(PreferenceHandler.readString(getActivity(), PreferenceHandler.AUTH_TOKEN, "")));
+            reqEntity.addPart("ad_id", new StringBody(ad_id));
+            String del_ids = mDeletedIds.toString();
+            del_ids = del_ids.replace("[", "").replace("]", "");
+            reqEntity.addPart("deleted_ids", new StringBody(del_ids));
 
-            ContentBody contentPart = new ByteArrayBody(bos.toByteArray(), filename);
+           /* if (mImageBitmapsList.size() == 0) {
 
-            MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+            } else {
+                for (int i = 0; i < mImageBitmapsList.size(); i++) {
+                    bm = mImageBitmapsList.get(i);
+                    bos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.PNG, 80, bos);
+                    byte[] data = bos.toByteArray();
+                    bab = new ByteArrayBody(data, "image/png", "image" + i + ".png");
+                    reqEntity.addPart("files[" + i + "]", bab);
+                }
+            }*/
 
-            reqEntity.addPart("files", contentPart);
-            reqEntity.addPart("user_id", new StringBody(PreferenceHandler.readString(getActivity(), PreferenceHandler.USER_ID, ""), Charset.forName("UTF-8")));
-            reqEntity.addPart("auth_token", new StringBody(PreferenceHandler.readString(getActivity(), PreferenceHandler.AUTH_TOKEN, ""), Charset.forName("UTF-8")));
-            reqEntity.addPart("ad_id", new StringBody(ad_id, Charset.forName("UTF-8")));
-            reqEntity.addPart("deleted_ids", new StringBody("", Charset.forName("UTF-8")));
+            bitmapArrayList = new ArrayList<>();
+            if (mImgPhoto1.getDrawable() != null) {
+                bitmapArrayList.add(((BitmapDrawable) mImgPhoto1.getDrawable()).getBitmap());
+            }
+            if (mImgPhoto2.getDrawable() != null) {
+                bitmapArrayList.add(((BitmapDrawable) mImgPhoto2.getDrawable()).getBitmap());
+            }
+            if (mImgPhoto3.getDrawable() != null) {
+                bitmapArrayList.add(((BitmapDrawable) mImgPhoto3.getDrawable()).getBitmap());
+            }
+            if (mImgPhoto4.getDrawable() != null) {
+                bitmapArrayList.add(((BitmapDrawable) mImgPhoto4.getDrawable()).getBitmap());
+            }
+
+            Log.e("bitmapArrayList", "bitmapArrayList: " + bitmapArrayList);
+
+            if (bitmapArrayList.size() == 0) {
+
+            } else {
+                for (int i = 0; i < bitmapArrayList.size(); i++) {
+                    bm = bitmapArrayList.get(i);
+                    bos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.PNG, 70, bos);
+                    byte[] data = bos.toByteArray();
+                    bab = new ByteArrayBody(data, "image/png", "image" + i + ".png");
+                    reqEntity.addPart("files[" + i + "]", bab);
+                }
+
+            }
+
+
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream(
+                    (int) reqEntity.getContentLength());
+            reqEntity.writeTo(out);
+            String entityContentAsString = new String(out.toByteArray());
+            Log.e("multipartEntitty:", "" + entityContentAsString);
 
             new WebServiceClientUploadImage(getActivity(), this, WebServiceClient.HTTP_POST_AD_IMAGES, reqEntity, 5).execute();
 
@@ -970,6 +1245,7 @@ public class PostAdFragment extends BaseFragment implements View.OnClickListener
             e.printStackTrace();
         }
     }
+
 
     /**
      * Permissions

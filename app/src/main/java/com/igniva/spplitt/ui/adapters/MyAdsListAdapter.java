@@ -29,6 +29,7 @@ import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.model.AdsListPojo;
 import com.igniva.spplitt.model.DataPojo;
+import com.igniva.spplitt.model.ImagePojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.model.ReviewListPojo;
 import com.igniva.spplitt.ui.activties.MainActivity;
@@ -72,7 +73,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     int pos = 0;
     float rating = 0;
 
-    String adIdPos ;
+    String adIdPos;
     private int adIdPosition = 0;
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
@@ -127,7 +128,6 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
@@ -151,9 +151,9 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 userViewHolder.mTvAdTitle.setText(mListAds.get(position).getAd_title());
                 userViewHolder.mTvSplittAmount.setText(mContext.getResources().getString(R.string.spplitt_amount) + mListAds.get(position).getAd_cost());
                 userViewHolder.mTvAdOwnerName.setText(Html.fromHtml("<u>" + mListAds.get(position).getPosted_by_username() + "</u>"));
-                if(Integer.parseInt(mListAds.get(position).getAd_total_request())<=1){
+                if (Integer.parseInt(mListAds.get(position).getAd_total_request()) <= 1) {
                     userViewHolder.mTvAdTotalRequests.setText(mListAds.get(position).getAd_total_request() + " Request");
-                }else{
+                } else {
                     userViewHolder.mTvAdTotalRequests.setText(mListAds.get(position).getAd_total_request() + " Requests");
                 }
 
@@ -359,8 +359,8 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 }
 
-                if(mTempListAds!=null) {
-                    if(mTempListAds.size()>0) {
+                if (mTempListAds != null) {
+                    if (mTempListAds.size() > 0) {
                         mTempListAds.get(adIdPosition).setIs_rating(true);
                         mTempListAds.get(adIdPosition).setRating_value(rating + "");
                     }
@@ -368,7 +368,7 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
             } else {
-                //                Error
+                //Error
                 new Utility().showErrorDialog(mContext, result);
 
             }
@@ -595,6 +595,26 @@ public class MyAdsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mBundle.putBoolean("is_rating", mListAds.get(position).getIs_Rating());
         mBundle.putString("rating_value", mListAds.get(position).getRating_value());
         mBundle.putString("ad_edit", adEditType);
+
+        //Images
+        List<ImagePojo> imagesList = new ArrayList<>();
+        Log.e("dsvds", "mListAds :" + mListAds.get(position).getImage());
+        imagesList = mListAds.get(position).getImage();
+        if (imagesList.size() > 0) {
+            ArrayList<String> idList = new ArrayList<>();
+            ArrayList<String> urlList = new ArrayList<>();
+            for (int i = 0; i < imagesList.size(); i++) {
+                idList.add(imagesList.get(i).getImage_id());
+                urlList.add(imagesList.get(i).getImage_url());
+            }
+            mBundle.putStringArrayList("id_list", idList);
+            mBundle.putStringArrayList("url_list", urlList);
+
+        } else {
+            mBundle.putStringArrayList("id_list", null);
+            mBundle.putStringArrayList("url_list", null);
+
+        }
         return mBundle;
     }
 

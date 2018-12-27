@@ -6,7 +6,7 @@ import java.util.List;
  * Created by igniva-andriod-11 on 4/5/16.
  */
 public class DataPojo {
-    String user_id,username,email,mobile,gender,age,country_name,currency_code,state,picture,auth_token,country_code,currency_id;
+    String user_id, username, email, mobile, gender, age, country_name, currency_code, state, picture, auth_token, country_code, currency_id;
     String currency_image;
     String city_id;
     String city_name;
@@ -14,6 +14,7 @@ public class DataPojo {
     String is_age_public;
     String registration_by;
     String ad_id;
+    String no_people;
     String category_id;
     String posted_by_id;
     String posted_by_username;
@@ -61,6 +62,7 @@ public class DataPojo {
     List<NotificationListPojo> notification;
     List<AppliedlistPojo> Appliedlist;
     List<StateListPojo> stateList;
+    List<ImagePojo> image;
     boolean other_is_age;
     String other_age;
     String total_recode;
@@ -72,6 +74,22 @@ public class DataPojo {
     String country_id;
     String state_name;
     boolean is_reject;
+
+    public List<ImagePojo> getImage() {
+        return image;
+    }
+
+    public void setImage(List<ImagePojo> image) {
+        this.image = image;
+    }
+
+    public String getNo_people() {
+        return no_people;
+    }
+
+    public void setNo_people(String no_people) {
+        this.no_people = no_people;
+    }
 
     public String getPreferred_country_name() {
         return preferred_country_name;
@@ -391,13 +409,9 @@ public class DataPojo {
     }
 
 
-
-
-
     public String getPicture() {
         return picture;
     }
-
 
 
     public String getCountry_code() {

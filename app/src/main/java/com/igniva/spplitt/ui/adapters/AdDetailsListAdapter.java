@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.igniva.spplitt.controller.WebNotificationManager;
 import com.igniva.spplitt.controller.WebServiceClient;
 import com.igniva.spplitt.model.ConnectionRequestsListPojo;
 import com.igniva.spplitt.model.DataPojo;
+import com.igniva.spplitt.model.ImagePojo;
 import com.igniva.spplitt.model.ResponsePojo;
 import com.igniva.spplitt.ui.activties.OtherProfileActivity;
 import com.igniva.spplitt.ui.activties.ViewAdsDetailsActivity;
@@ -35,6 +37,8 @@ import com.igniva.spplitt.utils.Utility;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -73,14 +77,14 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
         TextView mViewAdUser;
         TextView mViewAdDesc;
         Button mBtnViewAdFlagAd;
-        TextView mTvNoOfRequest;
+        TextView mTvNoOfRequest, mTvSpplittUsersReqd;
         int Holderid;
-
         RoundedImageView mRivConnectorName;
         TextView mTvConnectorName;
         TextView mTvConnectorTime;
         Button mBtnAcceptAd;
         Button mBtnRejectAd;
+        RecyclerView mRVImages;
 
         public ViewHolder(View itemView, int ViewType) {
             super(itemView);
@@ -101,7 +105,9 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 mViewAdUser = (TextView) itemView.findViewById(R.id.tv_viewad_user);
                 mViewAdDesc = (TextView) itemView.findViewById(R.id.tv_viewad_desc);
                 mTvNoOfRequest = (TextView) itemView.findViewById(R.id.tv_no_of_requests);
+                mTvSpplittUsersReqd = (TextView) itemView.findViewById(R.id.tv_spplitt_users_reqd);
                 mBtnViewAdFlagAd = (Button) itemView.findViewById(R.id.btn_flag_view_ad);
+                mRVImages = (RecyclerView) itemView.findViewById(R.id.rv_ad_images);
             }
         }
     }
@@ -127,9 +133,18 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
             mViewHolder = holder;
             //header
             if (holder.Holderid == 0) {
-                holder.mViewAdTitle.setText(dataPojo.getAd_title());
-                holder.mViewAdSpplittCost.setText(mContext.getResources().getString(R.string.spplitt_amount) + dataPojo.getAd_cost());
 
+                holder.mViewAdTitle.setText(dataPojo.getAd_title());
+                holder.mTvSpplittUsersReqd.setText(dataPojo.getNo_people() + " " + mContext.getResources().getString(R.string.spplitt_users_required));
+                holder.mViewAdSpplittCost.setText(mContext.getResources().getString(R.string.spplitt_amount) + dataPojo.getAd_cost());
+                holder.mRVImages.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+                if (dataPojo.getImage().size() > 0) {
+                    ArrayList<ImagePojo> imgArr = new ArrayList<>();
+                    imgArr.addAll(dataPojo.getImage());
+                    Collections.reverse(imgArr);
+                    AdDetailsListImgAdapter adapter = new AdDetailsListImgAdapter(imgArr, mContext);
+                    holder.mRVImages.setAdapter(adapter);
+                }
                 java.text.DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
                 java.text.DateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String inputDateStr = dataPojo.getAd_expiration_date();
@@ -191,9 +206,9 @@ public class AdDetailsListAdapter extends RecyclerView.Adapter<AdDetailsListAdap
                 //to check ads are mine or other
                 if (PreferenceHandler.readString(mContext, PreferenceHandler.USER_ID, "").equals(dataPojo.getPosted_by_id())) {
                     holder.mTvNoOfRequest.setVisibility(View.VISIBLE);
-                    if(mListRequestAds.size()<=1) {
+                    if (mListRequestAds.size() <= 1) {
                         holder.mTvNoOfRequest.setText(mListRequestAds.size() + " Request");
-                    }else{
+                    } else {
                         holder.mTvNoOfRequest.setText(mListRequestAds.size() + " Requests");
                     }
                 } else {//other

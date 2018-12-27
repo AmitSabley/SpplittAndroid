@@ -612,6 +612,13 @@
                             android:layout_marginRight="10dp"
                             android:background="@drawable/add_photos_border">
 
+                            <ProgressBar
+                                android:id="@+id/image_progressbar"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:visibility="visible" />
+
                             <ImageView
                                 android:id="@+id/img_photo1"
                                 android:layout_width="match_parent"
@@ -637,6 +644,12 @@
                             android:layout_marginRight="10dp"
                             android:background="@drawable/add_photos_border">
 
+                            <ProgressBar
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:visibility="visible" />
+
                             <ImageView
                                 android:id="@+id/img_photo2"
                                 android:layout_width="match_parent"
@@ -661,6 +674,12 @@
                             android:layout_marginRight="10dp"
                             android:background="@drawable/add_photos_border">
 
+                            <ProgressBar
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:visibility="visible" />
+
                             <ImageView
                                 android:id="@+id/img_photo3"
                                 android:layout_width="match_parent"
@@ -684,6 +703,12 @@
                             android:layout_height="100dp"
                             android:layout_marginRight="10dp"
                             android:background="@drawable/add_photos_border">
+
+                            <ProgressBar
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_centerInParent="true"
+                                android:visibility="visible" />
 
                             <ImageView
                                 android:id="@+id/img_photo4"

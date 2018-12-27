@@ -1,6 +1,7 @@
 package com.igniva.spplitt.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by igniva-php-08 on 23/5/16.
@@ -39,6 +40,15 @@ public class AdsListPojo implements Serializable {
     boolean is_flagged;
     boolean is_connect;
     boolean is_rating;
+    List<ImagePojo> ad_images;
+
+    public List<ImagePojo> getImage() {
+        return ad_images;
+    }
+
+    public void setImage(List<ImagePojo> image) {
+        this.ad_images = image;
+    }
 
     public void setAd_id(String ad_id) {
         this.ad_id = ad_id;
@@ -49,7 +59,7 @@ public class AdsListPojo implements Serializable {
     }
 
     public void setAd_no_people(String no_people) {
-        this.no_people = no_people ;
+        this.no_people = no_people;
     }
 
     public String getAd_state() {

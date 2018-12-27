@@ -149,9 +149,25 @@
     <com.igniva.spplitt.ui.views.TextViewNonRegular
         android:id="@+id/tv_no_of_requests"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/outer_margin_bw_views"
+        android:padding="@dimen/rv_outer_margin"
+        android:text="@string/ad_details"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/tv_textSize" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_ad_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/rv_outer_margin"
+        android:scrollbars="none" />
+
+    <com.igniva.spplitt.ui.views.TextViewNonRegular
+        android:id="@+id/tv_spplitt_users_reqd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/rv_outer_margin"
         android:text="@string/ad_details"
         android:textColor="@color/yellow"
         android:textSize="@dimen/tv_textSize" />

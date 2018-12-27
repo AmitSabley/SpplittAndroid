@@ -16,6 +16,8 @@
     <!-- [START gcm_permission] -->
     <!--<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />-->
     <!-- [END gcm_permission] -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 

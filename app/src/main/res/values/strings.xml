@@ -224,8 +224,10 @@
     <string name="savemponey">Save money on almost \n anything</string>
     <string name="connect_content">Browse cost sharing opportunities and connect with people on the application</string>
     <string name="share_content">Post things that you wish to split and share with the community</string>
-    <string name="save_content">Cut costs on all your expenses by finding a spplitimate from the spplitt community</string>
+    <string name="save_content">Cut costs on your expenses by finding a spplitimate from the spplitt community</string>
     <string name="Login_option_content">Spplitt is not just about saving money, it%S about making new friends and building a community</string>
+    <string name="spplitt_users_required">spplitt users required</string>
+    <string name="you_cannot_add_more_than_four_photos">You cannot add more than 4 photos</string>
 
 
 </resources>

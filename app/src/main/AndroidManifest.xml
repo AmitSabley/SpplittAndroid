@@ -196,6 +196,17 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="7f13cc184549fdf0b47c81233930bfdccce27582" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.igniva.spplitt.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
     </application>
 
 </manifest>

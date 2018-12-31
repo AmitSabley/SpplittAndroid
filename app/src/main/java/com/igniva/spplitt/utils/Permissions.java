@@ -54,7 +54,7 @@ public class Permissions {
         if (Build.VERSION.SDK_INT >= 23) {
             // Marshmallow+
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                activity.requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.FLASHLIGHT}, MY_PERMISSIONS_REQUEST_CAMERA);
+                activity.requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
             } else {
                 res = true;
             }
@@ -92,7 +92,7 @@ public class Permissions {
             // Marshmallow+
             if ((ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
                     && (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
-                activity.requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.FLASHLIGHT,Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                activity.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_CONTACTS}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
             } else {
                 res = true;
             }

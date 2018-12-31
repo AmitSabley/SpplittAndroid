@@ -11,20 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e23104f8-e46e-4213-a42f-248877a9bef5" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Keystore details" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/xml/provider_paths.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Keystore details" afterPath="$PROJECT_DIR$/Keystore details" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/model/AdsListPojo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/model/AdsListPojo.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/model/DataPojo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/model/DataPojo.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_ads_description.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_ads_description.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_details_header.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_details_header.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_list.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_post_ad.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_post_ad.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/Permissions.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/Permissions.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_option.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_option.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -56,7 +53,142 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="WalkthroughActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/WalkthroughActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="640">
+              <caret line="52" column="74" lean-forward="false" selection-start-line="52" selection-start-column="74" selection-end-line="52" selection-end-column="74" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostAdFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7380">
+              <caret line="677" column="0" lean-forward="false" selection-start-line="677" selection-start-column="0" selection-end-line="677" selection-end-column="0" />
+              <folding>
+                <element signature="docComment;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#newInstance#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#4615#4624#0" expanded="false" />
+                <element signature="method#setUpLayouts#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#onResume#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#setDataInViewLayouts#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#16258#16366#0" expanded="false" />
+                <element signature="method#viewsSetClickable#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#20053#20088#0" expanded="false" />
+                <element signature="method#checkIfAllImagesAreRemoved#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#getPath#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#editPostADPayload#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#32923#33045#0" expanded="false" />
+                <element signature="method#rePostADPayload#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#34921#35043#0" expanded="false" />
+                <element signature="method#showDatePickerDialog#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#setBitmapToImgViews#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="class#DatePickerFragment#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#onCreateDialog#0;class#DatePickerFragment#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#onDateSet#0;class#DatePickerFragment#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#showTimePickerDialog#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#38787#38850#0" expanded="false" />
+                <element signature="class#TimePickerFragment#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#onCreateDialog#0;class#TimePickerFragment#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#onTimeSet#0;class#TimePickerFragment#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#42013#42065#0" expanded="false" />
+                <element signature="e#42647#42703#0" expanded="false" />
+                <element signature="e#43737#43795#0" expanded="false" />
+                <element signature="method#postAdGetCategoriesPayload#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#46151#46215#0" expanded="false" />
+                <element signature="method#getCategoriesData#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#createPostADPayload#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="e#47823#47945#0" expanded="false" />
+                <element signature="e#49326#49377#0" expanded="false" />
+                <element signature="docComment;method#onRequestPermissionsResult#0;class#PostAdFragment#0" expanded="false" />
+                <element signature="method#onRequestPermissionsResult#0;class#PostAdFragment#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginOptionActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/LoginOptionActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="520">
+              <caret line="33" column="44" lean-forward="false" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3840">
+              <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_login_option.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login_option.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="960">
+              <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImagePicker.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/ImagePicker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="41" column="54" lean-forward="false" selection-start-line="41" selection-start-column="54" selection-end-line="41" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ic_login_btn.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_login_btn.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="splash_new.jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/splash_new.jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ic_bg.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_bg.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -67,15 +199,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>put</find>
-      <find>glide</find>
-      <find>mListAds</find>
-      <find>listads</find>
-      <find>dsvds</find>
-      <find>mListAdsm</find>
-      <find>AP</find>
-      <find>mHsv.setVis</find>
-      <find>mRLPhoto4</find>
       <find>mImgPhoto4</find>
       <find>rl_photo</find>
       <find>ll_add_photo_box</find>
@@ -97,14 +220,25 @@
       <find>removeImageFromArrayList</find>
       <find>adapter</find>
       <find>8070</find>
+      <find>23.3.0</find>
+      <find>provider</find>
+      <find>Uri</find>
+      <find>starta</find>
+      <find>sta</find>
+      <find>Uri.fromFile</find>
+      <find>Uri.fromFile</find>
+      <find>getTempFile</find>
+      <find>provi</find>
     </findStrings>
     <replaceStrings>
       <replace>ViewHolder</replace>
+      <replace>26.1.0</replace>
     </replaceStrings>
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="KEY_STORE_PATH" value="C:\Users\rhegde\AndroidStudioProjects\SpplittAndroid\android_igniva.jks" />
-    <option name="KEY_ALIAS" value="Igniva Solutions" />
+    <option name="KEY_ALIAS" value="android.debug" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -756,11 +890,6 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="generateReleaseResources" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Runs lint on just the fatal issues in the release build." />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="lintVitalRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1461,11 +1590,6 @@
                 <option name="name" value="generateReleaseResources" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Runs lint on just the fatal issues in the release build." />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="lintVitalRelease" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="platformAttrExtractor" />
               </ExternalTaskPojo>
@@ -2050,11 +2174,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_view_ads_description.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/HorizontalAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListImgAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/model/DataPojo.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_details_header.xml" />
-        <option value="$PROJECT_DIR$/Keystore details" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/ad_list_img.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/model/ImagePojo.java" />
@@ -2062,7 +2184,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_post_ad.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java" />
+        <option value="$PROJECT_DIR$/Keystore details" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/Permissions.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/xml/provider_paths.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login_option.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/ImagePicker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -2088,8 +2218,54 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="xml" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2101,79 +2277,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name=".gradle" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="spplitt" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="spplitt" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="gradle" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SpplittAndroid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpplittAndroid" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="gradle" type="462c0819:PsiDirectoryNode" />
-              <item name="wrapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2182,8 +2286,8 @@
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.0.1" />
-    <property name="device.picker.selection" value="Nexus_5X_API_27_2" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java&#10;mAd&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.adapters.MyAdsListAdapter&#10;adlist&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/ad_list_img.xml&#10;myad&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java&#10;ad&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java&#10;adlistim&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListImgAdapter.java&#10;adl&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java&#10;addeta&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/ViewAdsDetailsActivity.java&#10;adde&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java&#10;string&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/strings.xml&#10;pos&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/fragment_post_ad.xml&#10;postad&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java&#10;posta&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/fragment_post_ad.xml&#10;lis&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/ad_list_img.xml&#10;post&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/fragment_post_ad.xml&#10;ada&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java&#10;creat&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;str&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/strings.xml&#10;colo&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/colors.xml&#10;edit&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/EditProfileFragment.java&#10;createa&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;create&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;myads&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java&#10;editpo&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.fragments.PostAdFragment#editPostADPayload&#10;cr&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;ed&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/EditProfileFragment.java&#10;crea&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;editpro&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/EditProfileFragment.java&#10;strings&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/strings.xml&#10;change&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.fragments.ChangePasswordFragment&#10;category&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.adapters.CategoryListAdapter&#10;forgot&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.activties.ForgotPasswordActivity&#10;stateact&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.activties.StateActivity" />
+    <property name="device.picker.selection" value="Nexus_5X_API_19" />
+    <property name="SearchEverywhereHistoryKey" value="manife&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/AndroidManifest.xml&#10;spla&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.activties.SplashActivity&#10;login&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.activties.LoginActivity&#10;mani&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/AndroidManifest.xml&#10;mAd&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.adapters.MyAdsListAdapter&#10;adlist&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/ad_list_img.xml&#10;myad&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java&#10;ad&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java&#10;adlistim&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListImgAdapter.java&#10;adl&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java&#10;addeta&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/ViewAdsDetailsActivity.java&#10;adde&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java&#10;string&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/strings.xml&#10;pos&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/fragment_post_ad.xml&#10;postad&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java&#10;posta&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/fragment_post_ad.xml&#10;lis&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/ad_list_img.xml&#10;post&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/layout/fragment_post_ad.xml&#10;ada&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/AdDetailsListAdapter.java&#10;creat&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;str&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/strings.xml&#10;colo&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/colors.xml&#10;edit&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/EditProfileFragment.java&#10;createa&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;create&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;myads&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/adapters/MyAdsListAdapter.java&#10;editpo&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.fragments.PostAdFragment#editPostADPayload&#10;cr&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;ed&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/EditProfileFragment.java&#10;crea&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java&#10;editpro&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/java/com/igniva/spplitt/ui/fragments/EditProfileFragment.java&#10;strings&#9;FILE&#9;file://C:/Users/rhegde/AndroidStudioProjects/SpplittAndroid/app/src/main/res/values/strings.xml&#10;change&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.fragments.ChangePasswordFragment&#10;category&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.adapters.CategoryListAdapter&#10;forgot&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.activties.ForgotPasswordActivity&#10;stateact&#9;PSI&#9;JAVA://com.igniva.spplitt.ui.activties.StateActivity" />
     <property name="DEBUGGABLE_DEVICE" value="Nexus_5X_API_27_2 [emulator-5554]" />
     <property name="DEBUGGABLE_PROCESS" value="com.igniva.spplitt" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
@@ -2200,6 +2304,7 @@
       <recent name="com.igniva.spplitt.model" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rhegde\AndroidStudioProjects\SpplittAndroid\app\src\main\res\xml" />
       <recent name="C:\Users\rhegde\AndroidStudioProjects\SpplittAndroid\app\src\main\res\layout" />
       <recent name="C:\Users\rhegde\AndroidStudioProjects\SpplittAndroid\app\src\main\res\drawable-mdpi" />
       <recent name="C:\Users\rhegde\AndroidStudioProjects\SpplittAndroid\app\src\main\res\drawable-hdpi" />
@@ -2374,11 +2479,19 @@
       <option name="project" value="LOCAL" />
       <updated>1545137361619</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changes in Post Ad, Edit Ad, Ad Details">
+      <created>1545905424212</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1545905424212</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2386,7 +2499,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4101307" sideWeight="0.5219365" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8153595" sideWeight="0.5219365" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4101307" sideWeight="0.47806355" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2394,8 +2507,8 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.48940998" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8153595" sideWeight="0.47806355" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2451,20 +2564,21 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changes in Post Ad, Edit Ad, Navigation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes in Post Ad, Edit Ad, Navigation" />
+    <MESSAGE value="Changes in Post Ad, Edit Ad, Ad Details" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes in Post Ad, Edit Ad, Ad Details" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java</url>
-          <line>721</line>
+          <line>725</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java</url>
-          <line>1156</line>
+          <line>1160</line>
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
@@ -2524,31 +2638,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java</url>
-          <line>326</line>
+          <line>330</line>
           <properties />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java</url>
-          <line>560</line>
+          <line>564</line>
           <properties />
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java</url>
-          <line>565</line>
+          <line>569</line>
           <properties />
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java</url>
-          <line>580</line>
+          <line>584</line>
           <properties />
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java</url>
-          <line>601</line>
+          <line>605</line>
           <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
@@ -2558,184 +2672,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tour_fragment1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="30" column="33" lean-forward="false" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="33" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/AdsListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1240">
-          <caret line="103" column="73" lean-forward="false" selection-start-line="103" selection-start-column="73" selection-end-line="103" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_request_accepted.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/HorizontalAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.2.3/fee487ad2d5f287ff7deb31551d851e21f0de0c6/httpmime-4.2.3-sources.jar!/org/apache/http/entity/mime/content/FileBody.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.2.3/fee487ad2d5f287ff7deb31551d851e21f0de0c6/httpmime-4.2.3-sources.jar!/org/apache/http/entity/mime/HttpMultipart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="223" column="0" lean-forward="false" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.2.3/fee487ad2d5f287ff7deb31551d851e21f0de0c6/httpmime-4.2.3-sources.jar!/org/apache/http/entity/mime/MultipartEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-23/android.jar!/android/graphics/Bitmap.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="238" column="24" lean-forward="false" selection-start-line="238" selection-start-column="24" selection-end-line="238" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/controller/WebServiceClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="441" column="24" lean-forward="false" selection-start-line="441" selection-start-column="24" selection-end-line="441" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/CreateAccountActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="511" column="30" lean-forward="false" selection-start-line="511" selection-start-column="30" selection-end-line="511" selection-end-column="30" />
-          <folding>
-            <element signature="docComment;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#onCreate#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="docComment;method#setUpLayouts#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#setUpLayouts#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="docComment;method#setDataInViewLayouts#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#setDataInViewLayouts#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="docComment;method#onClick#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#onClick#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#onPickImage#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#onResume#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#createSignUpPayload#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="docComment;method#createUserAccount#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#createUserAccount#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="e#19345#19371#0" expanded="false" />
-            <element signature="docComment;method#onTaskResponse#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="docComment;method#signUpUser#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="docComment;method#createCityListPayload#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#createCityListPayload#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="docComment;method#onRequestPermissionsResult#0;class#CreateAccountActivity#0" expanded="false" />
-            <element signature="method#onRequestPermissionsResult#0;class#CreateAccountActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/adapters/CategoryListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/model/ConnectionRequestsListPojo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/AdsAppliedListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2500">
-          <caret line="151" column="33" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_ad_details_header.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="160" column="42" lean-forward="false" selection-start-line="160" selection-start-column="42" selection-end-line="160" selection-end-column="42" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1273">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SpplittAndroid.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2757,28 +2697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-73">
-          <caret line="32" column="9" lean-forward="false" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2832,13 +2750,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Keystore details">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_ads_description.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -2860,12 +2771,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2100">
           <caret line="137" column="42" lean-forward="false" selection-start-line="137" selection-start-column="33" selection-end-line="137" selection-end-column="47" />
-          <folding>
-            <element signature="docComment;class#DataPojo#0" expanded="false" />
-            <element signature="method#setOther_review#0;class#DataPojo#0" expanded="false" />
-            <element signature="method#setOther_avg_rating#0;class#DataPojo#0" expanded="false" />
-            <element signature="e#7658#7688#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2873,7 +2778,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4021,10 +3925,173 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Keystore details">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_other_profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/provider_paths.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/Permissions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="66" column="19" lean-forward="false" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="40" column="46" lean-forward="false" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_login_bg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="13" column="42" lean-forward="false" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/SplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="257" column="71" lean-forward="false" selection-start-line="257" selection-start-column="71" selection-end-line="257" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_tutorial.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/WalkthroughActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="52" column="74" lean-forward="false" selection-start-line="52" selection-start-column="74" selection-end-line="52" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_bg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/splash_new.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_login_btn.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login_option.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/activties/LoginOptionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="33" column="44" lean-forward="false" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/utils/ImagePicker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="41" column="54" lean-forward="false" selection-start-line="41" selection-start-column="54" selection-end-line="41" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/igniva/spplitt/ui/fragments/PostAdFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="1220" column="5" lean-forward="false" selection-start-line="1220" selection-start-column="5" selection-end-line="1220" selection-end-column="5" />
+        <state relative-caret-position="7380">
+          <caret line="677" column="0" lean-forward="false" selection-start-line="677" selection-start-column="0" selection-end-line="677" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#PostAdFragment#0" expanded="false" />
             <element signature="method#newInstance#0;class#PostAdFragment#0" expanded="false" />
@@ -4032,39 +4099,56 @@
             <element signature="method#setUpLayouts#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#onResume#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#setDataInViewLayouts#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#16086#16194#0" expanded="false" />
+            <element signature="e#16258#16366#0" expanded="false" />
             <element signature="method#viewsSetClickable#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#19881#19916#0" expanded="false" />
+            <element signature="e#20053#20088#0" expanded="false" />
             <element signature="method#checkIfAllImagesAreRemoved#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="method#onPickImage#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="method#onActivityResult#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#getPath#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#editPostADPayload#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#32751#32873#0" expanded="false" />
+            <element signature="e#32923#33045#0" expanded="false" />
             <element signature="method#rePostADPayload#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#34749#34871#0" expanded="false" />
+            <element signature="e#34921#35043#0" expanded="false" />
             <element signature="method#showDatePickerDialog#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#setBitmapToImgViews#0;class#PostAdFragment#0" expanded="false" />
             <element signature="class#DatePickerFragment#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#onCreateDialog#0;class#DatePickerFragment#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#onDateSet#0;class#DatePickerFragment#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#showTimePickerDialog#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#38615#38678#0" expanded="false" />
+            <element signature="e#38787#38850#0" expanded="false" />
             <element signature="class#TimePickerFragment#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#onCreateDialog#0;class#TimePickerFragment#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#onTimeSet#0;class#TimePickerFragment#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#41841#41893#0" expanded="false" />
-            <element signature="e#42475#42531#0" expanded="false" />
-            <element signature="e#43565#43623#0" expanded="false" />
+            <element signature="e#42013#42065#0" expanded="false" />
+            <element signature="e#42647#42703#0" expanded="false" />
+            <element signature="e#43737#43795#0" expanded="false" />
             <element signature="method#postAdGetCategoriesPayload#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#45979#46043#0" expanded="false" />
+            <element signature="e#46151#46215#0" expanded="false" />
             <element signature="method#getCategoriesData#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#createPostADPayload#0;class#PostAdFragment#0" expanded="false" />
-            <element signature="e#47651#47773#0" expanded="false" />
-            <element signature="e#49154#49205#0" expanded="false" />
+            <element signature="e#47823#47945#0" expanded="false" />
+            <element signature="e#49326#49377#0" expanded="false" />
             <element signature="docComment;method#onRequestPermissionsResult#0;class#PostAdFragment#0" expanded="false" />
             <element signature="method#onRequestPermissionsResult#0;class#PostAdFragment#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3840">
+          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
